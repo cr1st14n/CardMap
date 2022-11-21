@@ -329,7 +329,7 @@ class credencialesController extends Controller
     }
     public function query_update_emp(Request $request)
     {
-        return $request;
+        // return $request;
         $list_vehi = ['tipo' => $request->input('nc_ltt'), 'list' => $request->input('nc_lt')];
         return  Empleados::where('idEmpleado', $request->input('id'))->update(
             [

@@ -211,7 +211,7 @@
             <p class="a" style="color: black ;"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
                 {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $data->Empresa }}</p>
         @endif
-        <p class="b">{{ $data->AreasAut }}</p>
+        <p class="b">{{ $data->AreasCP }}</p>
         <p class="ci">{{ $data->CI }}</p>
         <p class="per"><strong style="color: red ;">
                 @if ($data->Herramientas != '')

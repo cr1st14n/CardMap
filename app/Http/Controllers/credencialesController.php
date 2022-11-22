@@ -93,6 +93,7 @@ class credencialesController extends Controller
         $new->NroRenovacion = 0;
         $new->Herramientas = $request->input('nc_he');
         $new->AreasAut = $request->input('nc_areas_acceso');
+        $new->AreasCP = $request->input('nc_AreasCp');
         $new->GSangre = $request->input('nc_gs');
         $new->aeropuerto = $aero;
         $new->Aeropuerto_2 = $request->input('nc_aeropuerto');
@@ -174,6 +175,7 @@ class credencialesController extends Controller
             'CI',
             'urlphoto',
             'AreasAut',
+            'AreasCP',
             'Cargo',
             'CI',
             'Vencimiento',
@@ -346,6 +348,7 @@ class credencialesController extends Controller
                 'CodMYFARE' => $request->input('nc_codMy_edit'),
                 'Herramientas' => $request->input('nc_he_edit'),
                 'AreasAut' => $request->input('nc_areas_acceso_edit'),
+                'AreasCP' => $request->input('nc_AreasCp_edit'),
                 'GSangre' => $request->input('nc_gs'),
                 // $new->aeropuerto = $aero;
                 'Aeropuerto_2' => $request->input('nc_aeropuerto_edit'),

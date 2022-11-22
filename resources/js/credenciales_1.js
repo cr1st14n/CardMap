@@ -48,6 +48,7 @@ function fun_credeEmp_edit(param) {
             $("input[name=nc_codMy_edit]").val(response.CodMYFARE);
             $("input[name=nc_he_edit]").val(response.Herramientas);
             $("input[name=nc_areas_acceso_edit]").val(response.AreasAut);
+            $("input[name=nc_AreasCp_edit]").val(response.AreasCP);
             $("input[name=nc_gs_edit]").val(response.GSangre);
             $("input[name=nc_fv_edit]").val(response.Vencimiento);
             // $("input[name=nc_acci_edit]").val(response.estado);

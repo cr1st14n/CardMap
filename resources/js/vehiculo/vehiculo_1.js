@@ -52,6 +52,7 @@ function showDetalleVehi(id) {
                 Tipo: <strong> ${data.Tipo}</strong><br>
                 Color: <strong> ${data.Color}</strong><br>
                 Empresa Aseguradora: <strong> ${data.EmpresaAseg}</strong><br>
+                Areas Autorizadas: <strong> ${data.Areas}</strong><br>
                 ------------- <br>
             </p>
             `;

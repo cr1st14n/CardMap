@@ -61,7 +61,7 @@
             <td style="border:1px solid black;">{{ $Placa }}</td>
             <th rowspan="5" style="border:1px solid black;">
                 {!! '<img class="img_1" src="data:image/png;base64,' .
-                    DNS2D::getBarcodePNG('cod' . $id, 'QRCODE') .
+                    DNS2D::getBarcodePNG('cod' . $id . '|' . $Empresa. '|' . $Placa. '|' . $Marca. '|' . $Tipo. '|' . $Color. '|' . $Vence. '|' . $Areas, 'QRCODE') .
                     '" alt="barcode"   />' !!}
             </th>
         </tr>

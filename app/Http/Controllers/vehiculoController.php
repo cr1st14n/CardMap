@@ -77,7 +77,9 @@ class vehiculoController extends Controller
         $new->Color = $request->input('vi_color');
         $new->Tipo = $request->input('vi_tipo');
         $new->Marca = $request->input('vi_fab');
+        $new->Areas = $request->input('vi_AreasCp');
         $new->Vicom = "0";
+        $new->Banderola = "0";
         $new->Banderola = "0";
         $new->ca_cod_usu = Auth::user()->id;
         $new->Estado = 1;
@@ -117,7 +119,7 @@ class vehiculoController extends Controller
                 'Color' => $data->Color,
                 'Vence' => $data->FechaFinPer,
                 'Vence' => Carbon::parse($data->FechaFinPer)->format('d-m-Y'),
-                'Areas' => '',
+                'Areas' => $data->Areas,
             ]
         );
         $pdf->setpaper(array(0, 0, 170, 263), 'landscape');

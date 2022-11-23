@@ -122,7 +122,7 @@
         <!-- <img class="img_a" src="{{asset('resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg')}}"  alt=""> -->
         <img class="img_b" src="{{asset($data->urlphoto)}}" alt="">
         <!-- <p class="e">{{$M}}<br>{{$Y}}</p> -->
-        <p class="date">{{$fecha}} asdfasdf</p>
+        <p class="date">{{$fecha}}</p>
         <p class="f"> asdf{{$data->Codigo}}</p>
         <p class="a"> {{$data->Nombres}} <br>{{$data->Paterno}} {{$data->Materno}}<br>{{$data->Cargo}} <br>{{$data->Empresa}}</p>
         <p class="b">{{$data->AreasAut}}</p>

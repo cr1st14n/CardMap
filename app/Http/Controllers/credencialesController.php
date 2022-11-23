@@ -33,7 +33,6 @@ class credencialesController extends Controller
             case 'SC':
                 $aero = 'VVI';
                 break;
-
             default:
                 # code...
                 break;
@@ -99,9 +98,9 @@ class credencialesController extends Controller
         $new->Aeropuerto_2 = $request->input('nc_aeropuerto');
         // $new->estado = $request->input('nc_acci');
 
-        $new->Vencimiento = $retVal = ($request->input('nc_fv') == '') ? null :   Carbon::parse($request->input('nc_fv'))->format('Y-d-m H:i:s');
-        $new->Fecha = $retVal = ($request->input('nc_f_in') == '') ? null :   Carbon::parse($request->input('nc_f_in'))->format('Y-d-m H:i:s');
-        $new->FechaNac = $retVal = ($request->input('nc_FNac') == '') ? null :    Carbon::parse($request->input('nc_FNac'))->format('Y-d-m H:i:s');
+        $new->Vencimiento = ($request->input('nc_fv') == '') ? null :   Carbon::parse($request->input('nc_fv'))->format('Y-d-m H:i:s');
+        $new->Fecha = ($request->input('nc_f_in') == '') ? null :   Carbon::parse($request->input('nc_f_in'))->format('Y-d-m H:i:s');
+        $new->FechaNac = ($request->input('nc_FNac') == '') ? null :    Carbon::parse($request->input('nc_FNac'))->format('Y-d-m H:i:s');
 
         $new->EstCivil = $request->input('nc_estCiv');
         $new->Sexo = $request->input('nc_sexo');
@@ -172,7 +171,6 @@ class credencialesController extends Controller
             'Nombre',
             'Paterno',
             'Materno',
-            'CI',
             'urlphoto',
             'AreasAut',
             'AreasCP',
@@ -187,7 +185,6 @@ class credencialesController extends Controller
             'data_vehi_aut',
             'Tipo'
         )->first();
-
         switch (strlen($data['Codigo'])) {
             case 1:
                 $data['Codigo'] = '000' . $data['Codigo'];
@@ -199,11 +196,9 @@ class credencialesController extends Controller
                 $data['Codigo'] = '0' . $data['Codigo'];
                 break;
         }
-
-
         $empr = Empresas::where('Empresa', $data['Empresa'])->value('NombEmpresa');
         if (strlen($empr) > 18) {
-            // Entonces corta la cadena y ponle el sufijo
+    //? Entonces corta la cadena y ponle el sufijo
             $empr = substr($empr, 0, 18) . '...';
         }
         $fe = Carbon::parse($data['Vencimiento']);
@@ -211,7 +206,7 @@ class credencialesController extends Controller
         $mfecha = $fe->format('m');
         $afecha = $fe->format('Y');
         $meses = ['01' => 'ENE', '02' => 'FEB', '03' => 'MAR', '04' => 'ABR', '05' => 'MAY', '06' => 'JUN', '07' => 'JUL', '08' => 'AGO', '09' => 'SEP', '10' => 'OCT', '11' => 'NOV', '12' => 'DIC'];
-        // return view('credenciales.pdf_creden_emp_a');
+    //? return view('credenciales.pdf_creden_emp_a');
         $rutaimgL = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg',
             'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO1.jpg',
@@ -220,6 +215,7 @@ class credencialesController extends Controller
         ];
         $rutaimgT = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALLP.jpg',
+            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALL_cij.jpg',
             'CBB' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALCBB.jpg',
             'VVI' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALVVI.jpg',
         ];
@@ -229,7 +225,6 @@ class credencialesController extends Controller
             'CBB' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-CBB.jpg',
             'VVI' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-VVI.jpg',
         ];
-
         switch ($data['Tipo']) {
             case 'N':
                 $pdf = pdf::loadView(
@@ -238,11 +233,10 @@ class credencialesController extends Controller
                         'data' => $data,
                         'em' => $empr,
                         'M' => $meses[$mfecha],
-                        'Y' => $afecha = $fe->format('Y'),
+                        'Y' => $fe->format('Y'),
                         'ruta' => 'resources/plantilla/CREDENCIALESFOTOS/NACIONALAMVERSO.jpg',
                         'aero' => $data['Aeropuerto_2'],
                         'tipo' => $data['Tipo'],
-
                     ]
                 );
                 break;
@@ -253,11 +247,10 @@ class credencialesController extends Controller
                         'data' => $data,
                         'em' => $empr,
                         'M' => $meses[$mfecha],
-                        'Y' => $afecha = $fe->format('Y'),
+                        'Y' => $fe->format('Y'),
                         'ruta' => $rutaimgL[$data['Aeropuerto_2']],
                         'aero' => $data['Aeropuerto_2'],
                         'tipo' => $data['Tipo'],
-
                     ]
                 );
                 break;
@@ -268,7 +261,7 @@ class credencialesController extends Controller
                         'data' => $data,
                         'em' => $empr,
                         'M' => $meses[$mfecha],
-                        'Y' => $afecha = $fe->format('Y'),
+                        'Y' => $fe->format('Y'),
                         'ruta' => $rutaimgT[$data['Aeropuerto_2']],
                         'aero' => $data['Aeropuerto_2'],
                         'tipo' => $data['Tipo'],
@@ -284,7 +277,6 @@ class credencialesController extends Controller
                 return;
             }
             $data->data_vehi_aut = unserialize($data->data_vehi_aut);
-
             $q = str_replace(',', '', $data->data_vehi_aut['list']);
             $q = str_replace('1', 'X', $q);
             $q = str_replace('0', '.', $q);
@@ -299,7 +291,6 @@ class credencialesController extends Controller
                     'Y' => $afecha = $fe->format('Y'),
                     'ruta' => $rutaimgLC[$data['Aeropuerto_2']],
                     'aero' => $data['Aeropuerto_2'],
-
                 ]
             );
         }
@@ -421,14 +412,12 @@ class credencialesController extends Controller
         $data = Empleados::where('idEmpleado', $request->input('id'))->first();
 
         // * sector de lista de renovaciones acnteriores  $tipo == 1
-
         if ($tipo == 1) {
             return [
                 'data' => unserialize($data['data_creden']),
                 'cod'  => $data['CodigoTarjeta'],
             ];
         }
-
         if ($request->input('ren_cred_codigo') <= 999) {
             return 0;
         }
@@ -446,8 +435,5 @@ class credencialesController extends Controller
             'CodigoTarjeta' => $request->input('ren_cred_codigo'),
             'NroRenovacion' => intval($data['NroRenovacion']) + 1
         ]);
-        // return $d;
-
-        // return Empleados::where('idEmpleado', $request->input('id'))->update(['NroRenovacion' => intval(Empleados::where('idEmpleado', $request->input('id'))->value('NroRenovacion')) + 1]);
     }
 }

@@ -14,39 +14,60 @@ function fun_credeEmp_edit(param) {
         },
         // dataType: "dataType",
         success: function (response) {
-            console.log(response.data_vehi_aut["list"]);
-            cad = response.data_vehi_aut["list"].split(",");
-            vehi = "";
-            cad.forEach((a, i) => {
-                console.log(a);
-                if (a != "0") {
-                    vehi += [i];
-                }
-            });
-
-            console.log(vehi);
-
-            html = sel[response.data_vehi_aut["tipo"]]
-                .map(function (p, i) {
-                    chek = "";
-                    if (i == "1") {
-                        chek = "checked=true";
-                    }
-                    return (html = `
-                <div class="checkbox-fade fade-in-default">
-                    <label>
-                        <input type="checkbox" name="tipo_vehiculo_aut${i}" value="${p}"    onchange="saveTipoLicencia('${tip}','${i}')" >
-                        <span class="cr">
-                            <i class="cr-icon ik ik-check text-warning"></i>
-                        </span>
-                        <span>${p}</span>
-                    </label>
-                </div>
-                    `);
-                })
-                .join(" ");
-
+            console.log(response);
             $("#md_update_credencial").modal("show");
+            if (
+                response.data_vehi_aut == null ||
+                response.data_vehi_aut["tipo"] == null
+            ) {
+                setTimeout(() => {
+                    $("#option_tipo_lic_veh_edit").html("");
+                }, 500);
+                // LT=''
+            } else {
+                cad = response.data_vehi_aut["list"].split(",");
+                vehi = "";
+                cad.forEach((a, i) => {
+                    console.log(a);
+                    if (a != "0") {
+                        vehi += [i];
+                    }
+                });
+                console.log(cad);
+                sel_1[response.data_vehi_aut["tipo"]] = cad;
+                setTimeout(() => {
+                    $("#option_tipo_lic_veh_edit").html("");
+                }, 700);
+                setTimeout(() => {
+                    html = cad
+                        .map(function (p, i) {
+                            selec_chek = "";
+                            if (p == "1") {
+                                selec_chek = "checked=true";
+                            }
+                            return (html = `
+                                <div class="checkbox-fade fade-in-default">
+                                    <label>
+                                        <input type="checkbox" name="tipo_vehiculo_aut${i}" ${selec_chek} value="${p}" onchange="saveTipoLicencia('${
+                                response.data_vehi_aut.tipo
+                            }','${i}')" >
+                                        <span class="cr">
+                                            <i class="cr-icon ik ik-check text-warning"></i>
+                                        </span>
+                                        <span>${
+                                            sel[response.data_vehi_aut["tipo"]][
+                                                i
+                                            ]
+                                        }</span>
+                                    </label>
+                                </div>
+                        `);
+                        })
+                        .join(" ");
+                    $("#option_tipo_lic_veh_edit").html(html);
+                }, 1000);
+            }
+
             $("#nc_tipo_edit").val(response.Tipo);
             $("#nc_aeropuerto_edit").val(response.aeropuerto_2);
             $("input[name=nc_ci_edit]").val(response.CI);
@@ -86,6 +107,9 @@ function fun_credeEmp_edit(param) {
     });
 }
 function update_creden(val) {
+    if ($("#nc_t_licencia_edit").val()== '') {
+        LT= { tipo: "", list: "" };
+    }
     $.ajax({
         type: "post",
         url: "credenciales/query_update_emp",

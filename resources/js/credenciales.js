@@ -76,7 +76,7 @@ $("#nc_t_licencia").change(function (e) {
             return (html = `
             <div class="checkbox-fade fade-in-default">
                 <label>
-                    <input type="checkbox" name="tipo_vehiculo_aut${i}" value="${p}" onchange="saveTipoLicencia('${tip}','${i}')" >
+                    <input type="checkbox" name="tipo_vehiculo_aut${i}" value="${p}"  onchange="saveTipoLicencia('${tip}','${i}')" >
                     <span class="cr">
                         <i class="cr-icon ik ik-check text-warning"></i>
                     </span>

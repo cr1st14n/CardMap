@@ -200,8 +200,9 @@
 
                                 </div>
                                 <div class=" col-sm-3 form-group">
-                                    <input type="text" class=" form-control form-control-sm" name="nc_AreasCp" id="nc_AreasCp"
-                                        id="nc_AreasCp" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                                    <input type="text" class=" form-control form-control-sm" name="nc_AreasCp"
+                                        id="nc_AreasCp" id="nc_AreasCp" placeholder="-#-#--#-" pattern="[0-9_-]{8}"
+                                        maxlength="8">
                                     <b>Areas Autorizadas</b>
                                 </div>
                             </div>
@@ -298,6 +299,19 @@
             </div>
         </div>
     </div>
+    <style>
+        .select_update{
+            background: transparent;
+            border-color: black;
+            border: 1px solid #d9d9d9;
+            font-size: 14px;
+            height: 30px;
+            padding: 5px;
+            color: white;
+            width: 100%;
+
+        }
+    </style>
     <div class="modal fade" id="md_update_credencial" tabindex="-1" role="dialog"
         aria-labelledby="demoModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-lg" role="document">
@@ -312,9 +326,9 @@
                         onsubmit="event.preventDefault();update_creden()">@csrf
                         <div class="form-group row ">
                             <div class="col-sm-3">
-                                <div class="form-group small">
-                                    <select class="form-control form-bg-danger" name="nc_tipo_edit"
-                                        id="nc_tipo_edit">
+                                <div class="form-group ">
+                                    <select class="select_update" name="nc_tipo_edit"
+                                        id="nc_tipo_edit" style="background-color: blue">
                                         <option value="L">Local</option>
                                         <option value="T">Temporal</option>
                                         <option value="N"><strong class=" text-danger">Nacional</strong>
@@ -324,8 +338,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="form-group small">
-                                    <select class="form-control form-bg-primary" name="nc_aeropuerto_edit"
+                                <div class="form-group ">
+                                    <select class="select_update" style="background-color: red" name="nc_aeropuerto_edit"
                                         id="nc_aeropuerto_edit">
                                         <option value="LPB">EL ALTO</option>
                                         <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
@@ -432,15 +446,7 @@
                             <div class="col-sm-12 row">
                                 <div class="col-sm-3">
                                     <div class="form-group small">
-                                        <select
-                                            style="background: transparent;
-                                                border-color:black;
-                                                border:1px solid #d9d9d9;
-                                                font-size: 14px;
-                                                height: 30px;
-                                                padding: 5px;
-                                                width: 100%;"
-                                            name="nc_t_licencia_edit" id="nc_t_licencia_edit">
+                                        <select class="select_update" style="background-color:darkslategrey" name="nc_t_licencia_edit" id="nc_t_licencia_edit">
                                             <option value="">Ninguna</option>
                                             <option value="P">Particular P</option>
                                             <option value="A">Profecional A</option>
@@ -454,8 +460,9 @@
 
                                 </div>
                                 <div class=" col-sm-3 form-group">
-                                    <input type="text" class=" form-control form-control-sm" name="nc_AreasCp_edit"
-                                        id="nc_AreasCp_edit" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                                    <input type="text" class=" form-control form-control-sm"
+                                        name="nc_AreasCp_edit" id="nc_AreasCp_edit" placeholder="-#-#--#-"
+                                        pattern="[0-9_-]{8}" maxlength="8">
                                     <b>Areas Autorizadas</b>
                                 </div>
                             </div>
@@ -494,14 +501,7 @@
 
                             <div class="col-sm-3">
                                 <div class="form-group ">
-                                    <select class name="nc_sexo_edit" id="nc_sexo_edit"
-                                        style="background: transparent;
-                                    border-color:black;
-                                    border:1px solid #d9d9d9;
-                                font-size: 14px;
-                                height: 30px;
-                                padding: 5px;
-                                width: 100%;">
+                                    <select class="select_update" style="background-color: gray" name="nc_sexo_edit" id="nc_sexo_edit">
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
                                     </select>

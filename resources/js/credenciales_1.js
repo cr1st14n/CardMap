@@ -1,3 +1,5 @@
+const { replace, split } = require("lodash");
+
 var_delete_credencial = "";
 idEmpleadoEdit = "";
 idEmpleadoRenovar = "";
@@ -12,30 +14,41 @@ function fun_credeEmp_edit(param) {
         },
         // dataType: "dataType",
         success: function (response) {
-            console.log(response);
-            if (response.Sexo == "M") {
-                Sexo_1 = "Masculino";
-            }
-            if (response.Sexo == "F") {
-                Sexo_1 = "Femenino";
-            }
-            if (response.Tipo == "N") {
-                tipo_1 = "Nacional";
-            }
-            if (response.Tipo == "L") {
-                tipo_1 = "Local";
-            }
-            if (response.Tipo == "T") {
-                tipo_1 = "Temporal";
-            }
+            console.log(response.data_vehi_aut["list"]);
+            cad = response.data_vehi_aut["list"].split(",");
+            vehi = "";
+            cad.forEach((a, i) => {
+                console.log(a);
+                if (a != "0") {
+                    vehi += [i];
+                }
+            });
+
+            console.log(vehi);
+
+            html = sel[response.data_vehi_aut["tipo"]]
+                .map(function (p, i) {
+                    chek = "";
+                    if (i == "1") {
+                        chek = "checked=true";
+                    }
+                    return (html = `
+                <div class="checkbox-fade fade-in-default">
+                    <label>
+                        <input type="checkbox" name="tipo_vehiculo_aut${i}" value="${p}"    onchange="saveTipoLicencia('${tip}','${i}')" >
+                        <span class="cr">
+                            <i class="cr-icon ik ik-check text-warning"></i>
+                        </span>
+                        <span>${p}</span>
+                    </label>
+                </div>
+                    `);
+                })
+                .join(" ");
+
             $("#md_update_credencial").modal("show");
-            $("#nc_tipo_edit").append(
-                `<option value="${response.Tipo}" selected>${tipo_1}</option>`
-            );
-            $("#nc_aeropuerto_edit").append(
-                `<option value="${response.aeropuerto_2}" selected>${response.aeropuerto_2}</option>`
-            );
-            // $("input[name=nc_cod_edit]").val(response.data.Codigo);
+            $("#nc_tipo_edit").val(response.Tipo);
+            $("#nc_aeropuerto_edit").val(response.aeropuerto_2);
             $("input[name=nc_ci_edit]").val(response.CI);
             $("input[name=nc_nom_edit]").val(response.Nombre);
             $("input[name=nc_pa_edit]").val(response.Paterno);
@@ -66,7 +79,9 @@ function fun_credeEmp_edit(param) {
             $("input[name=nc_13_edit]").val(response.Observacion);
             $("#nc_estCiv_edit").val(response.EstCivil);
             $("#nc_sexo_edit").val(response.Sexo);
+            $("#nc_t_licencia_edit").val(response.data_vehi_aut["tipo"]);
             idEmpleadoEdit = response.idEmpleado;
+            $("#option_tipo_lic_veh_edit").html("");
         },
     });
 }

@@ -1,4 +1,3 @@
-const { replace, split } = require("lodash");
 
 var_delete_credencial = "";
 idEmpleadoEdit = "";

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     list1();
 });
+data_1 = Array;
 function list1() {
     $.ajax({
         type: "get",
@@ -13,8 +14,9 @@ function list1() {
     });
 }
 function list_table(data) {
+    data_1 = data;
     html_1 = data
-        .map(function (p) {
+        .map(function (p, i) {
             return (h = `
             <tr>
                 <td style="text-align:right">${p.id}</td>
@@ -23,6 +25,7 @@ function list_table(data) {
 
                 <td>
                     <div class="table-actions">
+                        <a href="#" onclick="edit_vin(${i})"><i class="ik ik-edit-2"></i></a>
                         <a href="#" onclick="showDetalleVehi(${p.id})"><i class="ik ik-edit-2"></i></a>
                         <a href="#" onclick="showPdfVin(${p.id})"><i class="ik ik-eye"></i></a>
                     </div>
@@ -108,6 +111,51 @@ $("#form_newVehiculo").submit(function (e) {
     });
 });
 function showPdfVin(id) {
-    $("#emb_sec_pdf_vin_v").attr("src", "Vehiculo/pdf_viñeta_1/1/1/"+id);
+    $("#emb_sec_pdf_vin_v").attr("src", "Vehiculo/pdf_viñeta_1/1/1/" + id);
     $("#md_show_vin").modal("show");
+}
+function edit_vin(i) {
+    $.get("Vehiculo/create_1", function (data, textStatus, jqXHR) {
+        html = data.emp
+            .map(function (param) {
+                return (h = `<option value="${param.Empresa}">${param.NombEmpresa}</option>`);
+            })
+            .join(" ");
+        htmlC = data.color
+            .map(function (param) {
+                return (h = `<option value="${param.Codigo}">${param.Color}</option>`);
+            })
+            .join(" ");
+        htmlT = data.tipo
+            .map(function (param) {
+                return (h = `<option value="${param.Codigo}">${param.Tipo}</option>`);
+            })
+            .join(" ");
+        htmlF = data.marca
+            .map(function (param) {
+                return (h = `<option value="${param.Codigo}">${param.Marca}</option>`);
+            })
+            .join(" ");
+        $("#vi_emp").html(html);
+        $("#vi_color").html(htmlC);
+        $("#vi_tipo").html(htmlT);
+        $("#vi_fab").html(htmlF);
+    });
+
+    console.log(data_1[i]);
+    $("#md_edit_Vehiculo").modal("show");
+
+    $("#vi_emp_edit").val(data_1[i][""]);
+    $("#vi_placa_edit").val(data_1[i][""]);
+    $("#vi_poliza_edit").val(data_1[i][""]);
+    $("#vi_resp_edit").val(data_1[i]["AutorizadoPor"]);
+    $("#vi_empAse_edit").val(data_1[i][""]);
+    $("#vi_aut_edit").val(data_1[i][""]);
+    $("#vi_feI_edit").val(data_1[i][""]);
+    $("#vi_fef_edit").val(data_1[i][""]);
+    $("#vi_mo_edit").val(data_1[i][""]);
+    $("#vi_color_edit").val(data_1[i]["Color"]);
+    $("#vi_tipo_edit").val(data_1[i][""]);
+    $("#vi_fab_edit").val(data_1[i][""]);
+    $("#vi_AreasCp_edit").val(data_1[i]["Areas"]);
 }

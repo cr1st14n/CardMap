@@ -39,7 +39,7 @@ class vehiculoController extends Controller
         //         # code...
         //         break;
         // }
-        return Vehiculo::select('id', 'Placa', 'Responsable',)->get();
+        return Vehiculo::get();
     }
     public function query_detalle_1(Request $request)
     {
@@ -63,6 +63,7 @@ class vehiculoController extends Controller
     }
     public function store_1(Request $request)
     {
+        return $request;
         $new = new Vehiculo;
         $new->Empresa = $request->input('vi_emp');
         $new->Placa = $request->input('vi_placa');

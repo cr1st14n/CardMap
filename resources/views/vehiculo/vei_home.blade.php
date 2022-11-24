@@ -72,6 +72,105 @@
         </div>
     </div>
 
+    <div class="modal fade" id="md_edit_Vehiculo" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog  " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="demoModalLabel">Registro Vehicular</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form class="forms-sample" id="form_newVehiculo">@csrf
+                        <div class="form-group row ">
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <select class="form-control" name="vi_emp_edit" id="vi_emp_edit"></select>
+                                    <b>Empresa</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="text" class="form-control" name="vi_placa_edit" id="vi_placa_edit" required>
+                                    <b>Placa</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="text" class="form-control" name="vi_poliza_edit" id="vi_poliza_edit">
+                                    <b># de Poliza</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="text" class="form-control" name="vi_resp_edit" id="vi_resp_edit" required>
+                                    <b>Responsable</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="text" class="form-control" name="vi_empAse_edit" id="vi_empAse_edit">
+                                    <b>Empresa Aseguradora</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="text" class="form-control" name="vi_aut_edit" id="vi_aut_edit" required>
+                                    <b>Autorizado por:</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="date" class="form-control" name="vi_feI_edit" id="vi_feI_edit" required>
+                                    <b>Fecha Inicial</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <input type="date" class="form-control" name="vi_fef_edit" id="vi_fef_edit" required>
+                                    <b>Fecha Final</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group small">
+                                    <input type="text" class="form-control" name="vi_mo_edit" id="vi_mo_edit">
+                                    <b>Motivo</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <select class="form-control" name="vi_color_edit" id="vi_color_edit"></select>
+                                    <b>Color de Vehiculo</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <select class="form-control" name="vi_tipo_edit" id="vi_tipo_edit"></select>
+                                    <b>Tipo de Vehiculo</b>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group small">
+                                    <select class="form-control" name="vi_fab_edit" id="vi_fab_edit"></select>
+                                    <b>Fabricante</b>
+                                </div>
+                            </div>
+                            <div class=" col-sm-6 form-group">
+                                <input type="text" class=" form-control form-control-sm" name="vi_AreasCp_edit"
+                                    id="vi_AreasCp_edit" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                                <b>Areas Autorizadas</b>
+                            </div>
+                            <div class="modal-footer col-sm-12">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="md_newVehiculo" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog  " role="document">

@@ -145,17 +145,17 @@ function edit_vin(i) {
     console.log(data_1[i]);
     $("#md_edit_Vehiculo").modal("show");
 
-    $("#vi_emp_edit").val(data_1[i][""]);
-    $("#vi_placa_edit").val(data_1[i][""]);
-    $("#vi_poliza_edit").val(data_1[i][""]);
-    $("#vi_resp_edit").val(data_1[i]["AutorizadoPor"]);
-    $("#vi_empAse_edit").val(data_1[i][""]);
-    $("#vi_aut_edit").val(data_1[i][""]);
-    $("#vi_feI_edit").val(data_1[i][""]);
-    $("#vi_fef_edit").val(data_1[i][""]);
-    $("#vi_mo_edit").val(data_1[i][""]);
+    $("#vi_emp_edit").val(data_1[i]["Empresa"]);
+    $("#vi_placa_edit").val(data_1[i]["Placa"]);
+    $("#vi_poliza_edit").val(data_1[i]["NroPoliza"]);
+    $("#vi_resp_edit").val(data_1[i]["Responsable"]);
+    $("#vi_empAse_edit").val(data_1[i]["EmpresaAseg"]);
+    $("#vi_aut_edit").val(data_1[i]["AutorizadoPor"]);
+    $("#vi_feI_edit").val(data_1[i]["FechaIniPer"]);
+    $("#vi_fef_edit").val(data_1[i]["FechaFinPer"]);
+    $("#vi_mo_edit").val(data_1[i]["Motivo"]);
     $("#vi_color_edit").val(data_1[i]["Color"]);
-    $("#vi_tipo_edit").val(data_1[i][""]);
-    $("#vi_fab_edit").val(data_1[i][""]);
+    $("#vi_tipo_edit").val(data_1[i]["Tipo"]);
+    $("#vi_fab_edit").val(data_1[i]["Marca"]);
     $("#vi_AreasCp_edit").val(data_1[i]["Areas"]);
 }

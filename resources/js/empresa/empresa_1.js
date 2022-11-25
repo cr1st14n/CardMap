@@ -39,13 +39,13 @@ function list_table_empresas(response) {
             <td width="45%">
                 <div class="d-inline-block align-middle">
                     <div class="d-inline-block">
-                        <h6 class="mb-0"> ${u.Empresa} </h6>
-                        <p class="text-muted mb-0"> ${
-                            u.NombEmpresa != null ? u.NombEmpresa : "..."
-                        }</p>
-                        <p class="text-muted mb-0">Rep. legal: ${
-                            u.RepLegal != null ? u.RepLegal : "..."
-                        }</p>
+                    <p class="mb-0"> ${
+                        u.NombEmpresa != null ? u.NombEmpresa : "..."
+                    }</p>
+                    <p class="text-muted mb-0">Rep. legal: ${
+                        u.RepLegal != null ? u.RepLegal : "..."
+                    }</p>
+                    <h6 class="text-muted mb-0"> ${u.Empresa} </h6>
                     </div>
                 </div>
             </td>
@@ -153,7 +153,7 @@ $("#form_edit_empresa").submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: "post",
-        url: "Empresa/query_update/"+id_EMP_SEL,
+        url: "Empresa/query_update/" + id_EMP_SEL,
         data: $(this).serialize(),
         // dataType: "dataType",
         success: function (response) {
@@ -165,7 +165,6 @@ $("#form_edit_empresa").submit(function (e) {
                 show_list_empresa_1();
             } else {
                 noti_fi(4, "Error!. ");
-
             }
         },
     });

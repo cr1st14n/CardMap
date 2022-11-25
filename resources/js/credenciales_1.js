@@ -73,9 +73,13 @@ function fun_credeEmp_edit(param) {
             $("input[name=nc_nom_edit]").val(response.Nombre);
             $("input[name=nc_pa_edit]").val(response.Paterno);
             $("input[name=nc_ma_edit]").val(response.Materno);
-            $("#nc_em_edit_id").append(
-                `<option value="${response.Empresa}" selected>${response.Empresa}</option>`
-            );
+            $("#nc_em_edit_id").val(response.Empresa);
+
+            // $("#nc_em_edit_id").append(
+            //     `<option value="${response.Empresa}" selected>${response.NombEmpresa}</option>`
+            // );
+
+
             $("input[name=nc_car_edit]").val(response.Cargo);
             $("input[name=nc_codt_edit]").val(response.CodigoTarjeta);
             $("input[name=nc_codMy_edit]").val(response.CodMYFARE);

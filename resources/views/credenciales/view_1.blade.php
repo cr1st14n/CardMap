@@ -119,7 +119,13 @@
                                 <div class="form-group small">
                                     <select class="form-control" id="" name="nc_em">
                                         @foreach ($Empr as $e)
-                                            <option value="{{ $e->Empresa }}">{{ $e->NombEmpresa }}</option>
+                                            @if ($e->Empresa == 'NABL')
+                                                <option selected value="{{ $e->Empresa }}">{{ $e->NombEmpresa }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $e->Empresa }}">{{ $e->NombEmpresa }}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <b>Empresa</b>
@@ -300,7 +306,7 @@
         </div>
     </div>
     <style>
-        .select_update{
+        .select_update {
             background: transparent;
             border-color: black;
             border: 1px solid #d9d9d9;
@@ -327,8 +333,8 @@
                         <div class="form-group row ">
                             <div class="col-sm-3">
                                 <div class="form-group ">
-                                    <select class="select_update" name="nc_tipo_edit"
-                                        id="nc_tipo_edit" style="background-color: blue">
+                                    <select class="select_update" name="nc_tipo_edit" id="nc_tipo_edit"
+                                        style="background-color: blue">
                                         <option value="L">Local</option>
                                         <option value="T">Temporal</option>
                                         <option value="N"><strong class=" text-danger">Nacional</strong>
@@ -339,8 +345,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group ">
-                                    <select class="select_update" style="background-color: red" name="nc_aeropuerto_edit"
-                                        id="nc_aeropuerto_edit">
+                                    <select class="select_update" style="background-color: red"
+                                        name="nc_aeropuerto_edit" id="nc_aeropuerto_edit">
                                         <option value="LPB">EL ALTO</option>
                                         <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
                                     </select>
@@ -376,10 +382,11 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <select class="form-control" id="nc_em_edit_id" name="nc_em_edit">
+                                    <select class="  select_update" style="color: black" id="nc_em_edit_id"
+                                        name="nc_em_edit">
                                         @foreach ($Empr as $e)
                                             <option value="{{ $e->Empresa }}">
-                                                {{ $e->Empresa }}/{{ $e->NombEmpresa }}</option>
+                                                {{ $e->NombEmpresa }}</option>
                                         @endforeach
                                     </select>
                                     <b>Empresa</b>
@@ -446,7 +453,8 @@
                             <div class="col-sm-12 row">
                                 <div class="col-sm-3">
                                     <div class="form-group small">
-                                        <select class="select_update" style="background-color:darkslategrey" name="nc_t_licencia_edit" id="nc_t_licencia_edit">
+                                        <select class="select_update" style="background-color:darkslategrey"
+                                            name="nc_t_licencia_edit" id="nc_t_licencia_edit">
                                             <option value="">Ninguna</option>
                                             <option value="P">Particular P</option>
                                             <option value="A">Profecional A</option>
@@ -501,7 +509,8 @@
 
                             <div class="col-sm-3">
                                 <div class="form-group ">
-                                    <select class="select_update" style="background-color: gray" name="nc_sexo_edit" id="nc_sexo_edit">
+                                    <select class="select_update" style="background-color: gray" name="nc_sexo_edit"
+                                        id="nc_sexo_edit">
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
                                     </select>

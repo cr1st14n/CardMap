@@ -53,7 +53,7 @@ class credencialesController extends Controller
             )
             ->orderBy('codigo', 'asc')
             ->get();
-        $empresas = Empresas::get();
+        $empresas = Empresas::orderBy('NombEmpresa','asc')->get();
         return view('credenciales.view_1')->with('Empr', $empresas)->with('e', $em);
     }
     public function queryCreate_1(Request $request)

@@ -45,6 +45,7 @@
                                     <th>Vencimiento</th>
                                     <th>Imagen</th>
                                     <th width='5%'># Re.</th>
+                                    <th width='5%'># L.C.</th>
                                     <th width='5%'>Acciones</th>
                                 </tr>
                             </thead>
@@ -699,6 +700,205 @@
                     <button type="button" onclick="fun_renovar_creden(0,3)" class="btn btn-secondary"
                         data-dismiss="modal">Cancelar</button>
                     <button type="button" onclick="fun_renovar_creden(0,2)" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal asignar licencia -->
+    <div class="modal fade" id="md_show_asign_licencia" tabindex="-1" role="dialog"
+        aria-labelledby="demoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class=" modal-header">
+                    <h4>Tipo Licencia / Vehiculos Autorizados</h4>
+                </div>
+                <div class="col-sm-12 ">
+                    <div class=" col-sm-6 form-group">
+                        <b>Areas Autorizadas</b>
+                        <input type="text" class=" form-control form-control-sm" name="lic_areas"
+                            id="lic_areas" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                    </div>
+                    <div class="form-radio">
+                        <form id="lic_new">
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="tipo_lic" value="A" onclick="tipoLicen()">
+                                    <i class="helper"></i>A
+                                </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="tipo_lic" value="B" onclick="tipoLicen()">
+                                    <i class="helper"></i>B
+                                </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="tipo_lic" value="C" onclick="tipoLicen()">
+                                    <i class="helper"></i>C
+                                </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="tipo_lic" value="M" onclick="tipoLicen()">
+                                    <i class="helper"></i>M
+                                </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="tipo_lic" value="P" onclick="tipoLicen()">
+                                    <i class="helper"></i>P
+                                </label>
+                            </div>
+                            <div class="radio radio-inline radio-danger">
+                                <label>
+                                    <input type="radio" name="tipo_lic" value="N" onclick="tipoLicen()"
+                                        checked="checked">
+                                    <i class="helper"></i>Ninguno
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-lg-6">
+                        <h4 class="sub-title">Categoria A</h4>
+                        <div class="border-checkbox-section">
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="A-1" type="checkbox" name="g1"
+                                    id="checkbox0">
+                                <label class="border-checkbox-label" for="checkbox0">Camioneta</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="A-2" type="checkbox" name="g1"
+                                    id="checkbox01">
+                                <label class="border-checkbox-label" for="checkbox01">Vagoneta</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="A-3" type="checkbox" name="g1"
+                                    id="checkbox02">
+                                <label class="border-checkbox-label" for="checkbox02">Tipo Taxi</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="A-4" type="checkbox" name="g1"
+                                    id="checkbox03">
+                                <label class="border-checkbox-label" for="checkbox03">Furgoneta</label>
+                            </div>
+                        </div>
+                        <h4 class="sub-title">Categoria B</h4>
+                        <div class="border-checkbox-section">
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-1" type="checkbox" name="g2"
+                                    id="checkbox04">
+                                <label class="border-checkbox-label" for="checkbox04">Cinta Transportadora</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-2" type="checkbox" name="g2"
+                                    id="checkbox05">
+                                <label class="border-checkbox-label" for="checkbox05">Tractor Jalador
+                                    Equipajes</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-3" type="checkbox" name="g2"
+                                    id="checkbox06">
+                                <label class="border-checkbox-label" for="checkbox06">Escalera Motorizada</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-4" type="checkbox" name="g2"
+                                    id="checkbox0=7">
+                                <label class="border-checkbox-label" for="checkbox0=7">Carro de Aguas Servidas</label>
+                            </div>
+
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-5" type="checkbox" name="g2"
+                                    id="checkbox08">
+                                <label class="border-checkbox-label" for="checkbox08">Transportador de Carga</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-6" type="checkbox" name="g2"
+                                    id="checkbox09">
+                                <label class="border-checkbox-label" for="checkbox09">Cisterna de agua Potable<label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="B-7" type="checkbox" name="g2"
+                                    id="checkbox010">
+                                <label class="border-checkbox-label" for="checkbox010">V.A.C. (SEI)</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6  mb-30">
+                        <h4 class="sub-title">Categoria C</h4>
+                        <div class="border-checkbox-section">
+                            <div class="border-checkbox-group border-checkbox-group-primary  col-12">
+                                <input class="border-checkbox" value="C-1" type="checkbox" name="g3"
+                                    id="checkbox011">
+                                <label class="border-checkbox-label" for="checkbox011">Tractor Remolque</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-2" type="checkbox" name="g3"
+                                    id="checkbox012">
+                                <label class="border-checkbox-label" for="checkbox012">Elevador de Carga</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-3" type="checkbox" name="g3"
+                                    id="checkbox013">
+                                <label class="border-checkbox-label" for="checkbox013">Cámion Catering</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-4" type="checkbox" name="g3"
+                                    id="checkbox014">
+                                <label class="border-checkbox-label" for="checkbox014">Cisterna aprovisionadora
+                                    Combustible</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-5" type="checkbox" name="g3"
+                                    id="checkbox0141">
+                                <label class="border-checkbox-label" for="checkbox0141">Hyster</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-7" type="checkbox" name="g3"
+                                    id="checkbox015">
+                                <label class="border-checkbox-label" for="checkbox015">Volqueta</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-8" type="checkbox" name="g3"
+                                    id="checkbox016">
+                                <label class="border-checkbox-label" for="checkbox016">Tractor</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-9" type="checkbox" name="g3"
+                                    id="checkbox017">
+                                <label class="border-checkbox-label" for="checkbox017">Retroexcavadora</label>
+                            </div>
+                            <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                <input class="border-checkbox" value="C-10" type="checkbox" name="g3"
+                                    id="checkbox018">
+                                <label class="border-checkbox-label" for="checkbox018">Auto Bombas(SEI)</label>
+                            </div>
+
+                            <h4 class="sub-title">Categoria M y P</h4>
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                    <input class="border-checkbox" value="MP-1" type="checkbox"name="g4"
+                                        id="checkbox019">
+                                    <label class="border-checkbox-label" for="checkbox019">Motocicletas</label>
+                                </div>
+                                <div class="border-checkbox-group border-checkbox-group-primary col-12">
+                                    <input class="border-checkbox" value="MP-2" type="checkbox" name="g4"
+                                        id="checkbox020" name="g1">
+                                    <label class="border-checkbox-label" for="checkbox020">Vehículos
+                                        Particulares</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="saveVeiAut()">Confirmar</button>
                 </div>
             </div>
         </div>

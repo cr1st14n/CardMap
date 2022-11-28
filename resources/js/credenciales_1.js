@@ -1,4 +1,3 @@
-
 var_delete_credencial = "";
 idEmpleadoEdit = "";
 idEmpleadoRenovar = "";
@@ -79,7 +78,6 @@ function fun_credeEmp_edit(param) {
             //     `<option value="${response.Empresa}" selected>${response.NombEmpresa}</option>`
             // );
 
-
             $("input[name=nc_car_edit]").val(response.Cargo);
             $("input[name=nc_codt_edit]").val(response.CodigoTarjeta);
             $("input[name=nc_codMy_edit]").val(response.CodMYFARE);
@@ -110,8 +108,8 @@ function fun_credeEmp_edit(param) {
     });
 }
 function update_creden(val) {
-    if ($("#nc_t_licencia_edit").val()== '') {
-        LT= { tipo: "", list: "" };
+    if ($("#nc_t_licencia_edit").val() == "") {
+        LT = { tipo: "", list: "" };
     }
     $.ajax({
         type: "post",
@@ -226,6 +224,11 @@ function lista_table_creden(res) {
             if (e.urlphoto == null) {
                 rutaPhoto = "";
             }
+
+            licencia = `<button class="btn btn-sm bg-green" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i>${e.CategoriaLic}</button>`;
+            if (e.CategoriaLic == null || e.CategoriaLic == "") {
+                licencia = `<button class="btn btn-sm bg-yellow" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i></button>`;
+            }
             return (html = `
                 <tr>
                     <td>${e.Codigo}</td>
@@ -237,6 +240,8 @@ function lista_table_creden(res) {
                         <img src="${rutaPhoto}" width="60px" alt="">
                     </td>
                     <td>${e.NroRenovacion}</td>
+                    <td>
+                       ${licencia}
                     <td>
                         <div class="btn-group float-md-left mr-1 mb-1">
                             <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -331,4 +336,103 @@ function fun_renovar_creden(id, param) {
         default:
             break;
     }
+}
+
+function tipoLicen() {
+    console.log($("input[name=tipo_lic]:checked").val());
+    switch ($("input[name=tipo_lic]:checked").val()) {
+        case "A":
+            $('input[name="g1"]').attr("disabled", false);
+            $('input[name="g2"]').attr("disabled", true);
+            $('input[name="g2"]').prop("checked", false);
+            $('input[name="g3"]').attr("disabled", true);
+            $('input[name="g3"]').prop("checked", false);
+            $('input[name="g4"]').attr("disabled", true);
+            $('input[name="g4"]').prop("checked", false);
+            break;
+
+        case "B":
+            $('input[name="g1"]').attr("disabled", false);
+            $('input[name="g2"]').attr("disabled", false);
+            $('input[name="g3"]').attr("disabled", true);
+            $('input[name="g3"]').prop("checked", false);
+            $('input[name="g4"]').attr("disabled", true);
+            $('input[name="g4"]').prop("checked", false);
+            break;
+
+        case "C":
+            $('input[name="g1"]').attr("disabled", false);
+            $('input[name="g2"]').attr("disabled", false);
+            $('input[name="g3"]').attr("disabled", false);
+            $('input[name="g4"]').attr("disabled", true);
+            $('input[name="g4"]').prop("checked", false);
+            break;
+
+        case "M":
+        case "P":
+            $('input[name="g1"]').attr("disabled", true);
+            $('input[name="g1"]').prop("checked", false);
+            $('input[name="g2"]').attr("disabled", true);
+            $('input[name="g2"]').prop("checked", false);
+            $('input[name="g3"]').attr("disabled", true);
+            $('input[name="g3"]').prop("checked", false);
+            $('input[name="g4"]').attr("disabled", false);
+            break;
+
+        case "N":
+            $('input[name="g1"]').attr("disabled", true);
+            $('input[name="g1"]').prop("checked", false);
+            $('input[name="g2"]').attr("disabled", true);
+            $('input[name="g2"]').prop("checked", false);
+            $('input[name="g3"]').attr("disabled", true);
+            $('input[name="g3"]').prop("checked", false);
+            $('input[name="g4"]').attr("disabled", true);
+            $('input[name="g4"]').prop("checked", false);
+            break;
+
+        default:
+            break;
+    }
+}
+function asig_licencia(id) {
+    idEmpleadoEdit = id;
+    $("#md_show_asign_licencia").modal("show");
+    $('input[name="g1"]').attr("disabled", true);
+    $('input[name="g2"]').attr("disabled", true);
+    $('input[name="g3"]').attr("disabled", true);
+    $('input[name="g4"]').attr("disabled", true);
+}
+
+$("input[name=radio]").change(function (e) {
+    e.preventDefault();
+    console.log("hoal");
+});
+function saveVeiAut() {
+    let t_a = "";
+    $("input:checkbox:checked").each(function () {
+        t_a += $(this).val() + " ";
+    });
+    t_a = t_a.split(" ");
+
+    $.ajax({
+        type: "get",
+        url: "credenciales/query_update_TLC",
+        data: {
+            data: t_a,
+            tipo: $("input[name=tipo_lic]:checked").val(),
+            id: idEmpleadoEdit,
+            areas: $("#lic_areas").val(),
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            console.log(response);
+            if (response) {
+                $("#lic_new").trigger("reset");
+                noti_fi(2, "Correcto!");
+                $("#md_show_asign_licencia").modal("hide");
+            } else {
+                noti_fi(4, "Error!");
+            }
+        },
+    });
 }

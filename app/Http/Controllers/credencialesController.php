@@ -53,7 +53,7 @@ class credencialesController extends Controller
             )
             ->orderBy('codigo', 'asc')
             ->get();
-        $empresas = Empresas::orderBy('NombEmpresa','asc')->get();
+        $empresas = Empresas::orderBy('NombEmpresa', 'asc')->get();
         return view('credenciales.view_1')->with('Empr', $empresas)->with('e', $em);
     }
     public function queryCreate_1(Request $request)
@@ -147,6 +147,7 @@ class credencialesController extends Controller
                 'Empleados.urlphoto',
                 'Empleados.Vencimiento',
                 'Empleados.NroRenovacion',
+                'Empleados.CategoriaLic',
                 'Empresas.NombEmpresa'
             )
             ->orderBy('codigo', 'asc')
@@ -198,7 +199,7 @@ class credencialesController extends Controller
         }
         $empr = Empresas::where('Empresa', $data['Empresa'])->value('NombEmpresa');
         if (strlen($empr) > 18) {
-    //? Entonces corta la cadena y ponle el sufijo
+            //? Entonces corta la cadena y ponle el sufijo
             $empr = substr($empr, 0, 18) . '...';
         }
         $fe = Carbon::parse($data['Vencimiento']);
@@ -206,7 +207,7 @@ class credencialesController extends Controller
         $mfecha = $fe->format('m');
         $afecha = $fe->format('Y');
         $meses = ['01' => 'ENE', '02' => 'FEB', '03' => 'MAR', '04' => 'ABR', '05' => 'MAY', '06' => 'JUN', '07' => 'JUL', '08' => 'AGO', '09' => 'SEP', '10' => 'OCT', '11' => 'NOV', '12' => 'DIC'];
-    //? return view('credenciales.pdf_creden_emp_a');
+        //? return view('credenciales.pdf_creden_emp_a');
         $rutaimgL = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg',
             'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO1.jpg',
@@ -400,6 +401,7 @@ class credencialesController extends Controller
                 'Empleados.urlphoto',
                 'Empleados.Vencimiento',
                 'Empleados.NroRenovacion',
+                'Empleados.CategoriaLic',
                 'Empresas.NombEmpresa'
             )
             ->orderBy('codigo', 'asc')
@@ -435,5 +437,63 @@ class credencialesController extends Controller
             'CodigoTarjeta' => $request->input('ren_cred_codigo'),
             'NroRenovacion' => intval($data['NroRenovacion']) + 1
         ]);
+    }
+    public function query_update_TLC(Request $request)
+    {
+        $tipo = $request->input('tipo');
+        $data = $request->input('data');
+        $AreasCP = $request->input('areas');
+
+        $up = Empleados::find($request->input('id'));
+        $up->CategoriaLic =   ($tipo == 'N') ? null : $tipo;
+        $up->data_vehi_aut =   ($tipo == 'N') ? null : serialize($data);
+        $up->AreasCP =   ($tipo == 'N') ? null : $AreasCP;
+        $r = $up->save();
+        return $r;
+
+
+        $a = 0;
+        $LiA = '';
+        $LiB = '';
+        $LiC = '';
+        $LiMP = '';
+        while ($a < 10) {
+            if ($a < 4) {
+                if (in_array('A-' . $a + 1, $data)) {
+
+                    $LiA = $LiA . "1";
+                } else {
+
+                    $LiA = $LiA . "0";
+                }
+            }
+            if ($a < 7) {
+                if (in_array('B-' . $a + 1, $data)) {
+
+                    $LiB = $LiB . "1";
+                } else {
+                    $LiB = $LiB . "0";
+                }
+            }
+            if ($a < 9) {
+                if (in_array('C-' . $a + 1, $data)) {
+
+                    $LiC = $LiC . "1";
+                } else {
+                    $LiC = $LiC . "0";
+                }
+            }
+            if ($a < 2) {
+                if (in_array('MP-' . $a + 1, $data)) {
+
+                    $LiMP = $LiMP . "1";
+                } else {
+                    $LiMP = $LiMP . "0";
+                }
+            }
+
+            $a += 1;
+        }
+        return $LiA;
     }
 }

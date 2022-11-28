@@ -9,5 +9,6 @@ class Empleados extends Model
 {
     // use HasFactory;
     protected $table='Empleados';
+    protected $primaryKey = 'idEmpleado'; 
     public $timestamps = false;
 }

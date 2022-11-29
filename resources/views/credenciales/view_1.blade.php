@@ -189,7 +189,7 @@
                                 </div>
                             </div> --}}
                             <br>
-                            <h5 class=" col-sm-12">Permiso de Coduccion en tierra</h5>
+                            {{-- <h5 class=" col-sm-12">Permiso de Coduccion en tierra</h5>
                             <div class="col-sm-12 row">
                                 <div class="col-sm-3">
                                     <div class="form-group small">
@@ -212,7 +212,7 @@
                                         maxlength="8">
                                     <b>Areas Autorizadas</b>
                                 </div>
-                            </div>
+                            </div> --}}
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">
                                 <div class="form-group small">
@@ -449,7 +449,7 @@
                                     <b>Acciones</b>
                                 </div>
                             </div> --}}
-                            <h5 class=" col-sm-12">Permiso de Coduccion en tierra</h5>
+                            {{-- <h5 class=" col-sm-12">Permiso de Coduccion en tierra</h5>
 
                             <div class="col-sm-12 row">
                                 <div class="col-sm-3">
@@ -467,13 +467,13 @@
                                 </div>
                                 <div class="col-sm-9" id="option_tipo_lic_veh_edit">
 
-                                </div>
-                                <div class=" col-sm-3 form-group">
+                                </div> --}}
+                                {{-- <div class=" col-sm-3 form-group">
                                     <input type="text" class=" form-control form-control-sm"
                                         name="nc_AreasCp_edit" id="nc_AreasCp_edit" placeholder="-#-#--#-"
                                         pattern="[0-9_-]{8}" maxlength="8">
                                     <b>Areas Autorizadas</b>
-                                </div>
+                                </div> --}}
                             </div>
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">

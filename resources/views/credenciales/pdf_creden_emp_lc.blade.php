@@ -203,7 +203,7 @@
         <img class="img_b" src="{{ asset($data->urlphoto) }}" alt="">
         <!-- <p class="e">{{ $M }}<br>{{ $Y }}</p> -->
         <p class="f">{{ $data->Codigo }}-{{ $aero }} </p>
-        <p class="LCA">{{ $lic_1 }}</p>
+        <p class="LCA">{{ $catLic }}</p>
         @if ($aero == 'LPB')
             <p class="a" style="color: black ;"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
                 {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $data->Empresa }}</p>
@@ -226,23 +226,23 @@
         <img class="s2dapag" src="{{ asset('resources/plantilla/CREDENCIALESFOTOS/TODOSREVERSOlc.jpg') }}"
             alt="">
         <p class="ll1">
-            @if ($lic_1 == 'A')
-                {{ $lic_2 }}
+            @if ($catLic == 'A'|| $catLic == 'B' || $catLic == 'C')
+                {{ $LiA }}
             @endif
         </p>
         <p class="ll2">
-            @if ($lic_1 == 'B')
-                {{ $lic_2 }}
+            @if ($catLic == 'B' || $catLic == 'C')
+                {{ $LiB }}
             @endif
         </p>
         <p class="ll3">
-            @if ($lic_1 == 'C')
-                {{ $lic_2 }}
+            @if ($catLic == 'C' )
+                {{ $LiC }}
             @endif
         </p>
         <p class="ll4">
-            @if ($lic_1 == 'P')
-                {{ $lic_2 }}
+            @if ($catLic == 'P' || $catLic == 'M')
+                {{ $LiMP }}
             @endif
         </p>
 </body>

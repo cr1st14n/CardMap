@@ -183,6 +183,7 @@ class credencialesController extends Controller
             'Empresa',
             'aeropuerto',
             'Aeropuerto_2',
+            'CategoriaLic',
             'data_vehi_aut',
             'Tipo'
         )->first();
@@ -274,18 +275,78 @@ class credencialesController extends Controller
                 break;
         }
         if ($tipo == 2) {
-            if ($data->data_vehi_aut == null && $tipo == 2) {
+            if ($data->CategoriaLic == "") {
                 return;
             }
+
             $data->data_vehi_aut = unserialize($data->data_vehi_aut);
-            $q = str_replace(',', '', $data->data_vehi_aut['list']);
-            $q = str_replace('1', 'X', $q);
-            $q = str_replace('0', '.', $q);
+
+
+            $a = 0;
+            $LiA = '';
+            $LiB = '';
+            $LiC = '';
+            $LiMP = '';
+            while ($a < 10) {
+                if ($a < 4) {
+                    if (in_array('A-' . $a + 1, $data->data_vehi_aut)) {
+
+                        $LiA = $LiA . "1";
+                    } else {
+
+                        $LiA = $LiA . "0";
+                    }
+                }
+                if ($a < 7) {
+                    if (in_array('B-' . $a + 1, $data->data_vehi_aut)) {
+
+                        $LiB = $LiB . "1";
+                    } else {
+                        $LiB = $LiB . "0";
+                    }
+                }
+                if ($a < 9) {
+                    if (in_array('C-' . $a + 1, $data->data_vehi_aut)) {
+
+                        $LiC = $LiC . "1";
+                    } else {
+                        $LiC = $LiC . "0";
+                    }
+                }
+                if ($a < 2) {
+                    if (in_array('MP-' . $a + 1, $data->data_vehi_aut)) {
+
+                        $LiMP = $LiMP . "1";
+                    } else {
+                        $LiMP = $LiMP . "0";
+                    }
+                }
+
+                $a += 1;
+            }
+            // return $LiA;
+            // $q = str_replace(',', '', $data->data_vehi_aut);
+
+            $LiA = str_replace('1', 'X', $LiA);
+            $LiA = str_replace('0', '.', $LiA);
+
+            $LiB = str_replace('1', 'X', $LiB);
+            $LiB = str_replace('0', '.', $LiB);
+
+            $LiC = str_replace('1', 'X', $LiC);
+            $LiC = str_replace('0', '.', $LiC);
+
+            $LiMP = str_replace('1', 'X', $LiMP);
+            $LiMP = str_replace('0', '.', $LiMP);
+
             $pdf = pdf::loadView(
                 'credenciales.pdf_creden_emp_lc',
                 [
-                    'lic_1' => $data->data_vehi_aut['tipo'],
-                    'lic_2' => $q,
+                    'catLic' => $data->CategoriaLic,
+                    'LiA' => $LiA,
+                    'LiB' => $LiB,
+                    'LiC' => $LiC,
+                    'LiMP' => $LiMP,
                     'data' => $data,
                     'em' => $empr,
                     'M' => $meses[$mfecha],

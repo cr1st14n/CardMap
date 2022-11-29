@@ -397,6 +397,7 @@ function tipoLicen() {
 function asig_licencia(id) {
     idEmpleadoEdit = id;
     $("#md_show_asign_licencia").modal("show");
+    $("input[name=tipo_lic][value='N']").prop("checked",true);
     $('input[name="g1"]').attr("disabled", true);
     $('input[name="g2"]').attr("disabled", true);
     $('input[name="g3"]').attr("disabled", true);
@@ -408,6 +409,9 @@ $("input[name=radio]").change(function (e) {
     console.log("hoal");
 });
 function saveVeiAut() {
+
+
+
     let t_a = "";
     $("input:checkbox:checked").each(function () {
         t_a += $(this).val() + " ";
@@ -422,11 +426,13 @@ function saveVeiAut() {
             tipo: $("input[name=tipo_lic]:checked").val(),
             id: idEmpleadoEdit,
             areas: $("#lic_areas").val(),
+            pcp_fechaVencimiento: $("#pcp_fechaVencimiento").val(),
+            pcp_factura: $("#pcp_factura").val(),
         },
         // dataType: "dataType",
         success: function (response) {
             console.log(response);
-            if (response) {
+            if (response==1) {
                 $("#lic_new").trigger("reset");
                 noti_fi(2, "Correcto!");
                 $("#md_show_asign_licencia").modal("hide");

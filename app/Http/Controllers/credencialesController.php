@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Isset_;
 
 class credencialesController extends Controller
@@ -361,11 +362,7 @@ class credencialesController extends Controller
     }
     public function query_cons_1(Request $request)
     {
-        return Empleados::where('idEmpleado', $request->input('id'))->value('data_vehi_aut');
-        if (Empleados::where('idEmpleado', $request->input('id'))->select('data_vehi_aut')->first() == '') {
-            return false;
-        }
-        return true;
+        return Empleados::where('idEmpleado', $request->input('id'))->value('CategoriaLic');
     }
 
     public function query_destroy_credencial(Request $request)
@@ -501,6 +498,32 @@ class credencialesController extends Controller
     }
     public function query_update_TLC(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'tipo' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return false;
+        }
+
+        if ($request->input('tipo') == 'N') {
+
+            $up = Empleados::find($request->input('id'));
+            $up->CategoriaLic =   $request->input('tipo');
+            $r = $up->save();
+            return $r;
+        }
+        $validator = Validator::make($request->all(), [
+            'tipo' => 'required',
+            'data' => 'required',
+            'areas' => 'required',
+            'pcp_fechaVencimiento' => 'required|date',
+            'pcp_factura' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        }
+
         $tipo = $request->input('tipo');
         $data = $request->input('data');
         $AreasCP = $request->input('areas');
@@ -509,52 +532,10 @@ class credencialesController extends Controller
         $up->CategoriaLic =   ($tipo == 'N') ? null : $tipo;
         $up->data_vehi_aut =   ($tipo == 'N') ? null : serialize($data);
         $up->AreasCP =   ($tipo == 'N') ? null : $AreasCP;
+        $up->FechaVencCP =  ($tipo == 'N') ? null : Carbon::parse($request->input('pcp_fechaVencimiento'))->format('Y-d-m');
+        // $up->FechaVencCP = Carbon::parse($request->input('pcp_fechaVencimiento'))->format('Y-m-d');
+        // $up->AreasCP = $request->input('pcp_factura');
         $r = $up->save();
         return $r;
-
-
-        $a = 0;
-        $LiA = '';
-        $LiB = '';
-        $LiC = '';
-        $LiMP = '';
-        while ($a < 10) {
-            if ($a < 4) {
-                if (in_array('A-' . $a + 1, $data)) {
-
-                    $LiA = $LiA . "1";
-                } else {
-
-                    $LiA = $LiA . "0";
-                }
-            }
-            if ($a < 7) {
-                if (in_array('B-' . $a + 1, $data)) {
-
-                    $LiB = $LiB . "1";
-                } else {
-                    $LiB = $LiB . "0";
-                }
-            }
-            if ($a < 9) {
-                if (in_array('C-' . $a + 1, $data)) {
-
-                    $LiC = $LiC . "1";
-                } else {
-                    $LiC = $LiC . "0";
-                }
-            }
-            if ($a < 2) {
-                if (in_array('MP-' . $a + 1, $data)) {
-
-                    $LiMP = $LiMP . "1";
-                } else {
-                    $LiMP = $LiMP . "0";
-                }
-            }
-
-            $a += 1;
-        }
-        return $LiA;
     }
 }

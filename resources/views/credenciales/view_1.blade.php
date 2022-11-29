@@ -467,14 +467,14 @@
                                 </div>
                                 <div class="col-sm-9" id="option_tipo_lic_veh_edit">
 
-                                </div> --}}
-                                {{-- <div class=" col-sm-3 form-group">
+                                </div>
+                                <div class=" col-sm-3 form-group">
                                     <input type="text" class=" form-control form-control-sm"
                                         name="nc_AreasCp_edit" id="nc_AreasCp_edit" placeholder="-#-#--#-"
                                         pattern="[0-9_-]{8}" maxlength="8">
                                     <b>Areas Autorizadas</b>
-                                </div> --}}
-                            </div>
+                                </div>
+                            </div> --}}
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">
                                 <div class="form-group small">
@@ -714,11 +714,24 @@
                     <h4>Tipo Licencia / Vehiculos Autorizados</h4>
                 </div>
                 <div class="col-sm-12 ">
-                    <div class=" col-sm-6 form-group">
-                        <b>Areas Autorizadas</b>
-                        <input type="text" class=" form-control form-control-sm" name="lic_areas"
-                            id="lic_areas" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                    <div class="row">
+                        <div class=" col-sm-4 form-group">
+                            <b style="font-size: 12px">Areas Autorizadas</b>
+                            <input type="text" class=" form-control form-control-sm" name="lic_areas"
+                                id="lic_areas" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                        </div>
+                        <div class=" col-sm-4 form-group">
+                            <b style="font-size: 12px">Fecha Vencimiento</b>
+                            <input type="date" class=" form-control form-control-sm" name="pcp_fechaVencimiento"
+                                id="pcp_fechaVencimiento">
+                        </div>
+                        <div class=" col-sm-4 form-group">
+                            <b style="font-size: 12px"># de Factura</b>
+                            <input type="number" class=" form-control form-control-sm" name="pcp_factura"
+                                id="pcp_factura">
+                        </div>
                     </div>
+                    <hr>
                     <div class="form-radio">
                         <form id="lic_new">
                             <div class="radio radio-inline">

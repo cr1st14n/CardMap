@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/ionicons/dist/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/icon-kit/dist/css/iconkit.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('resources/plantilla/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/plantilla/dist/css/theme.min.css') }}">`
 
 
@@ -156,6 +157,12 @@
                                 <a href="" id="btn_menu_viculos" class="menu-item"><i
                                         class="fa fa-address-book"></i> Viñetas Vehiculos</a>
                             </div>
+                            @if (Auth::user()->nivel == 1)
+                                <div class="nav-item" onclick=" console.log('hola '); event.preventDefault() ;viewTerminal()">
+                                    <a href="" id="btn_menu_terminales"  class="menu-item"><i
+                                            class="fa fa-address-book"></i> Terminales Aereas</a>
+                                </div>
+                            @endif
                         </nav>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\credvisitaController;
 use App\Http\Controllers\empresaController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\TermAeroController;
 use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\vehiculoController;
 use App\Models\Empresas;
@@ -41,7 +42,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     Route::get('query_buscar_A', [credencialesController::class, 'query_buscar_A']);
     Route::post('query_renovar_creden/{tipo}', [credencialesController::class, 'query_renovar_creden']);
     // * mod credencial
-    Route::get('query_update_TLC',[credencialesController::class,'query_update_TLC']);
+    Route::get('query_update_TLC', [credencialesController::class, 'query_update_TLC']);
     // * credencial formato
     Route::get('query_cons_1', [credencialesController::class, 'query_cons_1']);
     Route::get('pdf_creden_emp_a/{e}/{t}', [credencialesController::class, 'pdf_creden_emp_a']);
@@ -72,9 +73,13 @@ Route::group(['prefix' => 'Vehiculo'], function () {
     Route::get('view_vei_home', [vehiculoController::class, 'view_1']);
     Route::get('query_list1', [vehiculoController::class, 'query_list1']);
     Route::get('query_detalle_1', [vehiculoController::class, 'query_detalle_1']);
-    Route::get('create_1', [vehiculoController::class,'create_1']);
-    Route::post('query_store_1',[vehiculoController::class,'store_1']);
+    Route::get('create_1', [vehiculoController::class, 'create_1']);
+    Route::post('query_store_1', [vehiculoController::class, 'store_1']);
     // * rutas para pdf de viñetas
     Route::get('pdf_viñeta_1/{e}/{f}/{t}', [vehiculoController::class, 'pdf_viñeta_1']);
-
+});
+Route::group(['prefix' => 'terminal'], function () {
+    Route::get('view_home',[TermAeroController::class, 'index']);
+    Route::get('query_list_1',[TermAeroController::class, 'query_list_1']);
+    Route::post('query_create_1',[TermAeroController::class, 'query_create_1']);
 });

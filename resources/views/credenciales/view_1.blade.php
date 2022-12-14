@@ -25,11 +25,22 @@
                                     placeholder="Buscar por NOMBRE o CI">
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-3" style="text-align: rigth ;">
+                            <div class="input-group mb-2 mr-sm-4">
+                                <div class="input-group-prepend ">
+                                    <div class="input-group-text"><i class="ik ik-map"></i></div>
+                                </div>
+                                <select class=" form-control form-control-sm" name="" id="">
+                                    <option value="">Seleccione Estacion</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
                         </div>
                         <div class="col-lg-2">
-                            <button type="button" onclick="btn_creden_add_item()" class="btn btn-primary mb-2 btn-block"><i
-                                    class="fa fa-plus-circle"></i> Agregar </button>
+                            <button type="button" onclick="btn_creden_add_item()"
+                                class="btn btn-primary mb-2 btn-block"><i class="fa fa-plus-circle"></i> Agregar
+                            </button>
                         </div>
                     </div>
                 </div>

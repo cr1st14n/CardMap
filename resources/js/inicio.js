@@ -61,7 +61,11 @@ $(" #btn_menu_viculos").click(function (e) {
         $("#main_cont").html(data);
     });
 });
-
+const viewTerminal = () => {
+    $.get("terminal/view_home", function (data, textStatus, jqXHR) {
+        $("#main_cont").html(data);
+    });
+};
 function noti_fi(tp, tx) {
     switch (tp) {
         case 1:
@@ -326,13 +330,11 @@ function noti_fi(tp, tx) {
             }),
             t(".remove-widget").on("click", function () {
                 var e = t(this);
-                e
-                    .parents(".widget")
-                    .animate({
-                        opacity: "0",
-                        "-webkit-transform": "scale3d(.3, .3, .3)",
-                        transform: "scale3d(.3, .3, .3)",
-                    }),
+                e.parents(".widget").animate({
+                    opacity: "0",
+                    "-webkit-transform": "scale3d(.3, .3, .3)",
+                    transform: "scale3d(.3, .3, .3)",
+                }),
                     setTimeout(function () {
                         e.parents(".widget").remove();
                     }, 800);
@@ -349,13 +351,11 @@ function noti_fi(tp, tx) {
             ),
             t(".card-header-right .close-card").on("click", function () {
                 var e = t(this);
-                e
-                    .parents(".card")
-                    .animate({
-                        opacity: "0",
-                        "-webkit-transform": "scale3d(.3, .3, .3)",
-                        transform: "scale3d(.3, .3, .3)",
-                    }),
+                e.parents(".card").animate({
+                    opacity: "0",
+                    "-webkit-transform": "scale3d(.3, .3, .3)",
+                    transform: "scale3d(.3, .3, .3)",
+                }),
                     setTimeout(function () {
                         e.parents(".card").remove();
                     }, 800);

@@ -28,7 +28,7 @@
                         <div class="col-lg-7">
                         </div>
                         <div class="col-lg-2">
-                            <button type="button" id="btn_creden_add_item" class="btn btn-primary mb-2 btn-block"><i
+                            <button type="button" onclick="btn_creden_add_item()" class="btn btn-primary mb-2 btn-block"><i
                                     class="fa fa-plus-circle"></i> Agregar </button>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="demoModalLabel">Nuevo Credencial</h5>
+                    <h5 class="modal-title" onclick="show_1()">Nuevo Credencial</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>

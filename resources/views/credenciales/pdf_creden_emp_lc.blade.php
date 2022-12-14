@@ -206,10 +206,10 @@
         <p class="LCA">{{ $catLic }}</p>
         @if ($aero == 'LPB')
             <p class="a" style="color: black ;"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
-                {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $data->Empresa }}</p>
+                {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $em }}</p>
         @else
             <p class="a" style="color: black ;"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
-                {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $data->Empresa }}</p>
+                {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $em }}</p>
         @endif
         <p class="b">{{ $data->AreasCP }}</p>
         <p class="ci">{{ $data->CI }}</p>

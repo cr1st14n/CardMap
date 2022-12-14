@@ -28,9 +28,12 @@ var myDropzone = new Dropzone("#subImagen", {
 
 $("#btn_creden_add_item").click(function (e) {
     e.preventDefault();
+});
+const btn_creden_add_item = () => {
     $("#form_new_creden").trigger("reset");
     $("#md_add_credencial").modal("show");
-});
+};
+
 // ? ----  variables de tipo de licencia
 const sel = {
     P: ["Motocicletass", "Vehiculos Particulares"],

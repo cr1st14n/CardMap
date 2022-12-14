@@ -108,8 +108,16 @@
 
         .ci {
             position: fixed;
-            top: 555px;
+            top: 570px;
             left: 60px;
+            font-size: 30px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        .fechaVen2 {
+            position: fixed;
+            top: 600px;
+            left: 100px;
             font-size: 40px;
             font-family: sans-serif;
             font-weight: bold;
@@ -213,6 +221,10 @@
         @endif
         <p class="b">{{ $data->AreasCP }}</p>
         <p class="ci">{{ $data->CI }}</p>
+        <p class="fechaVen2">{{ $fechaFormLieteral }}</p>
+
+
+
         <p class="per"><strong style="color: red ;">
                 @if ($data->Herramientas != '')
                     H

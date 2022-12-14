@@ -204,11 +204,12 @@ class credencialesController extends Controller
             //? Entonces corta la cadena y ponle el sufijo
             $empr = substr($empr, 0, 18) . '...';
         }
+        $meses = ['01' => 'ENE', '02' => 'FEB', '03' => 'MAR', '04' => 'ABR', '05' => 'MAY', '06' => 'JUN', '07' => 'JUL', '08' => 'AGO', '09' => 'SEP', '10' => 'OCT', '11' => 'NOV', '12' => 'DIC'];
         $fe = Carbon::parse($data['Vencimiento']);
         $dfecha = $fe->format('d');
         $mfecha = $fe->format('m');
         $afecha = $fe->format('Y');
-        $meses = ['01' => 'ENE', '02' => 'FEB', '03' => 'MAR', '04' => 'ABR', '05' => 'MAY', '06' => 'JUN', '07' => 'JUL', '08' => 'AGO', '09' => 'SEP', '10' => 'OCT', '11' => 'NOV', '12' => 'DIC'];
+        $fechaFormLieteral = $dfecha . '-' . $meses[$mfecha] . '-' . $afecha;
         //? return view('credenciales.pdf_creden_emp_a');
         $rutaimgL = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg',
@@ -352,6 +353,7 @@ class credencialesController extends Controller
                     'em' => $empr,
                     'M' => $meses[$mfecha],
                     'Y' => $afecha = $fe->format('Y'),
+                    'fechaFormLieteral' => $fechaFormLieteral,
                     'ruta' => $rutaimgLC[$data['Aeropuerto_2']],
                     'aero' => $data['Aeropuerto_2'],
                 ]

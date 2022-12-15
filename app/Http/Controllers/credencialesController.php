@@ -179,6 +179,7 @@ class credencialesController extends Controller
             'Cargo',
             'CI',
             'Vencimiento',
+            'FechaVencCP',
             'Herramientas',
             'NroRenovacion',
             'Empresa',
@@ -210,6 +211,12 @@ class credencialesController extends Controller
         $mfecha = $fe->format('m');
         $afecha = $fe->format('Y');
         $fechaFormLieteral = $dfecha . '-' . $meses[$mfecha] . '-' . $afecha;
+        
+        $feCP = Carbon::parse($data['FechaVencCP']);
+        $dfechaCP = $feCP->format('d');
+        $mfechaCP = $feCP->format('m');
+        $afechaCP = $feCP->format('Y');
+        $fechaFormLieteralCP = $dfechaCP . '-' . $meses[$mfechaCP] . '-' . $afechaCP;
         //? return view('credenciales.pdf_creden_emp_a');
         $rutaimgL = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg',
@@ -353,7 +360,7 @@ class credencialesController extends Controller
                     'em' => $empr,
                     'M' => $meses[$mfecha],
                     'Y' => $afecha = $fe->format('Y'),
-                    'fechaFormLieteral' => $fechaFormLieteral,
+                    'fechaFormLieteral' => $fechaFormLieteralCP,
                     'ruta' => $rutaimgLC[$data['Aeropuerto_2']],
                     'aero' => $data['Aeropuerto_2'],
                 ]

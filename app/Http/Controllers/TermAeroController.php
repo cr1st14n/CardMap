@@ -43,7 +43,7 @@ class TermAeroController extends Controller
             't_abr' => 'required',
             't_regdep' => 'required',
         ]);
-        if ($valida) {
+        if ($valida==true) {
             return true;
         }
         return false;

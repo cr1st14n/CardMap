@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -114,6 +113,7 @@
             font-family: sans-serif;
             font-weight: bold;
         }
+
         .fechaVen2 {
             position: fixed;
             top: 600px;
@@ -222,9 +222,6 @@
         <p class="b">{{ $data->AreasCP }}</p>
         <p class="ci">{{ $data->CI }}</p>
         <p class="fechaVen2">{{ $fechaFormLieteral }}</p>
-
-
-
         <p class="per"><strong style="color: red ;">
                 @if ($data->Herramientas != '')
                     H
@@ -238,7 +235,7 @@
         <img class="s2dapag" src="{{ asset('resources/plantilla/CREDENCIALESFOTOS/TODOSREVERSOlc.jpg') }}"
             alt="">
         <p class="ll1">
-            @if ($catLic == 'A'|| $catLic == 'B' || $catLic == 'C')
+            @if ($catLic == 'A' || $catLic == 'B' || $catLic == 'C')
                 {{ $LiA }}
             @endif
         </p>
@@ -248,7 +245,7 @@
             @endif
         </p>
         <p class="ll3">
-            @if ($catLic == 'C' )
+            @if ($catLic == 'C')
                 {{ $LiC }}
             @endif
         </p>
@@ -258,5 +255,4 @@
             @endif
         </p>
 </body>
-
 </html>

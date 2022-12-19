@@ -25,17 +25,24 @@
                                     placeholder="Buscar por NOMBRE o CI">
                             </div>
                         </div>
-                        <div class="col-lg-3" style="text-align: rigth ;">
+                        <div class="col-lg-4" style="text-align: rigth ;">
                             <div class="input-group mb-2 mr-sm-4">
                                 <div class="input-group-prepend ">
                                     <div class="input-group-text"><i class="ik ik-map"></i></div>
                                 </div>
-                                <select class=" form-control form-control-sm" name="" id="">
-                                    <option value="">Seleccione Estacion</option>
+                                <select class=" form-control form-control-sm" name="" id="selTerminal"
+                                    onchange="changeTerminal(this.value)">
+                                    <option value="" selected disabled>Seleccione Estacion</option>
+                                    <option value="todo">Todos</option>
+                                    @foreach ($terminals as $ter)
+                                        <option value="{{ $ter->ta_sigla }}">{{ $ter->ta_sigla }} |
+                                            {{ $ter->ta_nombre }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                         </div>
                         <div class="col-lg-2">
                             <button type="button" onclick="btn_creden_add_item()"
@@ -96,6 +103,9 @@
                                     <select class="form-control form-bg-primary" name="nc_aeropuerto">
                                         <option value="LPB">EL ALTO</option>
                                         <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
+                                        <option value="UYU">JOYA ANDINA</option>
+                                        <option value="ORU">JUAN MENDOZA</option>
+                                        <option value="RBQ">RURRENABAQUE</option>
                                     </select>
                                     <b>Aeropuerto </b>
                                 </div>
@@ -361,6 +371,10 @@
                                         name="nc_aeropuerto_edit" id="nc_aeropuerto_edit">
                                         <option value="LPB">EL ALTO</option>
                                         <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
+                                        <option value="UYU">JOYA ANDINA</option>
+                                        <option value="ORU">JUAN MENDOZA</option>
+                                        <option value="RBQ">RURRENABAQUE</option>
+                                       
                                     </select>
                                     <b>Aeropuerto </b>
                                 </div>

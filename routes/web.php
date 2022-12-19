@@ -40,6 +40,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     Route::post('query_edit_emp', [credencialesController::class, 'query_edit_emp']);
     Route::post('query_update_emp', [credencialesController::class, 'query_update_emp']);
     Route::get('query_buscar_A', [credencialesController::class, 'query_buscar_A']);
+    Route::get('query_buscar_B', [credencialesController::class, 'query_buscar_B']);
     Route::post('query_renovar_creden/{tipo}', [credencialesController::class, 'query_renovar_creden']);
     // * mod credencial
     Route::get('query_update_TLC', [credencialesController::class, 'query_update_TLC']);

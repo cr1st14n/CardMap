@@ -189,25 +189,30 @@ function fun_credeEmp_emage(param, tipo) {
 function fun_credeEmp_print(param) {
     console.log(param);
 }
+// * ----- funciones de busqueeda
 function queryShow_1() {
-    $.ajax({
-        type: "get",
-        url: "credenciales/queryShow_1",
-        // data: "data",
-        // dataType: "dataType",
-        success: function (res) {
-            lista_table_creden(res);
-        },
-    });
+    $("#view_1_body_1").html('');
+
+    // $.ajax({
+    //     type: "get",
+    //     url: "credenciales/queryShow_1",
+    //     // data: "data",
+    //     // dataType: "dataType",
+    //     success: function (res) {
+    //         lista_table_creden(res);
+    //     },
+    // });
 }
+
 function input_busqueda_creden(param) {
     if (param.length != 0) {
         $.ajax({
-            type: "get",
+            type: "GET",
             url: "credenciales/query_buscar_A",
-            data: { text: param },
+            data: { text: param,term:$('#selTerminal').val() },
             // dataType: "dataType",
             success: function (response) {
+                console.log(response);
                 lista_table_creden(response);
             },
         });
@@ -215,6 +220,21 @@ function input_busqueda_creden(param) {
         queryShow_1();
     }
 }
+changeTerminal = (val) => {
+    data = { text: val };
+    console.log(JSON.stringify(data));
+  res= window.fetch('credenciales/query_buscar_B?text='+val, {
+        // method: "POST", // or 'PUT'
+        // headers: {
+        //     "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(data),
+    })
+        .then((response) => response.json())
+        .then((data) =>  lista_table_creden(data) )
+        .catch(console.log('error server '));
+};
+
 function lista_table_creden(res) {
     html = res
         .map(function (e) {
@@ -265,6 +285,8 @@ function lista_table_creden(res) {
         .join(" ");
     $("#view_1_body_1").html(html);
 }
+
+// *----\\\\--------------
 
 function fun_renovar_creden(id, param) {
     switch (param) {
@@ -337,7 +359,6 @@ function fun_renovar_creden(id, param) {
             break;
     }
 }
-
 function tipoLicen() {
     console.log($("input[name=tipo_lic]:checked").val());
     switch ($("input[name=tipo_lic]:checked").val()) {

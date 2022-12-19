@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresas;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class empresaController extends Controller
 {
@@ -25,6 +26,7 @@ class empresaController extends Controller
             ->orWhere('RepLegal', 'like', '%' . $request->input('data') . '%')
             ->get();
     }
+   
     public function query_create(Request $request)
     {
         $n = new Empresas();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empleados;
 use App\Models\Empresas;
+use App\Models\termAero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,8 +24,8 @@ class credencialesController extends Controller
     }
     public function view_1()
     {
-        // return session('aero');
-        switch (session('aero')) {
+        //  return Auth::user()->aeropuerto 
+        switch (Auth::user()->aeropuerto) {
             case 'LP':
                 $aero = 'LPB';
                 break;
@@ -38,7 +39,7 @@ class credencialesController extends Controller
                 # code...
                 break;
         }
-        $em = Empleados::where('aeropuerto', $aero)
+        $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
             ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
             ->select(
                 'Empleados.idEmpleado',
@@ -54,8 +55,12 @@ class credencialesController extends Controller
             )
             ->orderBy('codigo', 'asc')
             ->get();
+        $termAero = termAero::where('ta_depen_cod', Auth::user()->aeropuerto)->orderBy('ta_sigla', 'asc')->get();
         $empresas = Empresas::orderBy('NombEmpresa', 'asc')->get();
-        return view('credenciales.view_1')->with('Empr', $empresas)->with('e', $em);
+        return view('credenciales.view_1')
+            ->with('Empr', $empresas)
+            ->with('e', $em)
+            ->with('terminals', $termAero);
     }
     public function queryCreate_1(Request $request)
     {
@@ -211,7 +216,7 @@ class credencialesController extends Controller
         $mfecha = $fe->format('m');
         $afecha = $fe->format('Y');
         $fechaFormLieteral = $dfecha . '-' . $meses[$mfecha] . '-' . $afecha;
-        
+
         $feCP = Carbon::parse($data['FechaVencCP']);
         $dfechaCP = $feCP->format('d');
         $mfechaCP = $feCP->format('m');
@@ -451,30 +456,99 @@ class credencialesController extends Controller
                 # code...
                 break;
         }
-        $em = Empleados::where('aeropuerto', $aero)->where(function ($query) use ($r) {
-            $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
-                ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
-                ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
-                ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
-        })
-            ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
-            ->select(
-                'Empleados.idEmpleado',
-                'Empleados.Codigo',
-                'Empleados.Nombre',
-                'Empleados.Paterno',
-                'Empleados.Materno',
-                'Empleados.CI',
-                'Empleados.urlphoto',
-                'Empleados.Vencimiento',
-                'Empleados.NroRenovacion',
-                'Empleados.CategoriaLic',
-                'Empresas.NombEmpresa'
-            )
-            ->orderBy('codigo', 'asc')
-            ->limit(100)
-            ->get();
+        if ($request->input('term') == 'todo') {
+            $em = Empleados::where('aeropuerto', $aero)->where(function ($query) use ($r) {
+                $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
+                })
+                ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->select(
+                    'Empleados.idEmpleado',
+                    'Empleados.Codigo',
+                    'Empleados.Nombre',
+                    'Empleados.Paterno',
+                    'Empleados.Materno',
+                    'Empleados.CI',
+                    'Empleados.urlphoto',
+                    'Empleados.Vencimiento',
+                    'Empleados.NroRenovacion',
+                    'Empleados.CategoriaLic',
+                    'Empresas.NombEmpresa'
+                )
+                ->orderBy('codigo', 'asc')
+                ->limit(40)
+                ->get();
+        } else {
+            $em = Empleados::where('aeropuerto_2', $request->input('term'))->where(function ($query) use ($r) {
+                $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
+                })
+                ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->select(
+                    'Empleados.idEmpleado',
+                    'Empleados.Codigo',
+                    'Empleados.Nombre',
+                    'Empleados.Paterno',
+                    'Empleados.Materno',
+                    'Empleados.CI',
+                    'Empleados.urlphoto',
+                    'Empleados.Vencimiento',
+                    'Empleados.NroRenovacion',
+                    'Empleados.CategoriaLic',
+                    'Empresas.NombEmpresa'
+                )
+                ->orderBy('codigo', 'asc')
+                ->limit(40)
+                ->get();
+        }
         return $em;
+    }
+    public function query_buscar_B(Request $request)
+    {
+        if ($request->input('text') == 'todo') {
+            return  $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
+                ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->select(
+                    'Empleados.idEmpleado',
+                    'Empleados.Codigo',
+                    'Empleados.Nombre',
+                    'Empleados.Paterno',
+                    'Empleados.Materno',
+                    'Empleados.CI',
+                    'Empleados.urlphoto',
+                    'Empleados.Vencimiento',
+                    'Empleados.NroRenovacion',
+                    'Empresas.NombEmpresa',
+                )
+                ->orderBy('codigo', 'asc')
+                ->get();
+        } else {
+            # code...
+            return
+                $em = Empleados::where('aeropuerto_2', $request->input('text'))
+
+                ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->select(
+                    'Empleados.idEmpleado',
+                    'Empleados.Codigo',
+                    'Empleados.Nombre',
+                    'Empleados.Paterno',
+                    'Empleados.Materno',
+                    'Empleados.CI',
+                    'Empleados.urlphoto',
+                    'Empleados.Vencimiento',
+                    'Empleados.NroRenovacion',
+                    'Empleados.CategoriaLic',
+                    'Empresas.NombEmpresa'
+                )
+                ->orderBy('codigo', 'asc')
+                ->limit(100)
+                ->get();
+        }
     }
     public function query_renovar_creden($tipo, Request $request)
     {

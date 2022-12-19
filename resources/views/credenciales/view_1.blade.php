@@ -98,19 +98,19 @@
                                     <b>Tipo de Credencial</b>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 <div class="form-group small">
                                     <select class="form-control form-bg-primary" name="nc_aeropuerto">
-                                        <option value="LPB">EL ALTO</option>
-                                        <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
-                                        <option value="UYU">JOYA ANDINA</option>
-                                        <option value="ORU">JUAN MENDOZA</option>
-                                        <option value="RBQ">RURRENABAQUE</option>
+                                        @foreach ($terminals as $ter)
+                                            <option value="{{ $ter->ta_sigla }}">{{ $ter->ta_sigla }} |
+                                                {{ $ter->ta_nombre }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <b>Aeropuerto </b>
                                 </div>
                             </div>
-                            <div class=" col-sm-6"></div>
+                            <div class=" col-sm-4"></div>
                             <div class="col-sm-3">
                                 <div class="form-group  small ">
                                     <input type="text" class="form-control form-control-sm " name="nc_ci" required
@@ -355,8 +355,8 @@
                         <div class="form-group row ">
                             <div class="col-sm-3">
                                 <div class="form-group ">
-                                    <select class="select_update" name="nc_tipo_edit" id="nc_tipo_edit"
-                                        style="background-color: blue">
+                                    <select class="select_update" style="background-color: blue" name="nc_tipo_edit"
+                                        id="nc_tipo_edit">
                                         <option value="L">Local</option>
                                         <option value="T">Temporal</option>
                                         <option value="N"><strong class=" text-danger">Nacional</strong>
@@ -365,21 +365,21 @@
                                     <b>Tipo de Credencial</b>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
                                 <div class="form-group ">
                                     <select class="select_update" style="background-color: red"
                                         name="nc_aeropuerto_edit" id="nc_aeropuerto_edit">
-                                        <option value="LPB">EL ALTO</option>
-                                        <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
-                                        <option value="UYU">JOYA ANDINA</option>
-                                        <option value="ORU">JUAN MENDOZA</option>
-                                        <option value="RBQ">RURRENABAQUE</option>
-                                       
+                                        @foreach ($terminals as $ter)
+                                            <option value="{{ $ter->ta_sigla }}">{{ $ter->ta_sigla }} |
+                                                {{ $ter->ta_nombre }}
+                                            </option>
+                                        @endforeach
+
                                     </select>
                                     <b>Aeropuerto </b>
                                 </div>
                             </div>
-                            <div class=" col-sm-6"></div>
+                            <div class=" col-sm-4"></div>
                             <div class="col-sm-3">
                                 <div class="form-group  small ">
                                     <input type="text" class="form-control form-control-sm " name="nc_ci_edit"
@@ -408,10 +408,10 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <select class="  select_update" style="color: black" id="nc_em_edit_id"
-                                        name="nc_em_edit">
+                                    <select class="select_update" style="background-color: gray" id="nc_em_edit_id"
+                                        name="nc_em_edit_id">
                                         @foreach ($Empr as $e)
-                                            <option value="{{ $e->Empresa }}">
+                                            <option value="{{ trim($e->Empresa) }}">
                                                 {{ $e->NombEmpresa }}</option>
                                         @endforeach
                                     </select>
@@ -462,44 +462,6 @@
                                     <b>Fecha de Vencimiento</b>
                                 </div>
                             </div>
-                            {{-- <div class="col-sm-3">
-                                <div class="form-group">
-                                    <select name="" id="nc_acci_edit" name="nc_acci_edit" >
-                                        <option value="C">Dar de Alta</option>
-                                        <option value="S">Credencial Extraviada</option>
-                                        <option value="V">Credencial Robada</option>
-                                        <option value="D">Dar de Baja</option>
-                                        <option value="U">Tramite no Concluido</option>
-                                    </select>
-                                    <b>Acciones</b>
-                                </div>
-                            </div> --}}
-                            {{-- <h5 class=" col-sm-12">Permiso de Coduccion en tierra</h5>
-
-                            <div class="col-sm-12 row">
-                                <div class="col-sm-3">
-                                    <div class="form-group small">
-                                        <select class="select_update" style="background-color:darkslategrey"
-                                            name="nc_t_licencia_edit" id="nc_t_licencia_edit">
-                                            <option value="">Ninguna</option>
-                                            <option value="P">Particular P</option>
-                                            <option value="A">Profecional A</option>
-                                            <option value="B">Profecional B</option>
-                                            <option value="C">Profecional C</option>
-                                        </select>
-                                        <b>Tipo de licencia</b>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9" id="option_tipo_lic_veh_edit">
-
-                                </div>
-                                <div class=" col-sm-3 form-group">
-                                    <input type="text" class=" form-control form-control-sm"
-                                        name="nc_AreasCp_edit" id="nc_AreasCp_edit" placeholder="-#-#--#-"
-                                        pattern="[0-9_-]{8}" maxlength="8">
-                                    <b>Areas Autorizadas</b>
-                                </div>
-                            </div> --}}
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">
                                 <div class="form-group small">
@@ -515,14 +477,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <select class="" name="nc_estCiv_edit" id="nc_estCiv_edit"
-                                        style="background: transparent;
-                                        border-color:black;
-                                        border:1px solid #d9d9d9;
-                                    font-size: 14px;
-                                    height: 30px;
-                                    padding: 5px;
-                                    width: 100%;">
+                                    <select class="select_update" style="background-color: gray"
+                                        name="nc_estCiv_edit" id="nc_estCiv_edit">
                                         <option value="C">Casado</option>
                                         <option value="S">Soltero</option>
                                         <option value="V">Viudo</option>

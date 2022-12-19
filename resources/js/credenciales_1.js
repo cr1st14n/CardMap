@@ -12,72 +12,15 @@ function fun_credeEmp_edit(param) {
         },
         // dataType: "dataType",
         success: function (response) {
-            console.log(response);
             $("#md_update_credencial").modal("show");
-            if (
-                response.data_vehi_aut == null ||
-                response.data_vehi_aut["tipo"] == null
-            ) {
-                setTimeout(() => {
-                    $("#option_tipo_lic_veh_edit").html("");
-                }, 500);
-                // LT=''
-            } else {
-                cad = response.data_vehi_aut["list"].split(",");
-                vehi = "";
-                cad.forEach((a, i) => {
-                    console.log(a);
-                    if (a != "0") {
-                        vehi += [i];
-                    }
-                });
-                console.log(cad);
-                sel_1[response.data_vehi_aut["tipo"]] = cad;
-                setTimeout(() => {
-                    $("#option_tipo_lic_veh_edit").html("");
-                }, 700);
-                setTimeout(() => {
-                    html = cad
-                        .map(function (p, i) {
-                            selec_chek = "";
-                            if (p == "1") {
-                                selec_chek = "checked=true";
-                            }
-                            return (html = `
-                                <div class="checkbox-fade fade-in-default">
-                                    <label>
-                                        <input type="checkbox" name="tipo_vehiculo_aut${i}" ${selec_chek} value="${p}" onchange="saveTipoLicencia('${
-                                response.data_vehi_aut.tipo
-                            }','${i}')" >
-                                        <span class="cr">
-                                            <i class="cr-icon ik ik-check text-warning"></i>
-                                        </span>
-                                        <span>${
-                                            sel[response.data_vehi_aut["tipo"]][
-                                                i
-                                            ]
-                                        }</span>
-                                    </label>
-                                </div>
-                        `);
-                        })
-                        .join(" ");
-                    $("#option_tipo_lic_veh_edit").html(html);
-                }, 1000);
-            }
 
-            $("#nc_tipo_edit").val(response.Tipo);
-            $("#nc_aeropuerto_edit").val(response.aeropuerto_2);
+            console.log(response.Empresa);
+          
             $("input[name=nc_ci_edit]").val(response.CI);
             $("input[name=nc_nom_edit]").val(response.Nombre);
             $("input[name=nc_pa_edit]").val(response.Paterno);
             $("input[name=nc_ma_edit]").val(response.Materno);
             $("#nc_em_edit_id").val(response.Empresa);
-
-            // $("#nc_em_edit_id").append(
-            //     `<option value="${response.Empresa}" selected>${response.NombEmpresa}</option>`
-            // );
-
             $("input[name=nc_car_edit]").val(response.Cargo);
             $("input[name=nc_codt_edit]").val(response.CodigoTarjeta);
             $("input[name=nc_codMy_edit]").val(response.CodMYFARE);
@@ -99,15 +42,21 @@ function fun_credeEmp_edit(param) {
             $("input[name=nc_11_edit]").val(response.TelTrab);
             $("input[name=nc_12_edit]").val(response.DirTrab);
             $("input[name=nc_13_edit]").val(response.Observacion);
+           
             $("#nc_estCiv_edit").val(response.EstCivil);
             $("#nc_sexo_edit").val(response.Sexo);
-            $("#nc_t_licencia_edit").val(response.data_vehi_aut["tipo"]);
+            
+            $("#nc_aeropuerto_edit").val(response.aeropuerto_2);
+            $("#nc_tipo_edit").val(response.tipo);
+
             idEmpleadoEdit = response.idEmpleado;
-            $("#option_tipo_lic_veh_edit").html("");
+
+
         },
     });
 }
 function update_creden(val) {
+    console.log($("#form_update_creden").serialize() );
     if ($("#nc_t_licencia_edit").val() == "") {
         LT = { tipo: "", list: "" };
     }
@@ -221,18 +170,10 @@ function input_busqueda_creden(param) {
     }
 }
 changeTerminal = (val) => {
-    data = { text: val };
-    console.log(JSON.stringify(data));
-  res= window.fetch('credenciales/query_buscar_B?text='+val, {
-        // method: "POST", // or 'PUT'
-        // headers: {
-        //     "Content-Type": "application/json",
-        // },
-        // body: JSON.stringify(data),
-    })
+  res= window.fetch('credenciales/query_buscar_B?text='+val,)
         .then((response) => response.json())
         .then((data) =>  lista_table_creden(data) )
-        .catch(console.log('error server '));
+        // .catch(console.log('error server '));
 };
 
 function lista_table_creden(res) {

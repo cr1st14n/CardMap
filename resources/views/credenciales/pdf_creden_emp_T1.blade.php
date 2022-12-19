@@ -66,7 +66,7 @@
 
         p.f {
             position: fixed;
-            right: 80px;
+            right: 30px;
             top: 253px;
             font-size: 25px;
             color: black;
@@ -118,7 +118,7 @@
         <!-- <img class="img_a" src="{{ asset('resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg') }}"  alt=""> -->
         <img class="img_b" src="{{ asset($data->urlphoto) }}" alt="">
         <p class="e">{{ $M }}<br>{{ $Y }}</p>
-        <p class="f">{{ $data->Codigo }}</p>
+        <p class="f">{{ $data->Codigo }}-{{$aero}} </p>
         <p class="a"> {{ $data->Nombre }} <br>{{ $data->Paterno }} {{ $data->Materno }}<br>{{ $data->Cargo }}
             <br>{{ $em }}
         </p>

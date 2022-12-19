@@ -225,9 +225,14 @@ class credencialesController extends Controller
         //? return view('credenciales.pdf_creden_emp_a');
         $rutaimgL = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg',
-            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO1.jpg',
             'CBB' => 'resources/plantilla/CREDENCIALESFOTOS/COCHABAMBA2022.jpg',
             'VVI' => 'resources/plantilla/CREDENCIALESFOTOS/SANTACRUZAMVERSO.jpg',
+            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO1.jpg',
+            'ORU' => 'resources/plantilla/CREDENCIALESFOTOS/ORU-p.jpg',
+            'RBQ' => 'resources/plantilla/CREDENCIALESFOTOS/RBQ-p.jpg',
+            'UYU' => 'resources/plantilla/CREDENCIALESFOTOS/UYU-p.jpg',
+            'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/GYA-p.jpg',
+            'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/RIB-p.jpg',
         ];
         $rutaimgT = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALLP.jpg',
@@ -237,9 +242,12 @@ class credencialesController extends Controller
         ];
         $rutaimgLC = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-LP.jpg',
-            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-CIJ-LC.jpg',
             'CBB' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-CBB.jpg',
             'VVI' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-VVI.jpg',
+            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-CIJ-LC.jpg',
+            'RBQ' => 'resources/plantilla/CREDENCIALESFOTOS/RBQLC.jpg',
+            'UYU' => 'resources/plantilla/CREDENCIALESFOTOS/UYULC.jpg',
+            'ORU' => 'resources/plantilla/CREDENCIALESFOTOS/ORULC.jpg',
         ];
         switch ($data['Tipo']) {
             case 'N':
@@ -386,7 +394,47 @@ class credencialesController extends Controller
 
     public function query_edit_emp(Request $request)
     {
-        $emp = Empleados::where('idEmpleado', $request->input('id'))->first();
+        $emp = Empleados::select(
+                'Codigo',
+                'tipo',
+                'CI',
+                'CategoriaLic',
+                'data_vehi_aut',
+                'Nombre',
+                'Paterno',
+                'Materno',
+                'Empresa',
+                'Cargo',
+                'CodigoTarjeta',
+                'CodMYFARE',
+                'NroRenovacion',
+                'Herramientas',
+                'AreasAut',
+                'AreasCP',
+                'GSangre',
+                'aeropuerto',
+                'aeropuerto_2',
+                'Vencimiento',
+                'Fecha',
+                'FechaNac',
+                'EstCivil',
+                'Sexo',
+                'Profesion',
+                'altura',
+                'Ojos',
+                'Peso',
+                'TelDom',
+                'Direccion',
+                'TelTrab',
+                'DirTrab',
+                'Observacion',
+                'data_creden',
+                'idEmpleado',
+
+            )
+
+
+            ->where('idEmpleado', $request->input('id'))->first();
         $emp->Vencimiento = Carbon::parse($emp['Vencimiento'])->format('Y-m-d');
         $emp->FechaNac = Carbon::parse($emp['FechaNac'])->format('Y-m-d');
         $emp->Fecha = Carbon::parse($emp['Fecha'])->format('Y-m-d');
@@ -406,7 +454,7 @@ class credencialesController extends Controller
                 'Nombre' => $request->input('nc_nom_edit'),
                 'Paterno' => $request->input('nc_pa_edit'),
                 'Materno' => $request->input('nc_ma_edit'),
-                'Empresa' => $request->input('nc_em_edit'),
+                'Empresa' => $request->input('nc_em_edit_id'),
                 'Cargo' => $request->input('nc_car_edit'),
                 'CodigoTarjeta' => $request->input('nc_codt_edit'),
                 'CodMYFARE' => $request->input('nc_codMy_edit'),
@@ -509,6 +557,9 @@ class credencialesController extends Controller
     }
     public function query_buscar_B(Request $request)
     {
+        // return Empleados::where('aeropuerto_2',$request->input('text'))
+        // ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+        // ->first();
         if ($request->input('text') == 'todo') {
             return  $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
@@ -530,7 +581,6 @@ class credencialesController extends Controller
             # code...
             return
                 $em = Empleados::where('aeropuerto_2', $request->input('text'))
-
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
                 ->select(
                     'Empleados.idEmpleado',

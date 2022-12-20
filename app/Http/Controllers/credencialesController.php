@@ -291,6 +291,7 @@ class credencialesController extends Controller
                     [
                         'data' => $data,
                         'em' => $empr,
+                        'fechaFormLieteral' => $fechaFormLieteral,
                         'M' => $meses[$mfecha],
                         'Y' => $fe->format('Y'),
                         'ruta' => $rutaimgT[$data['Aeropuerto_2']],

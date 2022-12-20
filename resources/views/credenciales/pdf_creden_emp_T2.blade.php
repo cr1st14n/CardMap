@@ -28,7 +28,7 @@
 
         p.a {
             position: relative;
-            top: 400px;
+            top: 380px;
             left: 90px;
             font-size: 30px;
             text-transform: uppercase;
@@ -63,7 +63,7 @@
 
         p.f {
             position: fixed;
-            right: 75px;
+            right: 10px;
             top: 105px;
             font-size: 30px;
             color: black;
@@ -71,9 +71,9 @@
         }
         p.date {
             position: fixed;
-            right: 75px;
-            top: 105px;
-            font-size: 30px;
+            right: 125px;
+            top: 610px;
+            font-size: 35px;
             color: black;
             font-weight: bold;
         }
@@ -122,8 +122,8 @@
         <!-- <img class="img_a" src="{{asset('resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg')}}"  alt=""> -->
         <img class="img_b" src="{{asset($data->urlphoto)}}" alt="">
         <!-- <p class="e">{{$M}}<br>{{$Y}}</p> -->
-        <p class="date">{{$fecha}}</p>
-        <p class="f"> asdf{{$data->Codigo}}</p>
+        <p class="date">{{$fechaFormLieteral}}</p>
+        <p class="f"> {{$data->Codigo}}-{{$aero}}</p>
         <p class="a"> {{$data->Nombres}} <br>{{$data->Paterno}} {{$data->Materno}}<br>{{$data->Cargo}} <br>{{$data->Empresa}}</p>
         <p class="b">{{$data->AreasAut}}</p>
         <p class="ci">{{$data->CI}}</p>

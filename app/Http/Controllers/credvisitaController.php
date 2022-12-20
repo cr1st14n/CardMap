@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleados;
+use App\Models\termAero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,9 @@ class credvisitaController extends Controller
 {
     public function viewHome()
     {
-        return view('credenciales.view_cv');
+        $termAero = termAero::where('ta_depen_cod', Auth::user()->aeropuerto)->orderBy('ta_sigla', 'asc')->get();
+
+        return view('credenciales.view_cv')->with('emps',$termAero);
     }
     public function query_listCV(Request $request)
     {

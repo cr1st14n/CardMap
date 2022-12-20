@@ -68,8 +68,11 @@
                             <div class="col-sm-6">
                                 <div class="form-group small">
                                     <select class="form-control form-bg-primary" name="ncv_aeropuerto">
-                                        <option value="LPB">EL ALTO</option>
-                                        <option value="CIJ">CAP. AV. ANIBAL ARAB FADUL</option>
+                                        @foreach ($emps as $ter)
+                                            <option value="{{ $ter->ta_sigla }}">{{ $ter->ta_sigla }} |
+                                                {{ $ter->ta_nombre }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <b>Aeropuerto </b>
                                 </div>

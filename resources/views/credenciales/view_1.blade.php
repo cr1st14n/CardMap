@@ -193,7 +193,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" name="nc_fv">
+                                    <input type="date" class="form-control" name="nc_fv" min="2020-01-01">
                                     <b>Fecha de Vencimiento</b>
                                 </div>
                             </div>
@@ -237,13 +237,13 @@
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="nc_f_in">
+                                    <input type="date" class="form-control" name="nc_f_in" min="2000-01-01">
                                     <b>Fecha de Igreso</b>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="nc_FNac">
+                                    <input type="date" class="form-control" name="nc_FNac" min="18000-01-01">
                                     <b>Fecha de Nacimiento</b>
                                 </div>
                             </div>
@@ -337,7 +337,6 @@
             padding: 5px;
             color: white;
             width: 100%;
-
         }
     </style>
     <div class="modal fade" id="md_update_credencial" tabindex="-1" role="dialog"
@@ -458,20 +457,20 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" name="nc_fv_edit">
+                                    <input type="date" class="form-control" name="nc_fv_edit" min="2000-01-01">
                                     <b>Fecha de Vencimiento</b>
                                 </div>
                             </div>
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="nc_f_in_edit">
+                                    <input type="date" class="form-control" name="nc_f_in_edit" min="2000-01-01">
                                     <b>Fecha de Igreso</b>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="nc_FNac_edit">
+                                    <input type="date" class="form-control" name="nc_FNac_edit" min="1800-01-01">
                                     <b>Fecha de Nacimiento</b>
                                 </div>
                             </div>
@@ -704,7 +703,7 @@
                         <div class=" col-sm-4 form-group">
                             <b style="font-size: 12px">Fecha Vencimiento</b>
                             <input type="date" class=" form-control form-control-sm" name="pcp_fechaVencimiento"
-                                id="pcp_fechaVencimiento">
+                                id="pcp_fechaVencimiento" min="2000-01-01">
                         </div>
                         <div class=" col-sm-4 form-group">
                             <b style="font-size: 12px"># de Factura</b>

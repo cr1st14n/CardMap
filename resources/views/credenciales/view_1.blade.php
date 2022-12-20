@@ -243,7 +243,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="nc_FNac" min="18000-01-01">
+                                    <input type="date" class="form-control" name="nc_FNac" min="1800-01-01">
                                     <b>Fecha de Nacimiento</b>
                                 </div>
                             </div>

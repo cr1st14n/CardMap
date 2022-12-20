@@ -22,7 +22,7 @@ class loginController extends Controller
             return 0;
         }
         $credenciales = request()->only('codusr', 'password', 'aeropuerto');
-        if ($u['aeropuerto'] == 'T') {
+        if ($u['aeropuerto'] == 'LPB') {
             $credenciales = request()->only('codusr', 'password');
         }
         if (Auth::attempt($credenciales)) {

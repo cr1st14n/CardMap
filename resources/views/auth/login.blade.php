@@ -96,7 +96,7 @@
                 data: $('#formLogin').serialize(),
                 success: function(e) {
                     console.log(e);
-                    if (e == 'success') {
+                    if (e == 'success' ) {
                         window.location.href = 'index/';
                     } else if (e == 0) {
                         params = {

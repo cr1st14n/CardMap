@@ -124,7 +124,7 @@
         <!-- <p class="e">{{$M}}<br>{{$Y}}</p> -->
         <p class="date">{{$fechaFormLieteral}}</p>
         <p class="f"> {{$data->Codigo}}-{{$aero}}</p>
-        <p class="a"> {{$data->Nombre}} <br>{{$data->Paterno}} {{$data->Materno}}<br>{{$data->Cargo}} <br>{{$em}}</p>
+        <p class="a"> {{$data->Nombre}} <br>{{$data->Paterno}} {{$data->Materno}}<br>{{$data->Cargo}} <br>{{$em2}}</p>
         <p class="b">{{$data->AreasAut}}</p>
         <p class="ci">{{$data->CI}}</p>
         <p class="per"><strong style="color: red ;"> @if($data->Herramientas != '') H @endif</strong> <br> @if($data->NroRenovacion != 0) D @endif</p>

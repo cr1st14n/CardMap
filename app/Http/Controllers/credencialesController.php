@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Isset_;
+use PhpParser\Node\Stmt\Return_;
 
 class credencialesController extends Controller
 {
@@ -403,43 +404,43 @@ class credencialesController extends Controller
     public function query_edit_emp(Request $request)
     {
         $emp = Empleados::select(
-                'Codigo',
-                'tipo',
-                'CI',
-                'CategoriaLic',
-                'data_vehi_aut',
-                'Nombre',
-                'Paterno',
-                'Materno',
-                'Empresa',
-                'Cargo',
-                'CodigoTarjeta',
-                'CodMYFARE',
-                'NroRenovacion',
-                'Herramientas',
-                'AreasAut',
-                'AreasCP',
-                'GSangre',
-                'aeropuerto',
-                'aeropuerto_2',
-                'Vencimiento',
-                'Fecha',
-                'FechaNac',
-                'EstCivil',
-                'Sexo',
-                'Profesion',
-                'altura',
-                'Ojos',
-                'Peso',
-                'TelDom',
-                'Direccion',
-                'TelTrab',
-                'DirTrab',
-                'Observacion',
-                'data_creden',
-                'idEmpleado',
+            'Codigo',
+            'tipo',
+            'CI',
+            'CategoriaLic',
+            'data_vehi_aut',
+            'Nombre',
+            'Paterno',
+            'Materno',
+            'Empresa',
+            'Cargo',
+            'CodigoTarjeta',
+            'CodMYFARE',
+            'NroRenovacion',
+            'Herramientas',
+            'AreasAut',
+            'AreasCP',
+            'GSangre',
+            'aeropuerto',
+            'aeropuerto_2',
+            'Vencimiento',
+            'Fecha',
+            'FechaNac',
+            'EstCivil',
+            'Sexo',
+            'Profesion',
+            'altura',
+            'Ojos',
+            'Peso',
+            'TelDom',
+            'Direccion',
+            'TelTrab',
+            'DirTrab',
+            'Observacion',
+            'data_creden',
+            'idEmpleado',
 
-            )
+        )
 
 
             ->where('idEmpleado', $request->input('id'))->first();
@@ -496,6 +497,7 @@ class credencialesController extends Controller
     }
     public function query_buscar_A(Request $request)
     {
+        // return $request;
         $r = $request->input('text');
         switch (session('aero')) {
             case 'LP':
@@ -512,14 +514,15 @@ class credencialesController extends Controller
                 # code...
                 break;
         }
-        if ($request->input('term') == 'todo') {
+        if ($request->input('term') == 'todo' || $request->input('term') == '') {
             $em = Empleados::where('aeropuerto', $aero)->where(function ($query) use ($r) {
                 $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
-                })
+            })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
                     'Empleados.idEmpleado',
                     'Empleados.Codigo',
@@ -531,7 +534,11 @@ class credencialesController extends Controller
                     'Empleados.Vencimiento',
                     'Empleados.NroRenovacion',
                     'Empleados.CategoriaLic',
-                    'Empresas.NombEmpresa'
+                    'Empresas.Empresa',
+                    'Empresas.NombEmpresa',
+                    'term_aeros.ta_sigla',
+                    'term_aeros.ta_nombre',
+
                 )
                 ->orderBy('codigo', 'asc')
                 ->limit(40)
@@ -542,8 +549,9 @@ class credencialesController extends Controller
                     ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
-                })
+            })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
                     'Empleados.idEmpleado',
                     'Empleados.Codigo',
@@ -555,7 +563,11 @@ class credencialesController extends Controller
                     'Empleados.Vencimiento',
                     'Empleados.NroRenovacion',
                     'Empleados.CategoriaLic',
-                    'Empresas.NombEmpresa'
+                    'Empresas.Empresa',
+                    'Empresas.NombEmpresa',
+                    'term_aeros.ta_nombre',
+                    'term_aeros.ta_nombre',
+
                 )
                 ->orderBy('codigo', 'asc')
                 ->limit(40)
@@ -571,6 +583,7 @@ class credencialesController extends Controller
         if ($request->input('text') == 'todo') {
             return  $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
                     'Empleados.idEmpleado',
                     'Empleados.Codigo',
@@ -581,7 +594,10 @@ class credencialesController extends Controller
                     'Empleados.urlphoto',
                     'Empleados.Vencimiento',
                     'Empleados.NroRenovacion',
+                    'Empresas.Empresa',
                     'Empresas.NombEmpresa',
+                    'term_aeros.ta_sigla',
+                    'term_aeros.ta_nombre',
                 )
                 ->orderBy('codigo', 'asc')
                 ->get();
@@ -590,6 +606,7 @@ class credencialesController extends Controller
             return
                 $em = Empleados::where('aeropuerto_2', $request->input('text'))
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
+                ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
                     'Empleados.idEmpleado',
                     'Empleados.Codigo',
@@ -601,7 +618,10 @@ class credencialesController extends Controller
                     'Empleados.Vencimiento',
                     'Empleados.NroRenovacion',
                     'Empleados.CategoriaLic',
-                    'Empresas.NombEmpresa'
+                    'Empresas.Empresa',
+                    'Empresas.NombEmpresa',
+                    'term_aeros.ta_sigla',
+                    'term_aeros.ta_nombre',
                 )
                 ->orderBy('codigo', 'asc')
                 ->limit(100)

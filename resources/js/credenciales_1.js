@@ -15,7 +15,7 @@ function fun_credeEmp_edit(param) {
             $("#md_update_credencial").modal("show");
 
             console.log(response.Empresa);
-          
+
             $("input[name=nc_ci_edit]").val(response.CI);
             $("input[name=nc_nom_edit]").val(response.Nombre);
             $("input[name=nc_pa_edit]").val(response.Paterno);
@@ -42,21 +42,19 @@ function fun_credeEmp_edit(param) {
             $("input[name=nc_11_edit]").val(response.TelTrab);
             $("input[name=nc_12_edit]").val(response.DirTrab);
             $("input[name=nc_13_edit]").val(response.Observacion);
-           
+
             $("#nc_estCiv_edit").val(response.EstCivil);
             $("#nc_sexo_edit").val(response.Sexo);
-            
+
             $("#nc_aeropuerto_edit").val(response.aeropuerto_2);
             $("#nc_tipo_edit").val(response.tipo);
 
             idEmpleadoEdit = response.idEmpleado;
-
-
         },
     });
 }
 function update_creden(val) {
-    console.log($("#form_update_creden").serialize() );
+    console.log($("#form_update_creden").serialize());
     if ($("#nc_t_licencia_edit").val() == "") {
         LT = { tipo: "", list: "" };
     }
@@ -140,7 +138,7 @@ function fun_credeEmp_print(param) {
 }
 // * ----- funciones de busqueeda
 function queryShow_1() {
-    $("#view_1_body_1").html('');
+    $("#view_1_body_1").html("");
 
     // $.ajax({
     //     type: "get",
@@ -158,7 +156,7 @@ function input_busqueda_creden(param) {
         $.ajax({
             type: "GET",
             url: "credenciales/query_buscar_A",
-            data: { text: param,term:$('#selTerminal').val() },
+            data: { text: param, term: $("#selTerminal").val() },
             // dataType: "dataType",
             success: function (response) {
                 console.log(response);
@@ -170,10 +168,11 @@ function input_busqueda_creden(param) {
     }
 }
 changeTerminal = (val) => {
-  res= window.fetch('credenciales/query_buscar_B?text='+val,)
+    res = window
+        .fetch("credenciales/query_buscar_B?text=" + val)
         .then((response) => response.json())
-        .then((data) =>  lista_table_creden(data) )
-        // .catch(console.log('error server '));
+        .then((data) => lista_table_creden(data));
+    // .catch(console.log('error server '));
 };
 
 function lista_table_creden(res) {
@@ -195,7 +194,8 @@ function lista_table_creden(res) {
                     <td>${e.Codigo}</td>
                     <td>${e.Nombre} ${e.Paterno} ${e.Materno}</td>
                     <td>${e.CI}</td>
-                    <td>${e.NombEmpresa}</td>
+                    <td>${e.ta_sigla}<br/> <span style="color: red; font-size:10px"> ${e.ta_nombre}</span> </td>
+                    <td>${e.Empresa}<br/> <span style="color: red; font-size:10px"> ${e.NombEmpresa}</span> </td>
                     <td>${f}</td>
                     <td>
                         <img src="${rutaPhoto}" width="60px" alt="">

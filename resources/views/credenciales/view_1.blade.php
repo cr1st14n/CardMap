@@ -32,7 +32,7 @@
                                 </div>
                                 <select class=" form-control form-control-sm" name="" id="selTerminal"
                                     onchange="changeTerminal(this.value)">
-                                    <option value="" selected disabled>Seleccione Estacion</option>
+                                    <option value="todo" selected disabled>Seleccione Estacion</option>
                                     <option value="todo">Todos</option>
                                     @foreach ($terminals as $ter)
                                         <option value="{{ $ter->ta_sigla }}">{{ $ter->ta_sigla }} |
@@ -42,6 +42,7 @@
                                 </select>
                             </div>
                         </div>
+                        <span ></span>
                         <div class="col-lg-3">
                         </div>
                         <div class="col-lg-2">
@@ -59,6 +60,7 @@
                                     <th>Codigo</th>
                                     <th>Nombre</th>
                                     <th>C.I.</th>
+                                    <th>Terminal </th>
                                     <th>Empresa</th>
                                     <th>Vencimiento</th>
                                     <th>Imagen</th>
@@ -139,7 +141,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <select class="form-control" id="" name="nc_em">
+                                    <select class="form-control" id="" name="nc_em" required>
                                         @foreach ($Empr as $e)
                                             @if ($e->Empresa == 'NABL')
                                                 <option selected value="{{ $e->Empresa }}">{{ $e->NombEmpresa }}
@@ -197,43 +199,6 @@
                                     <b>Fecha de Vencimiento</b>
                                 </div>
                             </div>
-                            {{-- <div class="col-sm-3">
-                                <div class="form-group">
-                                    <select class="form-control" name="" id="" name="nc_acci">
-                                        <option value="C">Dar de Alta</option>
-                                        <option value="S">Credencial Extraviada</option>
-                                        <option value="V">Credencial Robada</option>
-                                        <option value="D">Dar de Baja</option>
-                                        <option value="U">Tramite no Concluido</option>
-                                    </select>
-                                    <b>Acciones</b>
-                                </div>
-                            </div> --}}
-                            <br>
-                            {{-- <h5 class=" col-sm-12">Permiso de Coduccion en tierra</h5>
-                            <div class="col-sm-12 row">
-                                <div class="col-sm-3">
-                                    <div class="form-group small">
-                                        <select class="form-control" name="nc_t_licencia" id="nc_t_licencia">
-                                            <option value="">Ninguna</option>
-                                            <option value="P">Particular P</option>
-                                            <option value="A">Profecional A</option>
-                                            <option value="B">Profecional B</option>
-                                            <option value="C">Profecional C</option>
-                                        </select>
-                                        <b>Tipo de licencia</b>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9" id="option_tipo_lic_veh">
-
-                                </div>
-                                <div class=" col-sm-3 form-group">
-                                    <input type="text" class=" form-control form-control-sm" name="nc_AreasCp"
-                                        id="nc_AreasCp" id="nc_AreasCp" placeholder="-#-#--#-" pattern="[0-9_-]{8}"
-                                        maxlength="8">
-                                    <b>Areas Autorizadas</b>
-                                </div>
-                            </div> --}}
                             <h5 class="col-sm-12">Información Adicional</h5>
                             <div class="col-sm-3">
                                 <div class="form-group small">
@@ -408,7 +373,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group small">
                                     <select class="select_update" style="background-color: gray" id="nc_em_edit_id"
-                                        name="nc_em_edit_id">
+                                        name="nc_em_edit_id" required>
                                         @foreach ($Empr as $e)
                                             <option value="{{ trim($e->Empresa) }}">
                                                 {{ $e->NombEmpresa }}</option>

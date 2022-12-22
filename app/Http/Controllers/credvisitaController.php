@@ -81,9 +81,15 @@ class credvisitaController extends Controller
 
         $rutaimgV = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/V-LPB.jpg',
-            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-CIJ-VISITA.jpg',
             'CBB' => 'resources/plantilla/CREDENCIALESFOTOS/V-CBB.jpg',
             'VVI' => 'resources/plantilla/CREDENCIALESFOTOS/V-VVI.jpg',
+            'CIJ' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-CIJ-VISITA.jpg',
+            'ORU' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-ORU-VI.jpg',
+            'RBQ' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RBQ-VI.jpg',
+            'UYU' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-UYU-VI.jpg',
+            'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-VI.jpg',
+            'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-VI.jpg',
+            'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-VI.jpg',
         ];
         $pdf = pdf::loadView(
             'credenciales.pdf_creden_v',

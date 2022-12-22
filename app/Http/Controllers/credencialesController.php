@@ -232,6 +232,7 @@ class credencialesController extends Controller
             'UYU' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-UYU-L.jpg',
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-L.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-L.jpg',
+            'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-L.jpg',
         ];
         $rutaimgT = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALLP.jpg',
@@ -243,6 +244,7 @@ class credencialesController extends Controller
             'UYU' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-UYU-T.jpg',
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-T.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-T.jpg',
+            'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-T.jpg',
         ];
         $rutaimgLC = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-LP.jpg',
@@ -254,6 +256,7 @@ class credencialesController extends Controller
             'UYU' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-UYU-PCP.jpg',
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-PCP.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-PCP.jpg',
+            'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-PCP.jpg',
         ];
         switch ($data['Tipo']) {
             case 'N':
@@ -597,7 +600,7 @@ class credencialesController extends Controller
                     'term_aeros.ta_sigla',
                     'term_aeros.ta_nombre',
                 )
-                ->orderBy('codigo', 'asc')
+                ->orderBy('codigo', 'desc')
                 ->get();
         } else {
             # code...
@@ -621,7 +624,7 @@ class credencialesController extends Controller
                     'term_aeros.ta_sigla',
                     'term_aeros.ta_nombre',
                 )
-                ->orderBy('codigo', 'asc')
+                ->orderBy('codigo', 'desc')
                 ->limit(100)
                 ->get();
         }

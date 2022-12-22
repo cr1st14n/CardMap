@@ -70,7 +70,7 @@ function noti_fi(tp, tx) {
     switch (tp) {
         case 1:
             params = {
-                heading: "Success",
+                heading: "Correcto",
                 text: tx,
                 showHideTransition: "slide",
                 icon: "success",
@@ -82,7 +82,7 @@ function noti_fi(tp, tx) {
             break;
         case 2:
             params = {
-                heading: "Info",
+                heading: "Información",
                 text: tx,
                 showHideTransition: "slide",
                 icon: "info",
@@ -92,7 +92,7 @@ function noti_fi(tp, tx) {
             break;
         case 3:
             params = {
-                heading: "Warning",
+                heading: "Alerta",
                 text: tx,
                 showHideTransition: "slide",
                 icon: "warning",
@@ -102,7 +102,7 @@ function noti_fi(tp, tx) {
             break;
         case 4:
             params = {
-                heading: "Danger",
+                heading: "Error!",
                 text: tx,
                 showHideTransition: "slide",
                 icon: "error",

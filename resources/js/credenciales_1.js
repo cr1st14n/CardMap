@@ -167,12 +167,16 @@ function input_busqueda_creden(param) {
         queryShow_1();
     }
 }
-changeTerminal = (val) => {
+changeTerminal = (val = $("#selTerminal").val()) => {
+    if (val == null) {
+        noti_fi(3, "Seleccione Terminal Aeropuertuaria");
+        return;
+    }
     res = window
         .fetch("credenciales/query_buscar_B?text=" + val)
         .then((response) => response.json())
-        .then((data) => lista_table_creden(data));
-    // .catch(console.log('error server '));
+        .then((data) => lista_table_creden(data))
+        .catch((err) => console.log("error server "));
 };
 
 function lista_table_creden(res) {

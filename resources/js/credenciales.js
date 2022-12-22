@@ -133,18 +133,16 @@ $("#form_new_creden").submit(function (e) {
         type: "post",
         url: "credenciales/query_create_1",
         data: $("#form_new_creden").serialize() + LT,
-        // data: {
-        //     _token: $("meta[name=csrf-token]").attr("content"),
-        //     dataa: $("#form_new_creden").serialize(),
-
-        // dataType: "dataType",
         success: function (response) {
             console.log(response);
             if (response == 1) {
                 $("#md_add_credencial").modal("hide");
                 $("#form_new_creden").trigger("reset");
+                noti_fi(1, "Registrado Completado.!");
                 queryShow_1();
+                return
             }
+            noti_fi(4,"Error!...")
         },
     });
 });

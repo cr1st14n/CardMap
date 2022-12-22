@@ -30,8 +30,7 @@
                                 <div class="input-group-prepend ">
                                     <div class="input-group-text"><i class="ik ik-map"></i></div>
                                 </div>
-                                <select class=" form-control form-control-sm" name="" id="selTerminal"
-                                    onchange="changeTerminal(this.value)">
+                                <select class=" form-control form-control-sm" name="" id="selTerminal">
                                     <option value="todo" selected disabled>Seleccione Estacion</option>
                                     <option value="todo">Todos</option>
                                     @foreach ($terminals as $ter)
@@ -40,9 +39,12 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                <div class="input-group-prepend ">
+                                    <button class="btn btn-facebook"  onclick="changeTerminal()"><i class="fa fa-route" style=""></i></button>
+                                </div>
                             </div>
                         </div>
-                        <span ></span>
+                        <span></span>
                         <div class="col-lg-3">
                         </div>
                         <div class="col-lg-2">

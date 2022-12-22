@@ -14,8 +14,6 @@ use PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Expr\Isset_;
-use PhpParser\Node\Stmt\Return_;
 
 class credencialesController extends Controller
 {

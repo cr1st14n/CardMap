@@ -399,7 +399,11 @@ class credencialesController extends Controller
 
     public function query_destroy_credencial(Request $request)
     {
-        return Empleados::where('idEmpleado', $request->input('id'))->delete();
+        $tipoUsu = Auth::user()->nivel;
+        if ($tipoUsu != 1) {
+            return 'error_noAtorizado';
+        }
+        return ['est' => Empleados::where('idEmpleado', $request->input('id'))->delete(), 'id' => $request->input('id')];
     }
 
     public function query_edit_emp(Request $request)
@@ -454,47 +458,41 @@ class credencialesController extends Controller
     public function query_update_emp(Request $request)
     {
         // return $request;
-        $list_vehi = ['tipo' => $request->input('nc_ltt'), 'list' => $request->input('nc_lt')];
-        return  Empleados::where('idEmpleado', $request->input('id'))->update(
-            [
-                'tipo' => $request->input('nc_tipo_edit'),
-                'CI' => $request->input('nc_ci_edit'),
-                'CategoriaLic' => $request->input('nc_t_licencia_edit'),
-                'data_vehi_aut' => serialize($list_vehi),
-                'Nombre' => $request->input('nc_nom_edit'),
-                'Paterno' => $request->input('nc_pa_edit'),
-                'Materno' => $request->input('nc_ma_edit'),
-                'Empresa' => $request->input('nc_em_edit_id'),
-                'Cargo' => $request->input('nc_car_edit'),
-                'CodigoTarjeta' => $request->input('nc_codt_edit'),
-                'CodMYFARE' => $request->input('nc_codMy_edit'),
-                'Herramientas' => $request->input('nc_he_edit'),
-                'AreasAut' => $request->input('nc_areas_acceso_edit'),
-                'AreasCP' => $request->input('nc_AreasCp_edit'),
-                'GSangre' => $request->input('nc_gs'),
-                // $new->aeropuerto = $aero;
-                'Aeropuerto_2' => $request->input('nc_aeropuerto_edit'),
-                'estado' => $request->input('nc_acci_edit'),
+        $res = Empleados::find($request->input('id'));
+        $res->tipo = $request->input('nc_tipo_edit');
+        $res->CI = $request->input('nc_ci_edit');
+        $res->CategoriaLic = $request->input('nc_t_licencia_edit');
+        $res->Nombre = $request->input('nc_nom_edit');
+        $res->Paterno = $request->input('nc_pa_edit');
+        $res->Materno = $request->input('nc_ma_edit');
+        $res->Empresa = $request->input('nc_em_edit_id');
+        $res->Cargo = $request->input('nc_car_edit');
+        $res->CodigoTarjeta = $request->input('nc_codt_edit');
+        $res->CodMYFARE = $request->input('nc_codMy_edit');
+        $res->Herramientas = $request->input('nc_he_edit');
+        $res->AreasAut = $request->input('nc_areas_acceso_edit');
+        $res->AreasCP = $request->input('nc_AreasCp_edit');
+        $res->GSangre = $request->input('nc_gs');
+        $res->Aeropuerto_2 = $request->input('nc_aeropuerto_edit');
+        $res->estado = $request->input('nc_acci_edit');
+        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-d-m');
+        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-d-m');
+        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-d-m');
+        $res->EstCivil = $request->input('nc_estCiv_edit');
+        $res->Sexo = $request->input('nc_sexo_edit');
+        $res->Profesion = $request->input('nc_pro_edit');
+        $res->altura = $request->input('nc_est_edit');
+        $res->Ojos = $request->input('nc_colojo_edit');
+        $res->Peso = $request->input('nc_maCorp_edit');
+        $res->TelDom = $request->input('nc_Fono_edit');
+        $res->Direccion = $request->input('nc_10_edit');
+        $res->TelTrab = $request->input('nc_11_edit');
+        $res->DirTrab = $request->input('nc_12_edit');
+        $res->Observacion = $request->input('nc_13_edit');
+        $res->data_creden = serialize(array());
+        $ret = $res->save();
 
-                'Vencimiento' => ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-d-m'),
-                'Fecha' => ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-d-m'),
-                'FechaNac' => ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-d-m'),
-
-                'EstCivil' => $request->input('nc_estCiv_edit'),
-                'Sexo' => $request->input('nc_sexo_edit'),
-                'Profesion' => $request->input('nc_pro_edit'),
-                'altura' => $request->input('nc_est_edit'),
-                'Ojos' => $request->input('nc_colojo_edit'),
-                'Peso' => $request->input('nc_maCorp_edit'),
-                'TelDom' => $request->input('nc_Fono_edit'),
-                'Direccion' => $request->input('nc_10_edit'),
-                'TelTrab' => $request->input('nc_11_edit'),
-                'DirTrab' => $request->input('nc_12_edit'),
-                'Observacion' => $request->input('nc_13_edit'),
-                'data_creden' => serialize(array()),
-
-            ]
-        );
+        return ["est" => $ret, 'data' => $res];
     }
     public function query_buscar_A(Request $request)
     {

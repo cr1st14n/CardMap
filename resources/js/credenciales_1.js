@@ -66,10 +66,11 @@ function update_creden(val) {
         // dataType: "dataType",
         success: function (r) {
             console.log(r);
-            if (r == 1) {
+            if (r.est == 1) {
                 $("#md_update_credencial").modal("hide");
                 $("#form_update_creden").trigger("reset");
                 noti_fi(2, "Datos Actualizados.");
+                $(`#td_fi_cren_${r.data.idEmpleado}`).replaceWith(fila_creden(r.data));
             }
         },
     });
@@ -89,11 +90,15 @@ function destroy_credencial() {
         },
         // dataType: "dataType",
         success: function (response) {
-            $("#md_show_deleteConfirm").modal("show");
-            if (response) {
+            console.log(response);
+            if (response == "error_noAtorizado") {
+                noti_fi(3, "Función no atorizada!.");
+            }
+            if (response.est) {
                 var_delete_credencial = "";
                 $("#md_show_deleteConfirm").modal("hide");
-                queryShow_1();
+                noti_fi(1, "Credencial Eliminado");
+                $("#td_fi_cren_" + response.id).remove();
             } else {
                 console.log("error");
             }
@@ -180,21 +185,28 @@ changeTerminal = (val = $("#selTerminal").val()) => {
 };
 
 function lista_table_creden(res) {
-    html = res
-        .map(function (e) {
-            var f = new Date(e.Vencimiento);
-            f = f.toLocaleDateString();
-            rutaPhoto = e.urlphoto;
-            if (e.urlphoto == null) {
-                rutaPhoto = "";
-            }
+    html = "";
+    res.map(function (e) {
+        html = `${html}${fila_creden(e)}`;
+    }).join(" ");
+    console.log(html);
+    $("#view_1_body_1").html(html);
+}
 
-            licencia = `<button class="btn btn-sm bg-green" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i>${e.CategoriaLic}</button>`;
-            if (e.CategoriaLic == null || e.CategoriaLic == "") {
-                licencia = `<button class="btn btn-sm bg-yellow" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i></button>`;
-            }
-            return (html = `
-                <tr>
+let fila_creden = (e) => {
+    var f = new Date(e.Vencimiento);
+    f = f.toLocaleDateString();
+    rutaPhoto = e.urlphoto;
+    if (e.urlphoto == null) {
+        rutaPhoto = "";
+    }
+
+    licencia = `<button class="btn btn-sm bg-green" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i>${e.CategoriaLic}</button>`;
+    if (e.CategoriaLic == null || e.CategoriaLic == "") {
+        licencia = `<button class="btn btn-sm bg-yellow" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i></button>`;
+    }
+    return (html = `
+                <tr id="td_fi_cren_${e.idEmpleado}">
                     <td>${e.Codigo}</td>
                     <td>${e.Nombre} ${e.Paterno} ${e.Materno}</td>
                     <td>${e.CI}</td>
@@ -207,7 +219,7 @@ function lista_table_creden(res) {
                     <td>${e.NroRenovacion}</td>
                     <td>
                        ${licencia}
-                    <td>
+                    <td >
                         <div class="btn-group float-md-left mr-1 mb-1">
                             <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
@@ -226,10 +238,7 @@ function lista_table_creden(res) {
                     </td>
                 </tr>
                 `);
-        })
-        .join(" ");
-    $("#view_1_body_1").html(html);
-}
+};
 
 // *----\\\\--------------
 

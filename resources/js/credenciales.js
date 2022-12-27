@@ -26,9 +26,6 @@ var myDropzone = new Dropzone("#subImagen", {
     },
 });
 
-$("#btn_creden_add_item").click(function (e) {
-    e.preventDefault();
-});
 const btn_creden_add_item = () => {
     $("#form_new_creden").trigger("reset");
     $("#md_add_credencial").modal("show");
@@ -135,14 +132,17 @@ $("#form_new_creden").submit(function (e) {
         data: $("#form_new_creden").serialize() + LT,
         success: function (response) {
             console.log(response);
-            if (response == 1) {
+            if (response.status == 1) {
                 $("#md_add_credencial").modal("hide");
                 $("#form_new_creden").trigger("reset");
                 noti_fi(1, "Registrado Completado.!");
-                queryShow_1();
-                return
+                var table = document.getElementById("view_1_body_1");
+                var row = table.insertRow(0);
+                //this adds row in 0 index i.e. first place
+                row.innerHTML = fila_creden(response.data);
+                return;
             }
-            noti_fi(4,"Error!...")
+            noti_fi(4, "Error!...");
         },
     });
 });

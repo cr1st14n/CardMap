@@ -120,7 +120,18 @@ class credencialesController extends Controller
         $new->Observacion = $request->input('nc_13');
         $new->data_creden = serialize(array());
         $res = $new->save();
-        return $res;
+        $emp=Empresas::where('Empresa',$new->Empresa)->first();
+        $term=termAero::where('ta_sigla',$new->Aeropuerto_2)->first();
+        $new->Empresa=$emp->Empresa;
+        $new->NombEmpresa=$emp->NombEmpresa;
+        $new->ta_sigla=$term->ta_sigla;
+        $new->ta_nombre=$term->ta_sigla;
+
+        $new->Nombre = ($new->Nombre==null) ? '' : $new->Nombre ;
+        $new->Paterno = ($new->Paterno==null) ? '' : $new->Paterno ;
+        $new->Materno = ($new->Materno==null) ? '' : $new->Materno ;
+
+        return ['status'=>$res,'data'=>$new];
     }
 
     public function queryShow_1()
@@ -491,6 +502,17 @@ class credencialesController extends Controller
         $res->Observacion = $request->input('nc_13_edit');
         $res->data_creden = serialize(array());
         $ret = $res->save();
+        
+        $emp=Empresas::where('Empresa',$res->Empresa)->first();
+        $term=termAero::where('ta_sigla',$res->Aeropuerto_2)->first();
+        $res->Empresa=$emp->Empresa;
+        $res->NombEmpresa=$emp->NombEmpresa;
+        $res->ta_sigla=$term->ta_sigla;
+        $res->ta_nombre=$term->ta_sigla;
+
+        $res->Nombre = ($res->Nombre==null) ? '' : $res->Nombre ;
+        $res->Paterno = ($res->Paterno==null) ? '' : $res->Paterno ;
+        $res->Materno = ($res->Materno==null) ? '' : $res->Materno ;
 
         return ["est" => $ret, 'data' => $res];
     }

@@ -103,9 +103,9 @@ class credencialesController extends Controller
         $new->Aeropuerto_2 = $request->input('nc_aeropuerto');
         // $new->estado = $request->input('nc_acci');
 
-        $new->Vencimiento = ($request->input('nc_fv') == '') ? null :   Carbon::parse($request->input('nc_fv'))->format('Y-d-m H:i:s');
-        $new->Fecha = ($request->input('nc_f_in') == '') ? null :   Carbon::parse($request->input('nc_f_in'))->format('Y-d-m H:i:s');
-        $new->FechaNac = ($request->input('nc_FNac') == '') ? null :    Carbon::parse($request->input('nc_FNac'))->format('Y-d-m H:i:s');
+        $new->Vencimiento = ($request->input('nc_fv') == '') ? null :   Carbon::parse($request->input('nc_fv'))->format('Y-m-d H:i:s');
+        $new->Fecha = ($request->input('nc_f_in') == '') ? null :   Carbon::parse($request->input('nc_f_in'))->format('Y-m-d H:i:s');
+        $new->FechaNac = ($request->input('nc_FNac') == '') ? null :    Carbon::parse($request->input('nc_FNac'))->format('Y-m-d H:i:s');
 
         $new->EstCivil = $request->input('nc_estCiv');
         $new->Sexo = $request->input('nc_sexo');
@@ -486,9 +486,9 @@ class credencialesController extends Controller
         $res->GSangre = $request->input('nc_gs');
         $res->Aeropuerto_2 = $request->input('nc_aeropuerto_edit');
         $res->estado = $request->input('nc_acci_edit');
-        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-d-m');
-        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-d-m');
-        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-d-m');
+        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-m-d');
+        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-m-d');
+        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-m-d');
         $res->EstCivil = $request->input('nc_estCiv_edit');
         $res->Sexo = $request->input('nc_sexo_edit');
         $res->Profesion = $request->input('nc_pro_edit');
@@ -714,7 +714,7 @@ class credencialesController extends Controller
         $up->CategoriaLic =   ($tipo == 'N') ? null : $tipo;
         $up->data_vehi_aut =   ($tipo == 'N') ? null : serialize($data);
         $up->AreasCP =   ($tipo == 'N') ? null : $AreasCP;
-        $up->FechaVencCP =  ($tipo == 'N') ? null : Carbon::parse($request->input('pcp_fechaVencimiento'))->format('Y-d-m');
+        $up->FechaVencCP =  ($tipo == 'N') ? null : Carbon::parse($request->input('pcp_fechaVencimiento'))->format('Y-m-d');
         // $up->FechaVencCP = Carbon::parse($request->input('pcp_fechaVencimiento'))->format('Y-m-d');
         // $up->AreasCP = $request->input('pcp_factura');
         $r = $up->save();

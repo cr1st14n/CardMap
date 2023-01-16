@@ -8,7 +8,10 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\TermAeroController;
 use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\vehiculoController;
+use App\Models\Empleados;
 use App\Models\Empresas;
+use App\Models\empvvi;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,7 +83,61 @@ Route::group(['prefix' => 'Vehiculo'], function () {
     Route::get('pdf_viñeta_1/{e}/{f}/{t}', [vehiculoController::class, 'pdf_viñeta_1']);
 });
 Route::group(['prefix' => 'terminal'], function () {
-    Route::get('view_home',[TermAeroController::class, 'index']);
-    Route::get('query_list_1',[TermAeroController::class, 'query_list_1']);
-    Route::post('query_create_1',[TermAeroController::class, 'query_create_1']);
+    Route::get('view_home', [TermAeroController::class, 'index']);
+    Route::get('query_list_1', [TermAeroController::class, 'query_list_1']);
+    Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
+});
+
+
+Route::get('union', function () {
+    $data = empvvi::get();
+    $cont = 0;
+    $aero = 'VVI';
+    $list_vehi = ['tipo' => '', 'list' => ''];
+    $listEmpFall = array();
+    foreach ($data as $key => $value) {
+        $new = new Empleados();
+        $new->Codigo = $value->Codigo;
+        $new->tipo = $value->tipo;
+        $new->CI = $value->CI;
+        $new->CategoriaLic = $value->CategoriaLic;
+        // $new->data_vehi_aut =null;.
+        $new->Nombre = $value->Nombre;
+        $new->Paterno = $value->Paterno;
+        $new->Materno = $value->Materno;
+        $new->Empresa = $value->Empresa;
+        $new->Cargo = $value->Cargo;
+        $new->CodigoTarjeta = $value->CodigoTarjeta;
+        // $new->CodMYFARE = $value->CodMYFARE;
+        $new->NroRenovacion = 0;
+        $new->Herramientas = $value->Herramientas;
+        $new->AreasAut = $value->AreasAut;
+        $new->AreasCP = $value->AreasCP;
+        $new->GSangre = $value->GSangre;
+        $new->aeropuerto = 'VVI';
+        $new->Aeropuerto_2 = 'VVI';
+        // $new->estado = $request->input('nc_acci');
+
+        $new->Vencimiento  = ($value->Vencimiento=='') ? null :   Carbon::parse($value->Vencimiento)->format('Y-m-d');
+        // $new->Fecha  = ($value->Fecha=='') ? '' :   Carbon::parse($value->Fecha)->format('Y-m-d');
+        // $new->FechaNac  = ($value->FechaNac=='') ? '' :   Carbon::parse($value->FechaNac)->format('Y-m-d');
+
+        $new->EstCivil = $value->EstCivil;
+        $new->Sexo = $value->Sexo;
+        $new->Profesion = $value->Profesion;
+        $new->altura = $value->altura;
+        $new->Ojos = $value->Ojos;
+        $new->Peso = $value->Peso;
+        $new->TelDom = $value->TelDom;
+        $new->Direccion = $value->Direccion;
+        $new->TelTrab = $value->TelTrab;
+        $new->DirTrab = $value->DirTrab;
+        $new->Observacion = $value->Observacion;
+        $new->data_creden = serialize(array());
+        $res = $new->save();
+        if (!$res) {
+            array_push($listEmpFall, $new->CI);
+        }
+    }
+    return $listEmpFall;
 });

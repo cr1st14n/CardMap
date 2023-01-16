@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Empleados extends Model
 {
     // use HasFactory;
+    protected $connection = 'sqlsrv';
+
     protected $table='Empleados';
     protected $primaryKey = 'idEmpleado'; 
     public $timestamps = false;

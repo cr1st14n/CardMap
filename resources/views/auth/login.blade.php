@@ -90,8 +90,9 @@
     <!-- notific8 -->
     <script>
         function login_1() {
+            console.log($('#formLogin').serialize());
             $.ajax({
-                type: "post",
+                type: "GET",
                 url: "log1",
                 data: $('#formLogin').serialize(),
                 success: function(e) {

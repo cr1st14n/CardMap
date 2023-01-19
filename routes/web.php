@@ -8,8 +8,10 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\TermAeroController;
 use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\vehiculoController;
+use App\Http\Controllers\visorTiasController;
 use App\Models\Empleados;
 use App\Models\Empresas;
+use App\Models\empresasVVI;
 use App\Models\empvvi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +31,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest')->name('login');
 
-Route::any('log1', [loginController::class, 'login']);
+Route::get('log1', [loginController::class, 'login']);
 Route::post('logout', [loginController::class, 'logout'])->name('logout');
 
 Route::get('index', [homeController::class, 'index']);
@@ -88,9 +90,48 @@ Route::group(['prefix' => 'terminal'], function () {
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
 });
 
+Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
-Route::get('union', function () {
-    $data = empvvi::get();
+Route::get('union6666', function () {
+    // return Empleados::select('Codigo')->get();
+    $data = empvvi::select(
+        'Vencimiento',
+        'Codigo',
+        'tipo',
+        'CI',
+        'CategoriaLic',
+        'Nombre',
+        'Paterno',
+        'Materno',
+        'Empresa',
+        'Cargo',
+        'CodigoTarjeta',
+        'NroRenovacion',
+        'Herramientas',
+        'AreasAut',
+        'AreasCP',
+        'GSangre',
+        // 'aeropuerto',
+        // 'Aeropuerto_2',
+        'EstCivil',
+        'Sexo',
+        'Profesion',
+        'altura',
+        'Ojos',
+        'Peso',
+        'TelDom',
+        'Direccion',
+        'TelTrab',
+        'DirTrab',
+        'Observacion',
+        // 'data_creden',
+        'Vencimiento',
+        'Fecha',
+        'FechaNac',
+    )
+        ->get();
+    // $date = Carbon::parse($data->Vencimiento)->format('Y-m-d');
+    // return  gettype($date);
     $cont = 0;
     $aero = 'VVI';
     $list_vehi = ['tipo' => '', 'list' => ''];
@@ -101,26 +142,24 @@ Route::get('union', function () {
         $new->tipo = $value->tipo;
         $new->CI = $value->CI;
         $new->CategoriaLic = $value->CategoriaLic;
-        // $new->data_vehi_aut =null;.
         $new->Nombre = $value->Nombre;
         $new->Paterno = $value->Paterno;
         $new->Materno = $value->Materno;
-        $new->Empresa = $value->Empresa;
+        // $new->Empresa = $value->Empresa;
         $new->Cargo = $value->Cargo;
         $new->CodigoTarjeta = $value->CodigoTarjeta;
-        // $new->CodMYFARE = $value->CodMYFARE;
         $new->NroRenovacion = 0;
         $new->Herramientas = $value->Herramientas;
         $new->AreasAut = $value->AreasAut;
         $new->AreasCP = $value->AreasCP;
         $new->GSangre = $value->GSangre;
-        $new->aeropuerto = 'VVI';
-        $new->Aeropuerto_2 = 'VVI';
+        $new->aeropuerto = 'CBB';
+        $new->Aeropuerto_2 = 'CBB';
         // $new->estado = $request->input('nc_acci');
-
-        $new->Vencimiento  = ($value->Vencimiento=='') ? null :   Carbon::parse($value->Vencimiento)->format('Y-m-d');
-        // $new->Fecha  = ($value->Fecha=='') ? '' :   Carbon::parse($value->Fecha)->format('Y-m-d');
-        // $new->FechaNac  = ($value->FechaNac=='') ? '' :   Carbon::parse($value->FechaNac)->format('Y-m-d');
+        $new->Vencimiento = strval('2024-06-10');
+        $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-d-m');
+        $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-d-m');
+        $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-d-m');
 
         $new->EstCivil = $value->EstCivil;
         $new->Sexo = $value->Sexo;
@@ -135,9 +174,46 @@ Route::get('union', function () {
         $new->Observacion = $value->Observacion;
         $new->data_creden = serialize(array());
         $res = $new->save();
-        if (!$res) {
-            array_push($listEmpFall, $new->CI);
+        if ($res) {
+            // array_push($listEmpFall, $new->CI);
+            $cont += 1;
         }
     }
-    return $listEmpFall;
+    return $cont;
+});
+Route::get('unionEMp', function () {
+    $data = empresasVVI::select(
+        'Empresa',
+        'NombEmpresa',
+        'Direccion',
+        'Telefono',
+        'Casilla',
+        'Fax',
+        'Email',
+        'RepLegal',
+        'Ruc',
+    )
+        ->get();
+
+    $cont = 0;
+    foreach ($data as $key => $value) {
+
+
+        $new = new Empresas();
+        $new->Empresa = $value->Empresa;
+        $new->NombEmpresa = $value->NombEmpresa;
+        $new->Direccion = $value->Direccion;
+        $new->Telefono = $value->Telefono;
+        $new->Casilla = $value->Casilla;
+        $new->Fax = $value->Fax;
+        $new->Email = $value->Email;
+        $new->RepLegal = $value->RepLegal;
+        $new->Ruc = $value->Ruc;
+        $new->Estado = 'M';
+        $res = $new->save();
+        if ($res) {
+            $cont += 1;
+        }
+    }
+    return $cont;
 });

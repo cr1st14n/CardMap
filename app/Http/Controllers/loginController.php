@@ -15,6 +15,7 @@ class loginController extends Controller
     }
     public function login(Request $request)
     {
+        // return $request;
         session()->forget('aero');
         $request->session()->get('aero');
         $u = User::where('codusr', $request->input('codusr'))->first();

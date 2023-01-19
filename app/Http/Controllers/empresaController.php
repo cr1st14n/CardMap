@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empleados;
 use App\Models\Empresas;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class empresaController extends Controller
 {
@@ -26,7 +28,7 @@ class empresaController extends Controller
             ->orWhere('RepLegal', 'like', '%' . $request->input('data') . '%')
             ->get();
     }
-   
+
     public function query_create(Request $request)
     {
         $n = new Empresas();
@@ -52,6 +54,39 @@ class empresaController extends Controller
     }
     public function query_update($id, Request $request)
     {
+        $res = Empresas::find($id);
+        $emp = Empleados::where('Empresa', $res->Empresa)->get();
+        $res->NombEmpresa = $request->input('Emp_nombre_edit');
+        $res->Empresa = $request->input('Emp_abreviacion_edit');
+        $res->Telefono = $request->input('Emp_telf_edit');
+        $res->Direccion = $request->input('Emp_dir_edit');
+        $res->RepLegal = $request->input('Emp_repLeg_edit');
+        $res->Casilla = $request->input('Emp_casi_edit');
+        $res->Fax = $request->input('Emp_fax_edit');
+        $res->Email = $request->input('Emp_email_edit');
+        $res->Ruc = $request->input('Emp_ruc_edit');
+
+        $r = $res->save();
+        foreach ($emp as $key => $value) {
+            $upEm = Empleados::find($value->idEmpleado);
+            $upEm->Empresa = $res->Empresa;
+            $r2 = $upEm->save();
+        }
+        return $r;
+
+
+        $abEmp = $request->input('Emp_abreviacion_edit');
+
+        if ($r) {
+            return $r;
+        }
+        $r2 = Empleados::where('Empresa', $abEmp)->select('idEmpleado');
+        return $r2;
+        if ($r2) {
+            return true;
+        }
+        return false;
+
         return Empresas::where('id', $id)->update([
             'NombEmpresa' => $request->input('Emp_nombre_edit'),
             'Empresa' => $request->input('Emp_abreviacion_edit'),

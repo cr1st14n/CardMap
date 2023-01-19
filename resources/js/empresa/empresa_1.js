@@ -157,6 +157,8 @@ $("#form_edit_empresa").submit(function (e) {
         data: $(this).serialize(),
         // dataType: "dataType",
         success: function (response) {
+            console.log(response);
+            
             if (response) {
                 $("#mod_edit_empresa").modal("hide");
                 $("#form_edit_empresa").trigger("reset");

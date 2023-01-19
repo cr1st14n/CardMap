@@ -74,6 +74,7 @@ Route::group(['prefix' => 'Empresa'], function () {
     Route::get('query_orden_list_1', [empresaController::class, 'query_orden_list_1']);
     Route::get('query_edit', [empresaController::class, 'query_edit']);
     Route::post('query_update/{id}', [empresaController::class, 'query_update']);
+    Route::get('query_delete', [empresaController::class, 'query_delete']);
 });
 Route::group(['prefix' => 'Vehiculo'], function () {
     Route::get('view_vei_home', [vehiculoController::class, 'view_1']);
@@ -92,128 +93,128 @@ Route::group(['prefix' => 'terminal'], function () {
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
-Route::get('union6666', function () {
-    // return Empleados::select('Codigo')->get();
-    $data = empvvi::select(
-        'Vencimiento',
-        'Codigo',
-        'tipo',
-        'CI',
-        'CategoriaLic',
-        'Nombre',
-        'Paterno',
-        'Materno',
-        'Empresa',
-        'Cargo',
-        'CodigoTarjeta',
-        'NroRenovacion',
-        'Herramientas',
-        'AreasAut',
-        'AreasCP',
-        'GSangre',
-        // 'aeropuerto',
-        // 'Aeropuerto_2',
-        'EstCivil',
-        'Sexo',
-        'Profesion',
-        'altura',
-        'Ojos',
-        'Peso',
-        'TelDom',
-        'Direccion',
-        'TelTrab',
-        'DirTrab',
-        'Observacion',
-        // 'data_creden',
-        'Vencimiento',
-        'Fecha',
-        'FechaNac',
-    )
-        ->get();
-    // $date = Carbon::parse($data->Vencimiento)->format('Y-m-d');
-    // return  gettype($date);
-    $cont = 0;
-    $aero = 'VVI';
-    $list_vehi = ['tipo' => '', 'list' => ''];
-    $listEmpFall = array();
-    foreach ($data as $key => $value) {
-        $new = new Empleados();
-        $new->Codigo = $value->Codigo;
-        $new->tipo = $value->tipo;
-        $new->CI = $value->CI;
-        $new->CategoriaLic = $value->CategoriaLic;
-        $new->Nombre = $value->Nombre;
-        $new->Paterno = $value->Paterno;
-        $new->Materno = $value->Materno;
-        // $new->Empresa = $value->Empresa;
-        $new->Cargo = $value->Cargo;
-        $new->CodigoTarjeta = $value->CodigoTarjeta;
-        $new->NroRenovacion = 0;
-        $new->Herramientas = $value->Herramientas;
-        $new->AreasAut = $value->AreasAut;
-        $new->AreasCP = $value->AreasCP;
-        $new->GSangre = $value->GSangre;
-        $new->aeropuerto = 'CBB';
-        $new->Aeropuerto_2 = 'CBB';
-        // $new->estado = $request->input('nc_acci');
-        $new->Vencimiento = strval('2024-06-10');
-        $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-d-m');
-        $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-d-m');
-        $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-d-m');
+// Route::get('union6666', function () {
+//     // return Empleados::select('Codigo')->get();
+//     $data = empvvi::select(
+//         'Vencimiento',
+//         'Codigo',
+//         'tipo',
+//         'CI',
+//         'CategoriaLic',
+//         'Nombre',
+//         'Paterno',
+//         'Materno',
+//         'Empresa',
+//         'Cargo',
+//         'CodigoTarjeta',
+//         'NroRenovacion',
+//         'Herramientas',
+//         'AreasAut',
+//         'AreasCP',
+//         'GSangre',
+//         // 'aeropuerto',
+//         // 'Aeropuerto_2',
+//         'EstCivil',
+//         'Sexo',
+//         'Profesion',
+//         'altura',
+//         'Ojos',
+//         'Peso',
+//         'TelDom',
+//         'Direccion',
+//         'TelTrab',
+//         'DirTrab',
+//         'Observacion',
+//         // 'data_creden',
+//         'Vencimiento',
+//         'Fecha',
+//         'FechaNac',
+//     )
+//         ->get();
+//     // $date = Carbon::parse($data->Vencimiento)->format('Y-m-d');
+//     // return  gettype($date);
+//     $cont = 0;
+//     $aero = 'VVI';
+//     $list_vehi = ['tipo' => '', 'list' => ''];
+//     $listEmpFall = array();
+//     foreach ($data as $key => $value) {
+//         $new = new Empleados();
+//         $new->Codigo = $value->Codigo;
+//         $new->tipo = $value->tipo;
+//         $new->CI = $value->CI;
+//         $new->CategoriaLic = $value->CategoriaLic;
+//         $new->Nombre = $value->Nombre;
+//         $new->Paterno = $value->Paterno;
+//         $new->Materno = $value->Materno;
+//         // $new->Empresa = $value->Empresa;
+//         $new->Cargo = $value->Cargo;
+//         $new->CodigoTarjeta = $value->CodigoTarjeta;
+//         $new->NroRenovacion = 0;
+//         $new->Herramientas = $value->Herramientas;
+//         $new->AreasAut = $value->AreasAut;
+//         $new->AreasCP = $value->AreasCP;
+//         $new->GSangre = $value->GSangre;
+//         $new->aeropuerto = 'CBB';
+//         $new->Aeropuerto_2 = 'CBB';
+//         // $new->estado = $request->input('nc_acci');
+//         $new->Vencimiento = strval('2024-06-10');
+//         $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-d-m');
+//         $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-d-m');
+//         $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-d-m');
 
-        $new->EstCivil = $value->EstCivil;
-        $new->Sexo = $value->Sexo;
-        $new->Profesion = $value->Profesion;
-        $new->altura = $value->altura;
-        $new->Ojos = $value->Ojos;
-        $new->Peso = $value->Peso;
-        $new->TelDom = $value->TelDom;
-        $new->Direccion = $value->Direccion;
-        $new->TelTrab = $value->TelTrab;
-        $new->DirTrab = $value->DirTrab;
-        $new->Observacion = $value->Observacion;
-        $new->data_creden = serialize(array());
-        $res = $new->save();
-        if ($res) {
-            // array_push($listEmpFall, $new->CI);
-            $cont += 1;
-        }
-    }
-    return $cont;
-});
-Route::get('unionEMp', function () {
-    $data = empresasVVI::select(
-        'Empresa',
-        'NombEmpresa',
-        'Direccion',
-        'Telefono',
-        'Casilla',
-        'Fax',
-        'Email',
-        'RepLegal',
-        'Ruc',
-    )
-        ->get();
+//         $new->EstCivil = $value->EstCivil;
+//         $new->Sexo = $value->Sexo;
+//         $new->Profesion = $value->Profesion;
+//         $new->altura = $value->altura;
+//         $new->Ojos = $value->Ojos;
+//         $new->Peso = $value->Peso;
+//         $new->TelDom = $value->TelDom;
+//         $new->Direccion = $value->Direccion;
+//         $new->TelTrab = $value->TelTrab;
+//         $new->DirTrab = $value->DirTrab;
+//         $new->Observacion = $value->Observacion;
+//         $new->data_creden = serialize(array());
+//         $res = $new->save();
+//         if ($res) {
+//             // array_push($listEmpFall, $new->CI);
+//             $cont += 1;
+//         }
+//     }
+//     return $cont;
+// });
+// Route::get('unionEMp', function () {
+//     $data = empresasVVI::select(
+//         'Empresa',
+//         'NombEmpresa',
+//         'Direccion',
+//         'Telefono',
+//         'Casilla',
+//         'Fax',
+//         'Email',
+//         'RepLegal',
+//         'Ruc',
+//     )
+//         ->get();
 
-    $cont = 0;
-    foreach ($data as $key => $value) {
+//     $cont = 0;
+//     foreach ($data as $key => $value) {
 
 
-        $new = new Empresas();
-        $new->Empresa = $value->Empresa;
-        $new->NombEmpresa = $value->NombEmpresa;
-        $new->Direccion = $value->Direccion;
-        $new->Telefono = $value->Telefono;
-        $new->Casilla = $value->Casilla;
-        $new->Fax = $value->Fax;
-        $new->Email = $value->Email;
-        $new->RepLegal = $value->RepLegal;
-        $new->Ruc = $value->Ruc;
-        $new->Estado = 'M';
-        $res = $new->save();
-        if ($res) {
-            $cont += 1;
-        }
-    }
-    return $cont;
-});
+//         $new = new Empresas();
+//         $new->Empresa = $value->Empresa;
+//         $new->NombEmpresa = $value->NombEmpresa;
+//         $new->Direccion = $value->Direccion;
+//         $new->Telefono = $value->Telefono;
+//         $new->Casilla = $value->Casilla;
+//         $new->Fax = $value->Fax;
+//         $new->Email = $value->Email;
+//         $new->RepLegal = $value->RepLegal;
+//         $new->Ruc = $value->Ruc;
+//         $new->Estado = 'M';
+//         $res = $new->save();
+//         if ($res) {
+//             $cont += 1;
+//         }
+//     }
+//     return $cont;
+// });

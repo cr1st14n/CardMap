@@ -65,13 +65,13 @@ class credencialesController extends Controller
     {
         // return session('aero');
         switch (session('aero')) {
-            case 'LP':
+            case 'LPB':
                 $aero = 'LPB';
                 break;
-            case 'CB':
+            case 'CBB':
                 $aero = 'CBB';
                 break;
-            case 'SC':
+            case 'VVI':
                 $aero = 'VVI';
                 break;
 
@@ -486,9 +486,9 @@ class credencialesController extends Controller
         $res->GSangre = $request->input('nc_gs');
         $res->Aeropuerto_2 = $request->input('nc_aeropuerto_edit');
         $res->estado = $request->input('nc_acci_edit');
-        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-m-d');
-        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-m-d');
-        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-m-d');
+        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-d-m');
+        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-d-m');
+        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-d-m');
         $res->EstCivil = $request->input('nc_estCiv_edit');
         $res->Sexo = $request->input('nc_sexo_edit');
         $res->Profesion = $request->input('nc_pro_edit');
@@ -645,7 +645,7 @@ class credencialesController extends Controller
                     'term_aeros.ta_nombre',
                 )
                 ->orderBy('codigo', 'desc')
-                ->limit(100)
+                ->limit(1000)
                 ->get();
         }
     }

@@ -35,7 +35,7 @@ function list_table_empresas(response) {
     html_1 = response
         .map(function (u) {
             return (a = `
-        <tr>
+        <tr id="tdEmp${u.id}">
             <td width="45%">
                 <div class="d-inline-block align-middle">
                     <div class="d-inline-block">
@@ -65,7 +65,7 @@ function list_table_empresas(response) {
                 <a href="#!" onclick="edit_empresa(${
                     u.id
                 })"><i class="ik ik-edit f-16 mr-15 text-green"></i></a>
-                <a href="#!" onclick="delete_user(${
+                <a href="#!" onclick="delete_emprea(${
                     u.id
                 })"><i class="ik ik-trash-2 f-16 text-red"></i></a>
             </td>
@@ -158,7 +158,7 @@ $("#form_edit_empresa").submit(function (e) {
         // dataType: "dataType",
         success: function (response) {
             console.log(response);
-            
+
             if (response) {
                 $("#mod_edit_empresa").modal("hide");
                 $("#form_edit_empresa").trigger("reset");
@@ -171,3 +171,31 @@ $("#form_edit_empresa").submit(function (e) {
         },
     });
 });
+
+delete_emprea = (cod) => {
+    id_EMP_SEL = cod;
+    $("#md_empreaDelete").modal("show");
+};
+deleteEmpresa1 = () => {
+    empresa = id_EMP_SEL;
+    empresaMigrate = $("#listEmpresaSel").val();
+    $.ajax({
+        type: "get",
+        url: "Empresa/query_delete/",
+        data: { e1: empresa, e2: empresaMigrate },
+        // dataType: "json",
+        success: function (response) {
+            console.log(response);
+            if (response.estado == 1) {
+                $("#md_empreaDelete").modal("hide");
+                $("#tdEmp"+id_EMP_SEL).remove();
+                id_EMP_SEL='';
+                noti_fi(2,'Registro eliminado')
+                if (response.cant!=0) {
+                    noti_fi(1,`${response.cant} Empleados migrados`)
+                }
+            
+            }
+        },
+    });
+};

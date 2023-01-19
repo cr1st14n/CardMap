@@ -18,13 +18,14 @@ class loginController extends Controller
         // return $request;
         session()->forget('aero');
         $request->session()->get('aero');
+        
         $u = User::where('codusr', $request->input('codusr'))->first();
         if ($u == null) {
             return 0;
         }
         $credenciales = request()->only('codusr', 'password', 'aeropuerto');
+        $credenciales = request()->only('codusr', 'password');
         if ($u['aeropuerto'] == 'LPB') {
-            $credenciales = request()->only('codusr', 'password');
         }
         if (Auth::attempt($credenciales)) {
             session(['aero' => $request->input('aeropuerto')]);

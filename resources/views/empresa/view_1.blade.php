@@ -203,15 +203,24 @@
     </div>
 </div>
 <!-- modal delete users -->
-<div class="modal fade" id="md_delete_user" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
+<div class="modal fade" id="md_empreaDelete" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm " role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <h5>Confirmar Petición !</h5>
+                <p>
+                    Si desea Elimar el previo registro de empresa, debe seleccionar la empresa destino de los empleados ya registrardos en sistema.
+                </p>
+                
+                <select class=" form-control" id="listEmpresaSel" >
+                    @foreach ($Emps as $emp )
+                        <option value="{{$emp->id}}">{{$emp->Empresa}} | {{$emp->NombEmpresa}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" onclick="destroy_user()">Eliminar</button>
+                <button type="submit" class="btn btn-primary" onclick="deleteEmpresa1()">Eliminar</button>
             </div>
         </div>
     </div>

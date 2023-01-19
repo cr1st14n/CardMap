@@ -13,8 +13,8 @@ class empresaController extends Controller
 {
     public function view_2_empr()
     {
-        $empr = Empresas::get();
-        return view('empresa.view_1')->with('Emps' . $empr);
+        $empr = Empresas::orderBy('NombEmpresa', 'asc')->get();
+        return view('empresa.view_1')->with('Emps', $empr);
     }
     public function query_list()
     {
@@ -98,5 +98,28 @@ class empresaController extends Controller
             'Email' => $request->input('Emp_email_edit'),
             'Ruc' => $request->input('Emp_ruc_edit'),
         ]);
+    }
+    public function query_delete(Request $request)
+    {
+        $e1 = $request->input('e1');
+          $e1sigla = Empresas::where('id', $e1)->value('Empresa');
+
+        $e2 = $request->input('e2');
+        $e2 = Empresas::where('id', $e2)->value('Empresa');
+        
+         $sig = Empleados::where('Empresa', $e1sigla)->get();
+        $newE = Empresas::where('id', $e1)->delete();
+        $cont = 0;
+        if ($newE == 1) {
+            foreach ($sig as $key => $value) {
+                $upEm = Empleados::find($value->idEmpleado);
+                $upEm->Empresa =trim($e2);
+                $estado = $upEm->save();
+                if ($estado) {
+                    $cont += 1;
+                }
+            }
+        }
+        return ["estado" => $newE, "cant" => $cont];
     }
 }

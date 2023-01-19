@@ -53,9 +53,9 @@
                             <p>Seleccione Aeropuerto</p>
                             <div class="form-group">
                                 <select name="aeropuerto" id="aeropuerto" class="form-control">
-                                    <option value="LP">LA PAZ</option>
-                                    <option value="CB">COCHABAMBA</option>
-                                    <option value="SC">SANTA CRUZ</option>
+                                    <option value="LPB">LA PAZ</option>
+                                    <option value="CBB">COCHABAMBA</option>
+                                    <option value="VVI">SANTA CRUZ</option>
                                 </select>
                                 <i class="ik ik-database"></i>
                             </div>

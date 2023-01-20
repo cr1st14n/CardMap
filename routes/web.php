@@ -157,10 +157,10 @@ Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 //         $new->aeropuerto = 'CBB';
 //         $new->Aeropuerto_2 = 'CBB';
 //         // $new->estado = $request->input('nc_acci');
-//         $new->Vencimiento = strval('2024-06-10');
-//         $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-d-m');
-//         $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-d-m');
-//         $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-d-m');
+//         // $new->Vencimiento = strval('2024-06-10');
+//         $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-m-d');
+//         $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-m-d');
+//         $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-m-d');
 
 //         $new->EstCivil = $value->EstCivil;
 //         $new->Sexo = $value->Sexo;
@@ -210,7 +210,7 @@ Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 //         $new->Email = $value->Email;
 //         $new->RepLegal = $value->RepLegal;
 //         $new->Ruc = $value->Ruc;
-//         $new->Estado = 'M';
+//         $new->Estado = 'C';
 //         $res = $new->save();
 //         if ($res) {
 //             $cont += 1;

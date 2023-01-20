@@ -34,6 +34,17 @@ function inp_buscar_empr(param) {
 function list_table_empresas(response) {
     html_1 = response
         .map(function (u) {
+            reg = '<p style="color: red">LPB</p>';
+            if (u.Estado == "A") {
+                reg = '<p style="color: red">LPB</p>';
+            }
+            if (u.Estado == "M") {
+                reg = '<p style="color: red">VVI</p>';
+            }
+            if (u.Estado == "C") {
+                reg = '<p style="color: red">CBB</p>';
+            }
+
             return (a = `
         <tr id="tdEmp${u.id}">
             <td width="45%">
@@ -42,10 +53,10 @@ function list_table_empresas(response) {
                     <p class="mb-0"> ${
                         u.NombEmpresa != null ? u.NombEmpresa : "..."
                     }</p>
-                    <p class="text-muted mb-0">Rep. legal: ${
+                    <p class="text-muted mb-0"> Rep. legal: ${
                         u.RepLegal != null ? u.RepLegal : "..."
                     }</p>
-                    <h6 class="text-muted mb-0"> ${u.Empresa} </h6>
+                    <h6 class="text-muted mb-0"> ${u.Empresa} ${reg}</h6>
                     </div>
                 </div>
             </td>
@@ -179,6 +190,11 @@ delete_emprea = (cod) => {
 deleteEmpresa1 = () => {
     empresa = id_EMP_SEL;
     empresaMigrate = $("#listEmpresaSel").val();
+
+    if (empresa == empresaMigrate) {
+        noti_fi(4,'Acción no PERMITIDA!!')
+        return
+    }
     $.ajax({
         type: "get",
         url: "Empresa/query_delete/",
@@ -188,13 +204,12 @@ deleteEmpresa1 = () => {
             console.log(response);
             if (response.estado == 1) {
                 $("#md_empreaDelete").modal("hide");
-                $("#tdEmp"+id_EMP_SEL).remove();
-                id_EMP_SEL='';
-                noti_fi(2,'Registro eliminado')
-                if (response.cant!=0) {
-                    noti_fi(1,`${response.cant} Empleados migrados`)
+                $("#tdEmp" + id_EMP_SEL).remove();
+                id_EMP_SEL = "";
+                noti_fi(2, "Registro eliminado");
+                if (response.cant != 0) {
+                    noti_fi(1, `${response.cant} Empleados migrados`);
                 }
-            
             }
         },
     });

@@ -146,7 +146,7 @@ Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 //         $new->Nombre = $value->Nombre;
 //         $new->Paterno = $value->Paterno;
 //         $new->Materno = $value->Materno;
-//         // $new->Empresa = $value->Empresa;
+//         $new->Empresa = $value->Empresa;
 //         $new->Cargo = $value->Cargo;
 //         $new->CodigoTarjeta = $value->CodigoTarjeta;
 //         $new->NroRenovacion = 0;

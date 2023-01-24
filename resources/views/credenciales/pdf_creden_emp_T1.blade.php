@@ -33,9 +33,11 @@
             font-size: 30px;
             text-transform: uppercase;
             font-family: sans-serif;
-            font-weight: bold;
+            /* font-weight: bold; */
             color: rgb(0, 0, 0);
             @if ($tipo == 'N')color: white;
+            @endif
+            @if ($aero == 'CBB')color: white;
             @endif
         }
 
@@ -119,7 +121,7 @@
         <img class="img_b" src="{{ asset($data->urlphoto) }}" alt="">
         <p class="e">{{ $M }}<br>{{ $Y }}</p>
         <p class="f">{{ $data->Codigo }}-{{$aero}} </p>
-        <p class="a"> {{ $data->Nombre }} <br>{{ $data->Paterno }} {{ $data->Materno }}<br>{{ $data->Cargo }}
+        <p class="a"> {{ $data->Nombre }} <br>{{ $data->Paterno }} {{ $data->Materno }}<br><strong>{{ $data->Cargo }}</strong> 
             <br>{{ $em }}
         </p>
         <p class="b">{{ $data->AreasAut }}</p>

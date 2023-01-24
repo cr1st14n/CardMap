@@ -34,6 +34,7 @@
             text-transform: uppercase;
             font-family: sans-serif;
             font-weight: bold;
+            
         }
 
         p.b {

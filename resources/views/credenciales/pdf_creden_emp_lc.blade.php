@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,10 +31,12 @@
             top: 400px;
             left: 90px;
             font-size: 30px;
-            color: white;
+            color: black;
             text-transform: uppercase;
             font-family: sans-serif;
-            font-weight: bold;
+            /* font-weight: bold; */
+            @if ($aero == 'CBB')color: white;
+            @endif
         }
 
         p.b {
@@ -213,11 +216,11 @@
         <p class="f">{{ $data->Codigo }}-{{ $aero }} </p>
         <p class="LCA">{{ $catLic }}</p>
         @if ($aero == 'LPB')
-            <p class="a" style="color: black ;"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
+            <p class="a"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
                 {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $em }}</p>
         @else
-            <p class="a" style="color: black ;"> {{ $data->Nombre }} <br>{{ $data->Paterno }}
-                {{ $data->Materno }}<br>{{ $data->Cargo }} <br>{{ $em }}</p>
+            <p class="a"   > {{ $data->Nombre }} <br>{{ $data->Paterno }}
+                {{ $data->Materno }}<br> <strong>{{ $data->Cargo }}</strong> <br>{{ $em }}</p>
         @endif
         <p class="b">{{ $data->AreasCP }}</p>
         <p class="ci">{{ $data->CI }}</p>
@@ -255,4 +258,5 @@
             @endif
         </p>
 </body>
+
 </html>

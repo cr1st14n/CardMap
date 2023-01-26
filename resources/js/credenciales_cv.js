@@ -2,37 +2,44 @@ $(document).ready(function () {
     query_list_credenVis();
 });
 id_credenVis = "";
-function query_list_credenVis() {
-    $.get(
-        "credenciales/query_listCV",
-        { l: 0 },
-        function (data, textStatus, jqXHR) {
-            console.log(data);
+let query_list_credenVis = () => {
+    fetch("credenciales/query_listCV")
+        .then((data) => {
+            return data.json();
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log();
+        })
+        .then((data) => {
             show_list_A(data);
-        }
-    );
-}
+        });
+};
 
-function show_list_A(res) {
+
+let show_list_A = (res) => {
     $("#view_1_body").html(
         res
             .map(function (e) {
-                let r = '0';
-                console.log((e.Codigo));
+                let r = "0";
+                console.log(e.Codigo);
                 console.log();
                 return (a = `
-                <tr>
-                    <td>${r.repeat(  4-(`${e.Codigo}`).length)}${e.Codigo}-${e.aeropuerto_2}</td>
-                    <td>${e.CodigoTarjeta}</td>
-                    <td>${e.CodMYFARE}</td>
-                    <td>${e.AreasAut}</td>
+                <tr id="tcv-${e.id}">
+                    <td>${r.repeat(4 - `${e.cv_Codigo}`.length)}${e.cv_Codigo}-${
+                    e.cv_Aeropuerto_2
+                }</td>
+                    <td>${e.cv_tarjRfid}</td>
+                    <td>${e.cv_tarjMyfare}</td>
+                    <td>${e.cv_areas}</td>
+                    <td>${e.cv_areas}</td>
                     <td>
                         <div class="table-actions">
                             <a href="#" onclick="fun_credeEmp_emage(${
-                                e.idEmpleado
+                                e.id
                             })"><i class="ik ik-clipboard"></i></a>
                             <a href="#" onclick="destroy_creden_visita(1,${
-                                e.idEmpleado
+                                e.id
                             })"><i class="ik ik-trash-2"></i></a>
                         </div>
                     </td>
@@ -41,6 +48,10 @@ function show_list_A(res) {
             })
             .join(" ")
     );
+};
+
+let fila_1 = ()=>{
+    
 }
 
 $("#btn_credenCV_add_item").click(function (e) {
@@ -49,6 +60,7 @@ $("#btn_credenCV_add_item").click(function (e) {
     $("#md_add_credenVis").modal("show");
 });
 console.log("abrir");
+
 $("#form_new_creden_visita").submit(function (e) {
     e.preventDefault();
     $.ajax({
@@ -57,10 +69,12 @@ $("#form_new_creden_visita").submit(function (e) {
         data: $(this).serialize(),
         success: function (response) {
             console.log(response);
-            if (response) {
+            if (response.estado == 1) {
                 $("#md_add_credenVis").modal("hide");
                 query_list_credenVis();
+                noti_fi(1, "Credencial Registrado");
             } else {
+                noti_fi(3, "Credencial Registrado");
             }
         },
     });

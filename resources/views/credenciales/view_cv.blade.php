@@ -24,7 +24,11 @@
                                 <input type="text" class="form-control" onkeyup="input_busqueda_creden(this.value)" placeholder="Buscar por NOMBRE o CI">
                             </div> -->
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="button" onclick="query_list_credenVis()" class="btn btn-purple mb-2 btn-block"><i
+                                    class="fa fa-line "></i> Listar </button>
                         </div>
                         <div class="col-lg-3">
                             <button type="button" id="btn_credenCV_add_item" class="btn btn-primary mb-2 btn-block"><i
@@ -38,9 +42,10 @@
                             <thead>
                                 <tr>
                                     <th>Codigo</th>
-                                    <th>Cod ZK</th>
-                                    <th>Cod MYFARE</th>
+                                    <th>Cod A</th>
+                                    <th>Cod B</th>
                                     <th>Areas</th>
+                                    <th>Fecha Limite</th>
                                     <th width='5%'>Acciones</th>
                                 </tr>
                             </thead>

@@ -126,8 +126,8 @@
         <!-- <img class="img_a" src="{{asset('resources/plantilla/CREDENCIALESFOTOS/LAPAZAMVERSO.jpg')}}"  alt=""> -->
         <!-- <p class="e"><br></p> -->
         <p class="date">{{$fecha}}</p>
-        <p class="codigo">{{$data->Codigo}}</p>
-        <p class="b">{{$data->AreasAut}}</p>
+        <p class="codigo">{{$data->cv_areas_2}}{{$data->cv_Codigo}}-{{$data->cv_Aeropuerto_2}}</p>
+        <p class="b">{{$data->cv_areas}}</p>
         <p class="per"><strong style="color: red ;"></strong> <br> </p>
         <div style="page-break-after:always;"></div>
         <img class="s2dapag" src="{{asset('resources/plantilla/CREDENCIALESFOTOS/TODOSREVERSO.jpg')}}" alt="">

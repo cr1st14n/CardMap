@@ -645,7 +645,7 @@ class credencialesController extends Controller
                     'term_aeros.ta_nombre',
                 )
                 ->orderBy('codigo', 'desc')
-                ->limit(1000)
+                ->limit(2000)
                 ->get();
         }
     }

@@ -156,7 +156,7 @@ function queryShow_1() {
     // });
 }
 
-function input_busqueda_creden(param) {
+let input_busqueda_creden=(param) =>{
     if (param.length != 0) {
         $.ajax({
             type: "GET",
@@ -230,9 +230,9 @@ let fila_creden = (e) => {
                                 <button class="dropdown-item"  onclick="fun_credeEmp_delete('${e.idEmpleado}')">Eliminar</button>
                                 <button class="dropdown-item"  onclick="fun_credeEmp_camera('${e.idEmpleado}')">Cargar Imagen</button>
                                 <div role="separator" class="dropdown-divider"></div>
-                                <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',1)">Generar Credencial</button>
-                                <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',2)">Generar Credencial tipo2</button>
-                                <button class="dropdown-item"  onclick="fun_renovar_creden('${e.idEmpleado}',1)">Renovar</button>
+                                // <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',1)">Generar Credencial</button>
+                                // <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',2)">Generar Credencial tipo2</button>
+                                <button class="dropdown-item bg-purple"  onclick="fun_renovar_creden('${e.idEmpleado}',1)">Generar | Renovar</button>
                             </div>
                         </div>
                     </td>

@@ -536,10 +536,11 @@ class credencialesController extends Controller
                 break;
         }
         if ($request->input('term') == 'todo' || $request->input('term') == '') {
-            $em = Empleados::where('aeropuerto', $aero)->where(function ($query) use ($r) {
+            $em = Empleados::where('aeropuerto', session('aero'))->where(function ($query) use ($r) {
                 $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.Codigo', 'like', '%'.$r)
                     ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
             })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
@@ -562,13 +563,14 @@ class credencialesController extends Controller
 
                 )
                 ->orderBy('codigo', 'asc')
-                ->limit(40)
+                ->limit(20)
                 ->get();
         } else {
             $em = Empleados::where('aeropuerto_2', $request->input('term'))->where(function ($query) use ($r) {
                 $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
+                    ->orwhere('Empleados.Codigo', 'like', '%'.$r)
                     ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
             })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
@@ -591,7 +593,7 @@ class credencialesController extends Controller
 
                 )
                 ->orderBy('codigo', 'asc')
-                ->limit(40)
+                ->limit(20)
                 ->get();
         }
         return $em;

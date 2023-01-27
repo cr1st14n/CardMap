@@ -9,26 +9,28 @@ let query_list_credenVis = () => {
         })
         .catch((error) => {
             console.log(error);
-            console.log();
         })
         .then((data) => {
             show_list_A(data);
         });
 };
 
-
 let show_list_A = (res) => {
-    $("#view_1_body").html(
-        res
-            .map(function (e) {
-                let r = "0";
-                console.log(e.Codigo);
-                console.log();
-                return (a = `
+    maq = res
+        .map((e) => {
+            return fila_1(e);
+        })
+        .join(" ");
+    $("#view_1_body").html(maq);
+};
+
+let fila_1 = (e) => {
+    let r = "0";
+    return (a = `
                 <tr id="tcv-${e.id}">
-                    <td>${r.repeat(4 - `${e.cv_Codigo}`.length)}${e.cv_Codigo}-${
-                    e.cv_Aeropuerto_2
-                }</td>
+                    <td>${r.repeat(4 - `${e.cv_Codigo}`.length)}${
+        e.cv_Codigo
+    }-${e.cv_Aeropuerto_2}</td>
                     <td>${e.cv_tarjRfid}</td>
                     <td>${e.cv_tarjMyfare}</td>
                     <td>${e.cv_areas}</td>
@@ -45,14 +47,7 @@ let show_list_A = (res) => {
                     </td>
                 </tr>
                 `);
-            })
-            .join(" ")
-    );
 };
-
-let fila_1 = ()=>{
-    
-}
 
 $("#btn_credenCV_add_item").click(function (e) {
     e.preventDefault();
@@ -80,7 +75,7 @@ $("#form_new_creden_visita").submit(function (e) {
     });
 });
 
-function destroy_creden_visita(t, id) {
+let destroy_creden_visita = (t, id) => {
     switch (t) {
         case 1:
             id_credenVis = id;
@@ -95,10 +90,12 @@ function destroy_creden_visita(t, id) {
                     id: id_credenVis,
                 },
                 success: function (response) {
+                    console.log(response);
                     if (response) {
                         $("#md_crevis_deleteConfirm").modal("hide");
+                        $('#tcv-'+id_credenVis).remove();
                         id_credenVis = "";
-                        query_list_credenVis();
+                        noti_fi(2,'Registro Eliminado')
                     } else {
                     }
                 },
@@ -108,7 +105,7 @@ function destroy_creden_visita(t, id) {
         default:
             break;
     }
-}
+};
 function fun_credeEmp_emage(param) {
     reg = $("#reg_aero").attr("name");
     var url = `credenciales/pdf_creden_v/${param}`;

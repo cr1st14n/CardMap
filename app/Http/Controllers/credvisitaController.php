@@ -51,7 +51,7 @@ class credvisitaController extends Controller
 
     public function query_crevis_destroy(Request $request)
     {
-        return Empleados::where('idEmpleado', $request->input('id'))->delete();
+        return credVisitante::where('id', $request->input('id'))->delete();
     }
 
     public function pdf_creden_v($id)

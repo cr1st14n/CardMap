@@ -22,7 +22,7 @@
                                     <div class="input-group-text"><i class="fa fa-search"></i></div>
                                 </div>
                                 <input type="text" class="form-control" onkeyup="input_busqueda_creden(this.value)"
-                                    placeholder="Buscar por NOMBRE o CI">
+                                    placeholder="Buscar por NOMBRE - CI - COD">
                             </div>
                         </div>
                         <div class="col-lg-4" style="text-align: rigth ;">
@@ -40,7 +40,8 @@
                                     @endforeach
                                 </select>
                                 <div class="input-group-prepend ">
-                                    <button class="btn btn-facebook"  onclick="changeTerminal()"><i class="fa fa-route" style=""></i></button>
+                                    <button class="btn btn-facebook" onclick="changeTerminal()"><i class="fa fa-route"
+                                            style=""></i></button>
                                 </div>
                             </div>
                         </div>
@@ -552,7 +553,7 @@
         </div>
     </div>
     <div class="modal fade" id="md_show_credencial" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <embed src="" type="" id="emb_sec_pdf_creden" width="1000" height="800">

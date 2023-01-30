@@ -156,7 +156,7 @@ function queryShow_1() {
     // });
 }
 
-let input_busqueda_creden=(param) =>{
+let input_busqueda_creden = (param) => {
     if (param.length != 0) {
         $.ajax({
             type: "GET",
@@ -230,8 +230,8 @@ let fila_creden = (e) => {
                                 <button class="dropdown-item"  onclick="fun_credeEmp_delete('${e.idEmpleado}')">Eliminar</button>
                                 <button class="dropdown-item"  onclick="fun_credeEmp_camera('${e.idEmpleado}')">Cargar Imagen</button>
                                 <div role="separator" class="dropdown-divider"></div>
-                                // <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',1)">Generar Credencial</button>
-                                // <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',2)">Generar Credencial tipo2</button>
+                                <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',1)">Generar Credencial</button>
+                                <button class="dropdown-item"  onclick="fun_credeEmp_emage('${e.idEmpleado}',2)">Generar Credencial tipo2</button>
                                 <button class="dropdown-item bg-purple"  onclick="fun_renovar_creden('${e.idEmpleado}',1)">Generar | Renovar</button>
                             </div>
                         </div>
@@ -262,21 +262,26 @@ function fun_renovar_creden(id, param) {
                     cont = 0;
                     html2 = response.data
                         .map(function (p) {
+                            tipoR = 'Plataforma';
+                            if (p.cr_tipo == 'C') {
+                                tipoR = 'Conducción';
+                            }
                             return (a = `
                             <tr>
                                 <th scope="row">${(cont += 1)}</th>
-                                <td>${p.fecha}</td>
-                                <td>${p.motivo}</td>
-                                <td>${p.tarjeta}</td>
+                                <td>${p.created_atn}</td>
+                                <td>${tipoR}</td>
+                                <td>${p.cr_motivo}</td>
+                                <td>${p.cr_nueva_CodigoTarjeta}</td>
                             </tr>
                             `);
                         })
                         .join(" ");
                     $("#table_renov_creden_emp").html(html2);
                     $("#text_creden_vigent").html(
-                        "Codigo de credencial Vigente : <strong>" +
-                            response.cod +
-                            "</strong>"
+                        "Codigo de credencial-Plataforma Vigente : <strong>" +
+                        response.cod +
+                        "</strong>"
                     );
                 },
             });
@@ -291,15 +296,18 @@ function fun_renovar_creden(id, param) {
                     id: idEmpleadoRenovar,
                     ren_cred_motivo: $("#ren_cred_motivo").val(),
                     ren_cred_codigo: $("#ren_cred_codigo").val(),
+                    ren_cred_tipo: $("#ren_cred_tipo").val(),
                 },
-                // dataType: "dataType",
+                // dataType: "dataType",a
                 success: function (response) {
-                    if (response) {
-                        console.log(response);
-                        $("#mod_conf_renovacion").modal("hide");
-                        idEmpleadoRenovar = "";
+                    console.log(response);
+                    if (response == 1) {
+                        // $("#mod_conf_renovacion").modal("hide");
+                        fun_renovar_creden(idEmpleadoRenovar,1)
+                        // idEmpleadoRenovar = "";
+                        noti_fi(2, 'Datos registrados')
                     } else {
-                        console.log("Completar codigo nueva credencial");
+                        noti_fi(4, 'Error Server, Informar al Supservisor')
                     }
                 },
             });

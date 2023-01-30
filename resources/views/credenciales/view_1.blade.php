@@ -598,6 +598,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Fecha</th>
+                                        <th>Tipo</th>
                                         <th>Motivo</th>
                                         <th>Codigo de Tarjeta</th>
                                     </tr>
@@ -609,20 +610,25 @@
                         </div>
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class=" col-6"><button class="btn btn-block btn-purple" onclick="showCreden()">Credencial Permiso Conducción</button></div>
+                        <div class=" col-6"><button class="btn btn-block btn-primary" onclick="showCreden()">Credencial Plataforma</button></div>
+                    </div>
+                    <hr>
                     <h5>Formulario de renovacion de credencial</h5>
-                    <form id="form_ren_cred">
+                    <form id="form_ren_cred" onsubmit="event.preventDefault();fun_renovar_creden(0,2)">
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="exampleSelectGender">Motivo</label>
+                                    <label for="exampleSelectGender">Tipo de Credencial</label>
                                     <select class="form-control" id="ren_cred_tipo" name="ren_cred_motivo">
-                                        <option value="1">Plataforma</option>
-                                        <option value="2">Condución</option>
+                                        <option value="P">Plataforma</option>
+                                        <option value="C">Condución</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleSelectGender">Motivo</label>
                                     <select class="form-control" id="ren_cred_motivo" name="ren_cred_motivo">
@@ -632,12 +638,16 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputEmail3">Codigo de nuevo credencial</label>
                                     <input type="number" class="form-control" id="ren_cred_codigo"
-                                        name="ren_cred_codigo" placeholder="###">
+                                        name="ren_cred_codigo" placeholder="###" required>
                                 </div>
+                            </div>
+                            <div class="col-md-3">
+                                <br>
+                                <button type="submit" class="btn btn-success btn-block">Registrar</button>
                             </div>
                         </div>
                         <p>Nota: Una vez confirmado, la renovación estara registrada dentro la base de datos y sera

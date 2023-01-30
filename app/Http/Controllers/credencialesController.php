@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\credRenov;
 use App\Models\Empleados;
 use App\Models\Empresas;
 use App\Models\termAero;
@@ -120,18 +121,18 @@ class credencialesController extends Controller
         $new->Observacion = $request->input('nc_13');
         $new->data_creden = serialize(array());
         $res = $new->save();
-        $emp=Empresas::where('Empresa',$new->Empresa)->first();
-        $term=termAero::where('ta_sigla',$new->Aeropuerto_2)->first();
-        $new->Empresa=$emp->Empresa;
-        $new->NombEmpresa=$emp->NombEmpresa;
-        $new->ta_sigla=$term->ta_sigla;
-        $new->ta_nombre=$term->ta_sigla;
+        $emp = Empresas::where('Empresa', $new->Empresa)->first();
+        $term = termAero::where('ta_sigla', $new->Aeropuerto_2)->first();
+        $new->Empresa = $emp->Empresa;
+        $new->NombEmpresa = $emp->NombEmpresa;
+        $new->ta_sigla = $term->ta_sigla;
+        $new->ta_nombre = $term->ta_sigla;
 
-        $new->Nombre = ($new->Nombre==null) ? '' : $new->Nombre ;
-        $new->Paterno = ($new->Paterno==null) ? '' : $new->Paterno ;
-        $new->Materno = ($new->Materno==null) ? '' : $new->Materno ;
+        $new->Nombre = ($new->Nombre == null) ? '' : $new->Nombre;
+        $new->Paterno = ($new->Paterno == null) ? '' : $new->Paterno;
+        $new->Materno = ($new->Materno == null) ? '' : $new->Materno;
 
-        return ['status'=>$res,'data'=>$new];
+        return ['status' => $res, 'data' => $new];
     }
 
     public function queryShow_1()
@@ -502,17 +503,17 @@ class credencialesController extends Controller
         $res->Observacion = $request->input('nc_13_edit');
         $res->data_creden = serialize(array());
         $ret = $res->save();
-        
-        $emp=Empresas::where('Empresa',$res->Empresa)->first();
-        $term=termAero::where('ta_sigla',$res->Aeropuerto_2)->first();
-        $res->Empresa=$emp->Empresa;
-        $res->NombEmpresa=$emp->NombEmpresa;
-        $res->ta_sigla=$term->ta_sigla;
-        $res->ta_nombre=$term->ta_sigla;
 
-        $res->Nombre = ($res->Nombre==null) ? '' : $res->Nombre ;
-        $res->Paterno = ($res->Paterno==null) ? '' : $res->Paterno ;
-        $res->Materno = ($res->Materno==null) ? '' : $res->Materno ;
+        $emp = Empresas::where('Empresa', $res->Empresa)->first();
+        $term = termAero::where('ta_sigla', $res->Aeropuerto_2)->first();
+        $res->Empresa = $emp->Empresa;
+        $res->NombEmpresa = $emp->NombEmpresa;
+        $res->ta_sigla = $term->ta_sigla;
+        $res->ta_nombre = $term->ta_sigla;
+
+        $res->Nombre = ($res->Nombre == null) ? '' : $res->Nombre;
+        $res->Paterno = ($res->Paterno == null) ? '' : $res->Paterno;
+        $res->Materno = ($res->Materno == null) ? '' : $res->Materno;
 
         return ["est" => $ret, 'data' => $res];
     }
@@ -540,7 +541,7 @@ class credencialesController extends Controller
                 $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Codigo', 'like', '%'.$r)
+                    ->orwhere('Empleados.Codigo', 'like', '%' . $r)
                     ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
             })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
@@ -570,7 +571,7 @@ class credencialesController extends Controller
                 $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
                     ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Codigo', 'like', '%'.$r)
+                    ->orwhere('Empleados.Codigo', 'like', '%' . $r)
                     ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
             })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
@@ -654,25 +655,66 @@ class credencialesController extends Controller
     public function query_renovar_creden($tipo, Request $request)
     {
         $data = Empleados::where('idEmpleado', $request->input('id'))->first();
-
+        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->get();
+        foreach ($histRen as $key => $value) {
+            $histRen[$key]->created_atn = Carbon::parse($value->created_at)->format('d-m-Y h:i');
+        }
         // * sector de lista de renovaciones acnteriores  $tipo == 1
         if ($tipo == 1) {
             return [
-                'data' => unserialize($data['data_creden']),
+                'data' => $histRen,
                 'cod'  => $data['CodigoTarjeta'],
             ];
         }
-        if ($request->input('ren_cred_codigo') <= 999) {
-            return 0;
-        }
 
         // * sector de createa renovacion de credencial $tipo == 2
+        $codTarjetaBaja = $data->CodigoTarjeta;
+        $codTarjetaNueva_1 = $request->input('ren_cred_codigo');
+        $codTarjetaNueva_2 = $request->input('ren_cred_codigo');
+
+        $newr = new credRenov();
+        $newr->idEmpleado = $request->input('id');
+        $newr->cr_tipo = $request->input('ren_cred_tipo');
+        $newr->cr_baja_CodigoTarjeta = $data->CodigoTarjeta;
+        $newr->cr_baja_CodMYFARE = $data->CodMYFARE;
+        $newr->cr_nueva_CodigoTarjeta = $codTarjetaNueva_1;
+        $newr->cr_nueva_CodMYFARE = 0;
+        $newr->cr_motivo = $request->input('ren_cred_motivo');
+        $newr->cr_estadoImp = 1;
+        $newr->cr_data = serialize(array());
+        $newr->ca_tipo = 'create';
+        $newr->ca_estado = true;
+        $newr->ca_codUsu = Auth::user()->id;
+
+        $res1 = $newr->save();
+        if ($res1 == 1 && $newr->cr_tipo == 'P') {
+            $upEmp = Empleados::find($newr->idEmpleado);
+            $upEmp->CodigoTarjeta = $newr->cr_nueva_CodigoTarjeta;
+            $upEmp->CodMYFARE = $newr->cr_nueva_CodMYFARE;
+            $upEmp->NroRenovacion = intval(credRenov::where('idEmpleado', $newr->idEmpleado)->where('cr_tipo', 'P')->count('id')); //TODO verificar para mod codtarjeta myfare
+            $res2 = $upEmp->save();
+        } else {
+            $res2 = 1;
+        }
+
+        if ($res1 == 1 && $res2 == 1) {
+            return true;
+        }
+        return false;
+
+
+
+
+
+
         $d = ($data['data_creden'] == NULL) ? array() : unserialize($data['data_creden']);
         $new = [
             'motivo' => $request->input('ren_cred_motivo'),
             'tarjeta' => $data['CodigoTarjeta'],
             'fecha' => Carbon::now()->format('d-m-Y'),
         ];
+
+
         array_push($d, $new);
         return Empleados::where('idEmpleado', $request->input('id'))->update([
             'data_creden' => serialize($d),

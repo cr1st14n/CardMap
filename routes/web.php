@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\credencialesController;
+use App\Http\Controllers\CredRenovController;
 use App\Http\Controllers\credvisitaController;
 use App\Http\Controllers\empresaController;
 use App\Http\Controllers\homeController;
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     Route::get('queryShow_1', [credencialesController::class, 'queryShow_1']); //* lista general
     Route::any('query_add_photo/{e}', [credencialesController::class, 'query_add_photo']); //* agregar imagen
     Route::post('query_destroy_credencial', [credencialesController::class, 'query_destroy_credencial']); //* eliminar item
+    Route::get('query_baja_creden', [credencialesController::class, 'query_baja_creden']); //* eliminar item
     Route::post('query_edit_emp', [credencialesController::class, 'query_edit_emp']);
     Route::post('query_update_emp', [credencialesController::class, 'query_update_emp']);
     Route::get('query_buscar_A', [credencialesController::class, 'query_buscar_A']);
@@ -52,6 +54,10 @@ Route::group(['prefix' => 'credenciales'], function () {
     // * credencial formato
     Route::get('query_cons_1', [credencialesController::class, 'query_cons_1']);
     Route::get('pdf_creden_emp_a/{e}/{t}', [credencialesController::class, 'pdf_creden_emp_a']);
+
+    // *---verificar estado imprecion 
+    Route::get('query_estImprecion',[CredRenovController::class,'query_estImprecion']);
+    Route::get('queryUpdateEstadoImpr',[CredRenovController::class,'queryUpdateEstadoImpr']);
 
     // * Credenciales de visitas
     Route::get('view_cv_1', [credvisitaController::class, 'viewHome']);

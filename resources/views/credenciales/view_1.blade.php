@@ -553,9 +553,12 @@
         </div>
     </div>
     <div class="modal fade" id="md_show_credencial" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        aria-hidden="true" data-backdrop="static" data-keyboard="true">
+
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
+                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span> CERRAR VENTANA DE IMPRECION </button>
                 <embed src="" type="" id="emb_sec_pdf_creden" width="1000" height="800">
             </div>
         </div>
@@ -567,11 +570,27 @@
             <div class="modal-content">
 
                 <div class="modal-body">
-                    <p>Confrimar peticion!</p>
+                    <p>Confirmar peticion!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="destroy_credencial()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal para delete item -->
+    <div class="modal fade" id="md_bajaEmpleado" tabindex="-1" role="dialog"
+        aria-labelledby="demoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <p>Dar de baja a registro de personal </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="fun_baja_creden()">Confirmar</button>
                 </div>
             </div>
         </div>
@@ -611,8 +630,10 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class=" col-6"><button class="btn btn-block btn-purple" onclick="showCreden()">Credencial Permiso Conducción</button></div>
-                        <div class=" col-6"><button class="btn btn-block btn-primary" onclick="showCreden()">Credencial Plataforma</button></div>
+                        <div class=" col-6"><button class="btn btn-block btn-primary"
+                                onclick="showCreden('P')">Credencial TIAS</button></div>
+                        <div class=" col-6"><button class="btn btn-block btn-purple"
+                                onclick="showCreden('C')">Credencial PCP</button></div>
                     </div>
                     <hr>
                     <h5>Formulario de renovacion de credencial</h5>
@@ -623,8 +644,8 @@
                                 <div class="form-group">
                                     <label for="exampleSelectGender">Tipo de Credencial</label>
                                     <select class="form-control" id="ren_cred_tipo" name="ren_cred_motivo">
-                                        <option value="P">Plataforma</option>
-                                        <option value="C">Condución</option>
+                                        <option value="P">TIAS</option>
+                                        <option value="C">PCP</option>
                                     </select>
                                 </div>
                             </div>
@@ -635,6 +656,7 @@
                                         <option value="Extravio">Extravio</option>
                                         <option value="Deteriorado">Deteriorado</option>
                                         <option value="Caducado">Caducado</option>
+                                        <option value="CambioCargo">Cambio de Cargo</option>
                                     </select>
                                 </div>
                             </div>

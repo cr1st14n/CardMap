@@ -15,6 +15,7 @@ use PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class credencialesController extends Controller
 {
@@ -691,7 +692,10 @@ class credencialesController extends Controller
             $upEmp = Empleados::find($newr->idEmpleado);
             $upEmp->CodigoTarjeta = $newr->cr_nueva_CodigoTarjeta;
             $upEmp->CodMYFARE = $newr->cr_nueva_CodMYFARE;
-            $upEmp->NroRenovacion = intval(credRenov::where('idEmpleado', $newr->idEmpleado)->where('cr_tipo', 'P')->count('id')); //TODO verificar para mod codtarjeta myfare
+            $upEmp->NroRenovacion = intval(credRenov::where('idEmpleado', $newr->idEmpleado)
+                ->where('cr_motivo','!=', 'CambioCargo')
+                ->where('cr_tipo', 'P')
+                ->count('id')); //TODO verificar para mod codtarjeta myfare
             $res2 = $upEmp->save();
         } else {
             $res2 = 1;
@@ -763,5 +767,12 @@ class credencialesController extends Controller
         // $up->AreasCP = $request->input('pcp_factura');
         $r = $up->save();
         return $r;
+    }
+
+    public function query_baja_creden(Request $request)
+    {
+        $update=Empleados::find($request->input('empleado'));
+        $update->Estado='B';
+        return $res=$update->save();
     }
 }

@@ -41,6 +41,7 @@ class credencialesController extends Controller
                 break;
         }
         $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
+            ->where('Empleados.Estado', 'A')
             ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
             ->select(
                 'Empleados.idEmpleado',
@@ -103,7 +104,7 @@ class credencialesController extends Controller
         $new->GSangre = $request->input('nc_gs');
         $new->aeropuerto = $aero;
         $new->Aeropuerto_2 = $request->input('nc_aeropuerto');
-        // $new->estado = $request->input('nc_acci');
+        $new->Estado = 'A';
 
         $new->Vencimiento = ($request->input('nc_fv') == '') ? null :   Carbon::parse($request->input('nc_fv'))->format('Y-m-d H:i:s');
         $new->Fecha = ($request->input('nc_f_in') == '') ? null :   Carbon::parse($request->input('nc_f_in'))->format('Y-m-d H:i:s');
@@ -154,6 +155,8 @@ class credencialesController extends Controller
                 break;
         }
         return Empleados::where('aeropuerto', $aero)
+            ->where('Empleados.Estado', 'A')
+
             ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
             ->select(
                 'Empleados.idEmpleado',
@@ -538,13 +541,15 @@ class credencialesController extends Controller
                 break;
         }
         if ($request->input('term') == 'todo' || $request->input('term') == '') {
-            $em = Empleados::where('aeropuerto', session('aero'))->where(function ($query) use ($r) {
-                $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Codigo', 'like', '%' . $r)
-                    ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
-            })
+            $em = Empleados::where('aeropuerto', session('aero'))
+                ->where('Empleados.Estado', 'A')
+                ->where(function ($query) use ($r) {
+                    $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
+                        ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
+                        ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
+                        ->orwhere('Empleados.Codigo', 'like', '%' . $r)
+                        ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
+                })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
                 ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
@@ -568,13 +573,16 @@ class credencialesController extends Controller
                 ->limit(20)
                 ->get();
         } else {
-            $em = Empleados::where('aeropuerto_2', $request->input('term'))->where(function ($query) use ($r) {
-                $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
-                    ->orwhere('Empleados.Codigo', 'like', '%' . $r)
-                    ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
-            })
+            $em = Empleados::where('aeropuerto_2', $request->input('term'))
+                ->where('Empleados.Estado', 'A')
+                ->where(function ($query) use ($r) {
+                    $query->where('Empleados.Nombre', 'like', '%' . $r . '%')
+
+                        ->orwhere('Empleados.Paterno', 'like', '%' . $r . '%')
+                        ->orwhere('Empleados.Materno', 'like', '%' . $r . '%')
+                        ->orwhere('Empleados.Codigo', 'like', '%' . $r)
+                        ->orwhere('Empleados.CI', 'like', '%' . $r . '%');
+                })
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
                 ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
@@ -607,6 +615,7 @@ class credencialesController extends Controller
         // ->first();
         if ($request->input('text') == 'todo') {
             return  $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
+                ->where('Empleados.Estado', 'A')
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
                 ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
@@ -630,6 +639,7 @@ class credencialesController extends Controller
             # code...
             return
                 $em = Empleados::where('aeropuerto_2', $request->input('text'))
+                ->where('Empleados.Estado', 'A')
                 ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
                 ->join('term_aeros', 'term_aeros.ta_sigla', 'Empleados.aeropuerto_2')
                 ->select(
@@ -693,7 +703,7 @@ class credencialesController extends Controller
             $upEmp->CodigoTarjeta = $newr->cr_nueva_CodigoTarjeta;
             $upEmp->CodMYFARE = $newr->cr_nueva_CodMYFARE;
             $upEmp->NroRenovacion = intval(credRenov::where('idEmpleado', $newr->idEmpleado)
-                ->where('cr_motivo','!=', 'CambioCargo')
+                ->where('cr_motivo', '!=', 'CambioCargo')
                 ->where('cr_tipo', 'P')
                 ->count('id')); //TODO verificar para mod codtarjeta myfare
             $res2 = $upEmp->save();
@@ -771,8 +781,9 @@ class credencialesController extends Controller
 
     public function query_baja_creden(Request $request)
     {
-        $update=Empleados::find($request->input('empleado'));
-        $update->Estado='B';
-        return $res=$update->save();
+        $update = Empleados::find($request->input('empleado'));
+        $update->Estado = 'B';
+
+        return $res = $update->save();
     }
 }

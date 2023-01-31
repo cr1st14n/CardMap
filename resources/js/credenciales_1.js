@@ -278,7 +278,7 @@ let fila_creden = (e) => {
                                 <button class="dropdown-item"  onclick="fun_credeEmp_delete('${e.idEmpleado}')">Eliminar</button>
                                 <button class="dropdown-item"  onclick="fun_credeEmp_camera('${e.idEmpleado}')">Cargar Imagen</button>
                                 <div role="separator" class="dropdown-divider"></div>
-                                <button class="dropdown-item bg-purple"  onclick="fun_baja_creden('${e.idEmpleado}')">Dar Baja</button>
+                                <button class="dropdown-item bg-purple"  onclick="confirmarBajaEmpleado('${e.idEmpleado}')">Dar Baja</button>
                                 <button class="dropdown-item bg-danger"  onclick="fun_renovar_creden('${e.idEmpleado}',1)">Generar | Renovar</button>
                             </div>
                         </div>
@@ -474,7 +474,7 @@ function saveVeiAut() {
 let empleadoBaja= ''
 let confirmarBajaEmpleado=(empleado)=>{
     empleadoBaja=empleado
-    $('md_bajaEmpleado').modal('show');
+    $('#md_bajaEmpleado').modal('show');
 }
 
 let fun_baja_creden = () => {
@@ -485,8 +485,11 @@ let fun_baja_creden = () => {
 };
 
 let notiBaja = (response) => {
-    if (response == 1) {
+    if (response) {
         noti_fi(2,'Registro dado de baja')
+        $('#td_fi_cren_'+empleadoBaja).remove();
+        $('#md_bajaEmpleado').modal('hide');
+        empleadoBaja=''
         return
     }
     noti_fi(4,'Error de proceso')

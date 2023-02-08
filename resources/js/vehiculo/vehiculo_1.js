@@ -1,6 +1,4 @@
-$(document).ready(function () {
-    list1();
-});
+
 data_1 = Array;
 function list1() {
     $.ajax({
@@ -13,6 +11,7 @@ function list1() {
         },
     });
 }
+list1();
 function list_table(data) {
     data_1 = data;
     html_1 = data
@@ -93,8 +92,9 @@ $("#btn_newVehiculo").click(function (e) {
     });
     $("#md_newVehiculo").modal("show");
 });
-$("#form_newVehiculo").submit(function (e) {
-    e.preventDefault();
+ 
+let form_newVehiculo = () => {
+    console.log('empezando');
     $.ajax({
         type: "post",
         url: "Vehiculo/query_store_1",
@@ -109,6 +109,9 @@ $("#form_newVehiculo").submit(function (e) {
             }
         },
     });
+};
+$("#form_newVehiculo").submit(function (e) {
+    e.preventDefault();
 });
 function showPdfVin(id) {
     $("#emb_sec_pdf_vin_v").attr("src", "Vehiculo/pdf_viñeta_1/1/1/" + id);

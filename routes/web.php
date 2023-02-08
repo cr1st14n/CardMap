@@ -99,91 +99,91 @@ Route::group(['prefix' => 'terminal'], function () {
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
-Route::get('union6666', function () {
-    // return Empleados::select('Codigo')->get();
-    $data = empvvi::select(
-        'Vencimiento',
-        'Codigo',
-        'tipo',
-        'CI',
-        'CategoriaLic',
-        'Nombre',
-        'Paterno',
-        'Materno',
-        'Empresa',
-        'Cargo',
-        'CodigoTarjeta',
-        'NroRenovacion',
-        'Herramientas',
-        'AreasAut',
-        'AreasCP',
-        'GSangre',
-        'EstCivil',
-        'Sexo',
-        'Profesion',
-        'altura',
-        'Ojos',
-        'Peso',
-        'TelDom',
-        'Direccion',
-        'TelTrab',
-        'DirTrab',
-        'Observacion',
-        'Vencimiento',
-        'Fecha',
-        'FechaNac',
-    )
-        ->get();
-    // $date = Carbon::parse($data->Vencimiento)->format('Y-m-d');
-    // return  gettype($date);
-    $cont = 0;
-    $aero = 'VVI';
-    $list_vehi = ['tipo' => '', 'list' => ''];
-    $listEmpFall = array();
-    foreach ($data as $key => $value) {
-        $new = new Empleados();
-        $new->Codigo = $value->Codigo;
-        $new->tipo = $value->tipo;
-        $new->CI = $value->CI;
-        $new->CategoriaLic = $value->CategoriaLic;
-        $new->Nombre = $value->Nombre;
-        $new->Paterno = $value->Paterno;
-        $new->Materno = $value->Materno;
-        $new->Empresa = $value->Empresa;
-        $new->Cargo = $value->Cargo;
-        $new->CodigoTarjeta = $value->CodigoTarjeta;
-        $new->NroRenovacion = 0;
-        $new->Herramientas = $value->Herramientas;
-        $new->AreasAut = $value->AreasAut;
-        $new->AreasCP = $value->AreasCP;
-        $new->GSangre = $value->GSangre;
-        $new->aeropuerto = 'VVI';
-        $new->Aeropuerto_2 = 'VVI';
-        $new->estado = 'A';
-        $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-m-d');
-        $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-m-d');
-        $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-m-d');
-        $new->urlphoto = 'public/storage/imagenes/VVI/' . $value->Codigo . '.jpg';
-        $new->EstCivil = $value->EstCivil;
-        $new->Sexo = $value->Sexo;
-        $new->Profesion = $value->Profesion;
-        $new->altura = $value->altura;
-        $new->Ojos = $value->Ojos;
-        $new->Peso = $value->Peso;
-        $new->TelDom = $value->TelDom;
-        $new->Direccion = $value->Direccion;
-        $new->TelTrab = $value->TelTrab;
-        $new->DirTrab = $value->DirTrab;
-        $new->Observacion = $value->Observacion;
-        $new->data_creden = serialize(array());
-        $res = $new->save();
-        if ($res) {
-            // array_push($listEmpFall, $new->CI);
-            $cont += 1;
-        }
-    }
-    return $cont;
-});
+// Route::get('union6666', function () {
+//     // return Empleados::select('Codigo')->get();
+//     $data = empvvi::select(
+//         'Vencimiento',
+//         'Codigo',
+//         'tipo',
+//         'CI',
+//         'CategoriaLic',
+//         'Nombre',
+//         'Paterno',
+//         'Materno',
+//         'Empresa',
+//         'Cargo',
+//         'CodigoTarjeta',
+//         'NroRenovacion',
+//         'Herramientas',
+//         'AreasAut',
+//         'AreasCP',
+//         'GSangre',
+//         'EstCivil',
+//         'Sexo',
+//         'Profesion',
+//         'altura',
+//         'Ojos',
+//         'Peso',
+//         'TelDom',
+//         'Direccion',
+//         'TelTrab',
+//         'DirTrab',
+//         'Observacion',
+//         'Vencimiento',
+//         'Fecha',
+//         'FechaNac',
+//     )
+//         ->get();
+//     // $date = Carbon::parse($data->Vencimiento)->format('Y-m-d');
+//     // return  gettype($date);
+//     $cont = 0;
+//     $aero = 'VVI';
+//     $list_vehi = ['tipo' => '', 'list' => ''];
+//     $listEmpFall = array();
+//     foreach ($data as $key => $value) {
+//         $new = new Empleados();
+//         $new->Codigo = $value->Codigo;
+//         $new->tipo = $value->tipo;
+//         $new->CI = $value->CI;
+//         $new->CategoriaLic = $value->CategoriaLic;
+//         $new->Nombre = $value->Nombre;
+//         $new->Paterno = $value->Paterno;
+//         $new->Materno = $value->Materno;
+//         $new->Empresa = $value->Empresa;
+//         $new->Cargo = $value->Cargo;
+//         $new->CodigoTarjeta = $value->CodigoTarjeta;
+//         $new->NroRenovacion = 0;
+//         $new->Herramientas = $value->Herramientas;
+//         $new->AreasAut = $value->AreasAut;
+//         $new->AreasCP = $value->AreasCP;
+//         $new->GSangre = $value->GSangre;
+//         $new->aeropuerto = 'VVI';
+//         $new->Aeropuerto_2 = 'VVI';
+//         $new->estado = 'A';
+//         $new->Vencimiento  = ($value->Vencimiento == '') ? null : $date =  Carbon::parse($value->Vencimiento)->format('Y-m-d');
+//         $new->Fecha  = ($value->Fecha == '') ? '' :   Carbon::parse($value->Fecha)->format('Y-m-d');
+//         $new->FechaNac  = ($value->FechaNac == '') ? '' :   Carbon::parse($value->FechaNac)->format('Y-m-d');
+//         $new->urlphoto = 'public/storage/imagenes/VVI/' . $value->Codigo . '.jpg';
+//         $new->EstCivil = $value->EstCivil;
+//         $new->Sexo = $value->Sexo;
+//         $new->Profesion = $value->Profesion;
+//         $new->altura = $value->altura;
+//         $new->Ojos = $value->Ojos;
+//         $new->Peso = $value->Peso;
+//         $new->TelDom = $value->TelDom;
+//         $new->Direccion = $value->Direccion;
+//         $new->TelTrab = $value->TelTrab;
+//         $new->DirTrab = $value->DirTrab;
+//         $new->Observacion = $value->Observacion;
+//         $new->data_creden = serialize(array());
+//         $res = $new->save();
+//         if ($res) {
+//             // array_push($listEmpFall, $new->CI);
+//             $cont += 1;
+//         }
+//     }
+//     return $cont;
+// });
 
 
 

@@ -82,7 +82,7 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form class="forms-sample" id="form_newVehiculo">@csrf
+                    <form class="forms-sample" name="form_newVehiculo" onsubmit="event.preventDefault(); form_newVehiculo();" >@csrf
                         <div class="form-group row ">
                             <div class="col-sm-6">
                                 <div class="form-group small">
@@ -92,43 +92,50 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_placa_edit" id="vi_placa_edit" required>
+                                    <input type="text" class="form-control" name="vi_placa_edit" id="vi_placa_edit"
+                                        required>
                                     <b>Placa</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_poliza_edit" id="vi_poliza_edit">
+                                    <input type="text" class="form-control" name="vi_poliza_edit"
+                                        id="vi_poliza_edit">
                                     <b># de Poliza</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_resp_edit" id="vi_resp_edit" required>
+                                    <input type="text" class="form-control" name="vi_resp_edit" id="vi_resp_edit"
+                                        required>
                                     <b>Responsable</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_empAse_edit" id="vi_empAse_edit">
+                                    <input type="text" class="form-control" name="vi_empAse_edit"
+                                        id="vi_empAse_edit">
                                     <b>Empresa Aseguradora</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_aut_edit" id="vi_aut_edit" required>
+                                    <input type="text" class="form-control" name="vi_aut_edit" id="vi_aut_edit"
+                                        required>
                                     <b>Autorizado por:</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="vi_feI_edit" id="vi_feI_edit" required>
+                                    <input type="date" class="form-control" name="vi_feI_edit" id="vi_feI_edit"
+                                        required>
                                     <b>Fecha Inicial</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="vi_fef_edit" id="vi_fef_edit" required>
+                                    <input type="date" class="form-control" name="vi_fef_edit" id="vi_fef_edit"
+                                        required>
                                     <b>Fecha Final</b>
                                 </div>
                             </div>

@@ -68,7 +68,7 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form class="forms-sample" id="form_new_creden_visita">@csrf
+                    <form class="forms-sample" id="form_new_creden_visita" onsubmit="event.preventDefault()">@csrf
                         <div class="form-group row ">
                             <div class="col-sm-6">
                                 <div class="form-group small">

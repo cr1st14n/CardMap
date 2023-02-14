@@ -23,6 +23,8 @@
                                 </div>
                                 <input type="text" class="form-control" onkeyup="input_busqueda_creden(this.value)" placeholder="Buscar por NOMBRE o CI">
                             </div> -->
+                            <button style="text-align: rigth ;" type="button" onclick="list1()"
+                                class="btn btn-purple mb-2 "><i class="fa fa-list"></i> Listar Viñetas </button>
                             <button style="text-align: rigth ;" type="button" id="btn_newVehiculo"
                                 class="btn btn-primary mb-2 "><i class="fa fa-plus-circle"></i> Agregar </button>
                             {{-- <input type="text" class="form-control"> --}}
@@ -71,7 +73,18 @@
             </div>
         </div>
     </div>
-
+    <style>
+        .select_update {
+            background: transparent;
+            border-color: black;
+            border: 1px solid #d9d9d9;
+            font-size: 14px;
+            height: 30px;
+            padding: 5px;
+            color: rgb(0, 0, 0);
+            width: 100%;
+        }
+    </style>
     <div class="modal fade" id="md_edit_Vehiculo" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog  " role="document">
@@ -82,11 +95,15 @@
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form class="forms-sample" name="form_newVehiculo" onsubmit="event.preventDefault(); form_newVehiculo();" >@csrf
+                    <form id="form_newVehiculo_edit">@csrf
                         <div class="form-group row ">
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_emp_edit" id="vi_emp_edit"></select>
+                                    <select class="select_update" name="vi_emp_edit" id="vi_emp_edit">
+                                        @foreach ($datos['emp'] as $em)
+                                            <option value="{{ $em->Empresa }}">{{ $em->NombEmpresa }}</option>
+                                        @endforeach
+                                    </select required>
                                     <b>Empresa</b>
                                 </div>
                             </div>
@@ -141,36 +158,48 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_mo_edit" id="vi_mo_edit">
+                                    <input  type="text" class="form-control" name="vi_mo_edit" id="vi_mo_edit" required>
                                     <b>Motivo</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_color_edit" id="vi_color_edit"></select>
+                                    <select class="select_update" name="vi_color_edit" id="vi_color_edit">
+                                        @foreach ($datos['color'] as $item)
+                                            <option value="{{ $item->Codigo }}">{{ $item->Color }}</option>
+                                        @endforeach
+                                    </select required>
                                     <b>Color de Vehiculo</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_tipo_edit" id="vi_tipo_edit"></select>
+                                    <select class="select_update" name="vi_tipo_edit" id="vi_tipo_edit">
+                                        @foreach ($datos['tipo'] as $ti)
+                                            <option value="{{ $ti->Codigo }}">{{ $ti->Tipo }}</option>
+                                        @endforeach
+                                    </select>
                                     <b>Tipo de Vehiculo</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_fab_edit" id="vi_fab_edit"></select>
+                                    <select class="select_update" name="vi_fab_edit" id="vi_fab_edit">
+                                        @foreach ($datos['marca'] as $ma)
+                                            <option value="{{ $ma->Codigo }}">{{ $ma->Marca }}</option>
+                                        @endforeach
+                                    </select>
                                     <b>Fabricante</b>
                                 </div>
                             </div>
                             <div class=" col-sm-6 form-group">
                                 <input type="text" class=" form-control form-control-sm" name="vi_AreasCp_edit"
-                                    id="vi_AreasCp_edit" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                                    id="vi_AreasCp_edit" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8" required>
                                 <b>Areas Autorizadas</b>
                             </div>
                             <div class="modal-footer col-sm-12">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-primary">Actualizar Datos</button>
                             </div>
                         </div>
                     </form>
@@ -192,7 +221,11 @@
                         <div class="form-group row ">
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_emp" id="vi_emp"></select>
+                                    <select class="form-control" name="vi_emp" id="vi_emp" required>
+                                        @foreach ($datos['emp'] as $e)
+                                            <option value="{{ $e->Empresa }}">{{ $e->NombEmpresa }}</option>
+                                        @endforeach
+                                    </select>
                                     <b>Empresa</b>
                                 </div>
                             </div>
@@ -240,31 +273,43 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_mo" id="vi_mo">
+                                    <input type="text" class="form-control" name="vi_mo" id="vi_mo" required>
                                     <b>Motivo</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_color" id="vi_color"></select>
+                                    <select class="form-control" name="vi_color" id="vi_color" required>
+                                        @foreach ($datos['color'] as $item)
+                                            <option value="{{ $item->Codigo }}">{{ $item->Color }}</option>
+                                        @endforeach
+                                    </select>
                                     <b>Color de Vehiculo</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_tipo" id="vi_tipo"></select>
+                                    <select class="form-control" name="vi_tipo" id="vi_tipo" required>
+                                        @foreach ($datos['tipo'] as $ti)
+                                            <option value="{{ $ti->Codigo }}">{{ $ti->Tipo }}</option>
+                                        @endforeach
+                                    </select>
                                     <b>Tipo de Vehiculo</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="form-control" name="vi_fab" id="vi_fab"></select>
+                                    <select class="form-control" name="vi_fab" id="vi_fab">
+                                        @foreach ($datos['marca'] as $ma)
+                                            <option value="{{ $ma->Codigo }}">{{ $ma->Marca }}</option>
+                                        @endforeach
+                                    </select>
                                     <b>Fabricante</b>
                                 </div>
                             </div>
                             <div class=" col-sm-6 form-group">
                                 <input type="text" class=" form-control form-control-sm" name="vi_AreasCp"
-                                    id="nc_AreasCp" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8">
+                                    id="nc_AreasCp" placeholder="-#-#--#-" pattern="[0-9_-]{8}" maxlength="8" required>
                                 <b>Areas Autorizadas</b>
                             </div>
                             <div class="modal-footer col-sm-12">

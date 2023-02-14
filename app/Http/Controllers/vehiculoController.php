@@ -20,7 +20,19 @@ class vehiculoController extends Controller
     }
     public function view_1()
     {
-        return view('vehiculo.vei_home');
+        $emp = Empresas::select('Empresa', 'NombEmpresa')->get();
+        foreach ($emp as $key => $value) {
+            $emp[$key]['Empresa'] = rtrim($value->Empresa);
+            $emp[$key]['FechaIniPer'] = Carbon::parse($value->FechaIniPer)->format('d-m-Y');
+            $emp[$key]['FechaFinPer'] = Carbon::parse($value->FechaFinPer)->format('d-m-Y');
+        }
+        $color = Color::get();
+        $tipo = Tipo::get();
+        $marca = Marca::get();
+        $datos = ['emp' => $emp, 'color' => $color, 'tipo' => $tipo, 'marca' => $marca,];
+
+
+        return view('vehiculo.vei_home')->with('datos', $datos);
     }
     public function query_list1()
     {
@@ -44,9 +56,9 @@ class vehiculoController extends Controller
     public function query_detalle_1(Request $request)
     {
         $data = Vehiculo::where('id', $request->input('id'))
-            ->join('Marca','Marca.Codigo ','Vehiculos.Marca')
-            ->join('Tipo','Tipo.Codigo ','Vehiculos.Tipo')
-            ->join('Color','Color.Codigo ','Vehiculos.Color')
+            ->join('Marca', 'Marca.Codigo ', 'Vehiculos.Marca')
+            ->join('Tipo', 'Tipo.Codigo ', 'Vehiculos.Tipo')
+            ->join('Color', 'Color.Codigo ', 'Vehiculos.Color')
             ->first();
         $data['FechaIniPer'] = Carbon::parse($data['FechaIniPer'])->format('d-m-Y');
         $data['FechaFinPer'] = Carbon::parse($data['FechaFinPer'])->format('d-m-Y');
@@ -63,7 +75,6 @@ class vehiculoController extends Controller
     }
     public function store_1(Request $request)
     {
-        return $request;
         $new = new Vehiculo;
         $new->Empresa = $request->input('vi_emp');
         $new->Placa = $request->input('vi_placa');
@@ -93,11 +104,11 @@ class vehiculoController extends Controller
     public function pdf_viñeta_1($tipo, $region, $id)
     {
         $data = Vehiculo::where('Vehiculos.id', $id)
-        ->join('Marca','Marca.Codigo ','Vehiculos.Marca')
-        ->join('Tipo','Tipo.Codigo ','Vehiculos.Tipo')
-        ->join('Color','Color.Codigo ','Vehiculos.Color')
-        ->join('Empresas','Empresas.Empresa','Vehiculos.Empresa')
-        ->first();
+            ->join('Marca', 'Marca.Codigo ', 'Vehiculos.Marca')
+            ->join('Tipo', 'Tipo.Codigo ', 'Vehiculos.Tipo')
+            ->join('Color', 'Color.Codigo ', 'Vehiculos.Color')
+            ->join('Empresas', 'Empresas.Empresa', 'Vehiculos.Empresa')
+            ->first();
         // return view('vehiculo.vei_vineta',
         // [
         //     'id' => $data->id,

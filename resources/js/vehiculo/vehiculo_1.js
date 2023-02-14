@@ -1,5 +1,4 @@
-
-data_1 = Array;
+data_Vehiculo = Array;
 function list1() {
     $.ajax({
         type: "get",
@@ -11,9 +10,9 @@ function list1() {
         },
     });
 }
-list1();
+
 function list_table(data) {
-    data_1 = data;
+    data_Vehiculo = data;
     html_1 = data
         .map(function (p, i) {
             return (h = `
@@ -64,37 +63,16 @@ function showDetalleVehi(id) {
 }
 $("#btn_newVehiculo").click(function (e) {
     e.preventDefault();
-    $.get("Vehiculo/create_1", function (data, textStatus, jqXHR) {
-        html = data.emp
-            .map(function (param) {
-                return (h = `<option value="${param.Empresa}">${param.NombEmpresa}</option>`);
-            })
-            .join(" ");
-        htmlC = data.color
-            .map(function (param) {
-                return (h = `<option value="${param.Codigo}">${param.Color}</option>`);
-            })
-            .join(" ");
-        htmlT = data.tipo
-            .map(function (param) {
-                return (h = `<option value="${param.Codigo}">${param.Tipo}</option>`);
-            })
-            .join(" ");
-        htmlF = data.marca
-            .map(function (param) {
-                return (h = `<option value="${param.Codigo}">${param.Marca}</option>`);
-            })
-            .join(" ");
-        $("#vi_emp").html(html);
-        $("#vi_color").html(htmlC);
-        $("#vi_tipo").html(htmlT);
-        $("#vi_fab").html(htmlF);
-    });
+    $("#form_newVehiculo").trigger("reset");
     $("#md_newVehiculo").modal("show");
 });
- 
-let form_newVehiculo = () => {
-    console.log('empezando');
+$("#form_newVehiculo").submit(function (e) {
+    e.preventDefault();
+    console.log("nuevo coche");
+    form_newVehiculo();
+});
+form_newVehiculo = () => {
+    console.log("empezando");
     $.ajax({
         type: "post",
         url: "Vehiculo/query_store_1",
@@ -110,55 +88,39 @@ let form_newVehiculo = () => {
         },
     });
 };
-$("#form_newVehiculo").submit(function (e) {
-    e.preventDefault();
-});
+
 function showPdfVin(id) {
     $("#emb_sec_pdf_vin_v").attr("src", "Vehiculo/pdf_viñeta_1/1/1/" + id);
     $("#md_show_vin").modal("show");
 }
 function edit_vin(i) {
-    $.get("Vehiculo/create_1", function (data, textStatus, jqXHR) {
-        html = data.emp
-            .map(function (param) {
-                return (h = `<option value="${param.Empresa}">${param.NombEmpresa}</option>`);
-            })
-            .join(" ");
-        htmlC = data.color
-            .map(function (param) {
-                return (h = `<option value="${param.Codigo}">${param.Color}</option>`);
-            })
-            .join(" ");
-        htmlT = data.tipo
-            .map(function (param) {
-                return (h = `<option value="${param.Codigo}">${param.Tipo}</option>`);
-            })
-            .join(" ");
-        htmlF = data.marca
-            .map(function (param) {
-                return (h = `<option value="${param.Codigo}">${param.Marca}</option>`);
-            })
-            .join(" ");
-        $("#vi_emp").html(html);
-        $("#vi_color").html(htmlC);
-        $("#vi_tipo").html(htmlT);
-        $("#vi_fab").html(htmlF);
-    });
-
-    console.log(data_1[i]);
+    console.log(data_Vehiculo[i]);
     $("#md_edit_Vehiculo").modal("show");
 
-    $("#vi_emp_edit").val(data_1[i]["Empresa"]);
-    $("#vi_placa_edit").val(data_1[i]["Placa"]);
-    $("#vi_poliza_edit").val(data_1[i]["NroPoliza"]);
-    $("#vi_resp_edit").val(data_1[i]["Responsable"]);
-    $("#vi_empAse_edit").val(data_1[i]["EmpresaAseg"]);
-    $("#vi_aut_edit").val(data_1[i]["AutorizadoPor"]);
-    $("#vi_feI_edit").val(data_1[i]["FechaIniPer"]);
-    $("#vi_fef_edit").val(data_1[i]["FechaFinPer"]);
-    $("#vi_mo_edit").val(data_1[i]["Motivo"]);
-    $("#vi_color_edit").val(data_1[i]["Color"]);
-    $("#vi_tipo_edit").val(data_1[i]["Tipo"]);
-    $("#vi_fab_edit").val(data_1[i]["Marca"]);
-    $("#vi_AreasCp_edit").val(data_1[i]["Areas"]);
+    $("#vi_emp_edit").val(data_Vehiculo[i]["Empresa"]);
+    $("#vi_placa_edit").val(data_Vehiculo[i]["Placa"]);
+    $("#vi_poliza_edit").val(data_Vehiculo[i]["NroPoliza"]);
+    $("#vi_resp_edit").val(data_Vehiculo[i]["Responsable"]);
+    $("#vi_empAse_edit").val(data_Vehiculo[i]["EmpresaAseg"]);
+    $("#vi_aut_edit").val(data_Vehiculo[i]["AutorizadoPor"]);
+    $("#vi_feI_edit").val(data_Vehiculo[i]["FechaIniPer"]);
+    $("#vi_fef_edit").val(data_Vehiculo[i]["FechaFinPer"]);
+    $("#vi_mo_edit").val(data_Vehiculo[i]["Motivo"]);
+    $("#vi_color_edit").val(data_Vehiculo[i]["Color"]);
+    $("#vi_tipo_edit").val(data_Vehiculo[i]["Tipo"]);
+    $("#vi_fab_edit").val(data_Vehiculo[i]["Marca"]);
+    $("#vi_AreasCp_edit").val(data_Vehiculo[i]["Areas"]);
 }
+
+$("form_newVehiculo_edit").submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "post",
+        url: "Vehiculo/query_edit_1",
+        data: $("#Vehiculo/query_store_1").serialize(),
+        // dataType: "dataType",
+        success: function (response) {
+            console.log(response);
+        },
+    });
+});

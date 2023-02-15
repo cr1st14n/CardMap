@@ -101,6 +101,35 @@ class vehiculoController extends Controller
         return $re;
     }
 
+    // * UPDATE DATA VEHICULO
+    public function update_1(Request $request)
+    {
+        $upVei = Vehiculo::find($request->input('idVei'));
+        $upVei->Empresa = $request->input('vi_emp_edit');
+        $upVei->Placa = $request->input('vi_placa_edit');
+        $upVei->NroPoliza = $request->input('vi_poliza_edit');
+        $upVei->Responsable = $request->input('vi_resp_edit');
+        $upVei->EmpresaAseg = $request->input('vi_empAse_edit');
+        $upVei->FechaIniPer = Carbon::parse($request->input('vi_feI_edit'))->format('Y-m-d H:i');
+        $upVei->FechaFinPer = Carbon::parse($request->input('vi_fef_edit'))->format('Y-m-d H:i');
+        $upVei->FechaSolic = null;
+        $upVei->Motivo = $request->input('vi_mo_edit');
+        $upVei->AutorizadoPor = $request->input('vi_aut_edit');
+        $upVei->Color = $request->input('vi_color_edit');
+        $upVei->Tipo = $request->input('vi_tipo_edit');
+        $upVei->Marca = $request->input('vi_fab_edit');
+        $upVei->Areas = $request->input('vi_AreasCp_edit');
+        $upVei->Vicom = "0";
+        $upVei->Banderola = "0";
+        $upVei->Banderola = "0";
+        $upVei->ca_cod_usu = Auth::user()->id;
+        $upVei->Estado = 1;
+        return $res = $upVei->save();
+    }
+
+
+
+
     public function pdf_viñeta_1($tipo, $region, $id)
     {
         $data = Vehiculo::where('Vehiculos.id', $id)

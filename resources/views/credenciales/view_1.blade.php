@@ -18,18 +18,18 @@
                     <div class="row">
                         <div class="col-lg-3" style="text-align: rigth ;">
                             <div class="input-group mb-2 mr-sm-4">
+                                <input type="text" class="form-control" onkeyup="input_busqueda_creden(this.value)"
+                                    placeholder="Buscar por NOMBRE - CI - COD">
                                 <div class="input-group-prepend ">
                                     <div class="input-group-text"><i class="fa fa-search"></i></div>
                                 </div>
-                                <input type="text" class="form-control" onkeyup="input_busqueda_creden(this.value)"
-                                    placeholder="Buscar por NOMBRE - CI - COD">
                             </div>
                         </div>
                         <div class="col-lg-4" style="text-align: rigth ;">
                             <div class="input-group mb-2 mr-sm-4">
-                                <div class="input-group-prepend ">
+                                {{-- <div class="input-group-prepend ">
                                     <div class="input-group-text"><i class="ik ik-map"></i></div>
-                                </div>
+                                </div> --}}
                                 <select class=" form-control form-control-sm" name="" id="selTerminal">
                                     <option value="todo" selected disabled>Seleccione Estacion</option>
                                     <option value="todo">Todos</option>
@@ -41,7 +41,7 @@
                                 </select>
                                 <div class="input-group-prepend ">
                                     <button class="btn btn-facebook" onclick="changeTerminal()"><i class="fa fa-route"
-                                            style=""></i></button>
+                                            style=""></i> Listar</button>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                                 <div class="form-group small">
                                     <select class="form-control" id="" name="nc_em" required>
                                         @foreach ($Empr as $e)
-                                            @if ($e->Empresa == 'NABL')
+                                            @if ($e->Empresa == 'NAABOL')
                                                 <option selected value="{{ $e->Empresa }}">{{ $e->NombEmpresa }}
                                                 </option>
                                             @else
@@ -166,13 +166,13 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="nc_codt">
+                                    <input type="text" class="form-control" name="nc_codt" disabled>
                                     <b>Codigo de Tarjeta</b>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="nc_codMy">
+                                    <input type="text" class="form-control" name="nc_codMy" disabled>
                                     <b>Codigo MYFARE</b>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="nc_areas_acceso"
                                         pattern="[0-9_-]{8}" maxlength="8" required
-                                        placeholder="#-#-##-#, 8 simbolos">
+                                        placeholder="#-#-##-#, 8 simbolos" disabled>
                                     <b>Areas Autorizadas</b>
                                 </div>
                             </div>

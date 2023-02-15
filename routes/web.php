@@ -88,6 +88,7 @@ Route::group(['prefix' => 'Vehiculo'], function () {
     Route::get('query_detalle_1', [vehiculoController::class, 'query_detalle_1']);
     Route::get('create_1', [vehiculoController::class, 'create_1']);
     Route::post('query_store_1', [vehiculoController::class, 'store_1']);
+    Route::post('query_update_1', [vehiculoController::class, 'update_1']);
     // * rutas para pdf de viñetas
     Route::get('pdf_viñeta_1/{e}/{f}/{t}', [vehiculoController::class, 'pdf_viñeta_1']);
 });

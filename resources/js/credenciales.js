@@ -26,13 +26,13 @@ var myDropzone = new Dropzone("#subImagen", {
     },
 });
 
-const btn_creden_add_item = () => {
+btn_creden_add_item = () => {
     $("#form_new_creden").trigger("reset");
     $("#md_add_credencial").modal("show");
 };
 
 // ? ----  variables de tipo de licencia
-const sel = {
+sel = {
     P: ["Motocicletass", "Vehiculos Particulares"],
     A: ["Camiotena", "Vagoneta", "Tipo Taxi", "Furgoneta"],
     B: [
@@ -55,7 +55,7 @@ const sel = {
         "Autobomba",
     ],
 };
-const sel_1 = {
+sel_1 = {
     P: ["0", "0"],
     A: ["0", "0", "0", "0"],
     B: ["0", "0", "0", "0", "0", "0"],

@@ -18,7 +18,7 @@ class loginController extends Controller
         // return $request;
         session()->forget('aero');
         $request->session()->get('aero');
-        
+
         $u = User::where('codusr', $request->input('codusr'))->first();
         if ($u == null) {
             return 0;

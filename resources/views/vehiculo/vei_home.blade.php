@@ -99,7 +99,7 @@
                         <div class="form-group row ">
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="select_update" name="vi_emp_edit" id="vi_emp_edit">
+                                    <select class="select_update" name="vi_emp_edit" id="vi_emp_edit" required>
                                         @foreach ($datos['emp'] as $em)
                                             <option value="{{ $em->Empresa }}">{{ $em->NombEmpresa }}</option>
                                         @endforeach
@@ -144,14 +144,14 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="vi_feI_edit" id="vi_feI_edit"
+                                    <input type="date" class="form-control" name="vi_feI_edit" id="vi_feI_edit" min="1700-01-01" max="2100-12-31"
                                         required>
                                     <b>Fecha Inicial</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="vi_fef_edit" id="vi_fef_edit"
+                                    <input type="date" class="form-control" name="vi_fef_edit" id="vi_fef_edit" min="2000-01-01" max="2100-12-31"
                                         required>
                                     <b>Fecha Final</b>
                                 </div>
@@ -164,7 +164,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="select_update" name="vi_color_edit" id="vi_color_edit">
+                                    <select class="select_update" name="vi_color_edit" id="vi_color_edit" required>
                                         @foreach ($datos['color'] as $item)
                                             <option value="{{ $item->Codigo }}">{{ $item->Color }}</option>
                                         @endforeach
@@ -174,7 +174,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="select_update" name="vi_tipo_edit" id="vi_tipo_edit">
+                                    <select class="select_update" name="vi_tipo_edit" id="vi_tipo_edit" required>
                                         @foreach ($datos['tipo'] as $ti)
                                             <option value="{{ $ti->Codigo }}">{{ $ti->Tipo }}</option>
                                         @endforeach
@@ -184,7 +184,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <select class="select_update" name="vi_fab_edit" id="vi_fab_edit">
+                                    <select class="select_update" name="vi_fab_edit" id="vi_fab_edit" required>
                                         @foreach ($datos['marca'] as $ma)
                                             <option value="{{ $ma->Codigo }}">{{ $ma->Marca }}</option>
                                         @endforeach

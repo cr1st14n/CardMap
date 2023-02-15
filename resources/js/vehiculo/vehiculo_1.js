@@ -1,4 +1,5 @@
 data_Vehiculo = Array;
+idVehiculoSelect = '';
 function list1() {
     $.ajax({
         type: "get",
@@ -39,7 +40,6 @@ function showDetalleVehi(id) {
         "Vehiculo/query_detalle_1",
         { id: id },
         function (data, textStatus, jqXHR) {
-            console.log(data);
             html_b = `
             <p>
                 Placa: <strong> ${data.Placa}</strong> <br>
@@ -68,18 +68,15 @@ $("#btn_newVehiculo").click(function (e) {
 });
 $("#form_newVehiculo").submit(function (e) {
     e.preventDefault();
-    console.log("nuevo coche");
     form_newVehiculo();
 });
 form_newVehiculo = () => {
-    console.log("empezando");
     $.ajax({
         type: "post",
         url: "Vehiculo/query_store_1",
         data: $("#form_newVehiculo").serialize(),
         // dataType: "dataType",
         success: function (response) {
-            console.log(response);
             if (response) {
                 $("#md_newVehiculo").modal("hide");
                 $("#form_newVehiculo").trigger("reset");
@@ -94,9 +91,8 @@ function showPdfVin(id) {
     $("#md_show_vin").modal("show");
 }
 function edit_vin(i) {
-    console.log(data_Vehiculo[i]);
+    idVehiculoSelect = data_Vehiculo[i]['id'];
     $("#md_edit_Vehiculo").modal("show");
-
     $("#vi_emp_edit").val(data_Vehiculo[i]["Empresa"]);
     $("#vi_placa_edit").val(data_Vehiculo[i]["Placa"]);
     $("#vi_poliza_edit").val(data_Vehiculo[i]["NroPoliza"]);
@@ -112,15 +108,22 @@ function edit_vin(i) {
     $("#vi_AreasCp_edit").val(data_Vehiculo[i]["Areas"]);
 }
 
-$("form_newVehiculo_edit").submit(function (e) {
+$("#form_newVehiculo_edit").submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: "post",
-        url: "Vehiculo/query_edit_1",
-        data: $("#Vehiculo/query_store_1").serialize(),
+        url: "Vehiculo/query_update_1",
+        data: $("#form_newVehiculo_edit").serialize() + '&idVei=' + idVehiculoSelect,
         // dataType: "dataType",
         success: function (response) {
-            console.log(response);
+            if (response == 1) {
+                noti_fi(1, 'Registro Actualizado!.')
+                list1();
+                $("#md_edit_Vehiculo").modal("hide");
+                $("#form_newVehiculo_edit").trigger('reset');
+                return
+            }
+            noti_fi(3, 'Error!.')
         },
     });
 });

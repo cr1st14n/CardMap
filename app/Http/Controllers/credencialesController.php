@@ -9,13 +9,10 @@ use App\Models\termAero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
-// use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class credencialesController extends Controller
 {
@@ -25,43 +22,13 @@ class credencialesController extends Controller
     }
     public function view_1()
     {
-        //  return Auth::user()->aeropuerto 
-        switch (Auth::user()->aeropuerto) {
-            case 'LP':
-                $aero = 'LPB';
-                break;
-            case 'CB':
-                $aero = 'CBB';
-                break;
-            case 'SC':
-                $aero = 'VVI';
-                break;
-            default:
-                # code...
-                break;
-        }
-        $em = Empleados::where('aeropuerto', Auth::user()->aeropuerto)
-            ->where('Empleados.Estado', 'A')
-            ->join('Empresas', 'Empresas.Empresa', 'Empleados.Empresa')
-            ->select(
-                'Empleados.idEmpleado',
-                'Empleados.Codigo',
-                'Empleados.Nombre',
-                'Empleados.Paterno',
-                'Empleados.Materno',
-                'Empleados.CI',
-                'Empleados.urlphoto',
-                'Empleados.Vencimiento',
-                'Empleados.NroRenovacion',
-                'Empresas.NombEmpresa',
-            )
-            ->orderBy('codigo', 'asc')
-            ->get();
         $termAero = termAero::where('ta_depen_cod', Auth::user()->aeropuerto)->orderBy('ta_sigla', 'asc')->get();
         $empresas = Empresas::orderBy('NombEmpresa', 'asc')->get();
+        foreach ($empresas as $key => $value) {
+            $empresas[$key]['Empresa'] = rtrim($value->Empresa);
+        }
         return view('credenciales.view_1')
             ->with('Empr', $empresas)
-            ->with('e', $em)
             ->with('terminals', $termAero);
     }
     public function queryCreate_1(Request $request)

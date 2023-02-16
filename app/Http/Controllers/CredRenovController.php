@@ -11,8 +11,7 @@ class CredRenovController extends Controller
 {
     public function query_estImprecion(Request $request)
     {
-        return credRenov::where('idEmpleado', $request->input('id'))
-            ->where('cr_tipo', $request->input('tipo'))
+        return credRenov::where('id', $request->input('idRenovCred'))
             ->latest('id')
             ->value('cr_estadoImp');
     }

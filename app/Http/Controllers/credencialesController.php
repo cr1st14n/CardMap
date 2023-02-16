@@ -633,7 +633,7 @@ class credencialesController extends Controller
     public function query_renovar_creden($tipo, Request $request)
     {
         $data = Empleados::where('idEmpleado', $request->input('id'))->first();
-        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->get();
+        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->orderBy('id','desc')->get();
         foreach ($histRen as $key => $value) {
             $histRen[$key]->created_atn = Carbon::parse($value->created_at)->format('d-m-Y h:i');
         }

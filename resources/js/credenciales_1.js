@@ -14,7 +14,6 @@ function fun_credeEmp_edit(param) {
         success: function (response) {
             $("#md_update_credencial").modal("show");
 
-            console.log(response.Empresa);
 
             $("input[name=nc_ci_edit]").val(response.CI);
             $("input[name=nc_nom_edit]").val(response.Nombre);
@@ -54,7 +53,6 @@ function fun_credeEmp_edit(param) {
     });
 }
 function update_creden(val) {
-    console.log($("#form_update_creden").serialize());
     if ($("#nc_t_licencia_edit").val() == "") {
         LT = { tipo: "", list: "" };
     }
@@ -65,7 +63,6 @@ function update_creden(val) {
             $("#form_update_creden").serialize() + LT + "&id=" + idEmpleadoEdit,
         // dataType: "dataType",
         success: function (r) {
-            console.log(r);
             if (r.est == 1) {
                 $("#md_update_credencial").modal("hide");
                 $("#form_update_creden").trigger("reset");
@@ -92,7 +89,6 @@ function destroy_credencial() {
         },
         // dataType: "dataType",
         success: function (response) {
-            console.log(response);
             if (response == "error_noAtorizado") {
                 noti_fi(3, "Función no atorizada!.");
             }
@@ -102,7 +98,7 @@ function destroy_credencial() {
                 noti_fi(1, "Credencial Eliminado");
                 $("#td_fi_cren_" + response.id).remove();
             } else {
-                console.log("error");
+                noti_fi(3, 'Error!.')
             }
         },
     });
@@ -115,14 +111,13 @@ function fun_credeEmp_camera(param) {
 }
 
 // * --------- funciones de generar credencial
-showCreden = (tipo) => {
-    console.log(tipo);
+showCreden = (idCredRenov) => {
     fetch(
-        "credenciales/query_estImprecion?tipo=" +
-            tipo +
-            "&" +
-            "id=" +
-            idEmpleadoRenovar
+        "credenciales/query_estImprecion?idRenovCred=" +
+        idCredRenov +
+        "&" +
+        "id=" +
+        idEmpleadoRenovar
     )
         .catch((error) => console.log(error))
         .then((response) => response.text())
@@ -130,14 +125,12 @@ showCreden = (tipo) => {
 };
 
 printCreden = (estado, tipo) => {
-    console.log(estado);
     if (estado == 1) {
-        console.log("puede imprimir");
         fetch(
             "credenciales/queryUpdateEstadoImpr?id=" +
-                idEmpleadoRenovar +
-                "&tipo=" +
-                tipo
+            idEmpleadoRenovar +
+            "&tipo=" +
+            tipo
         )
             .catch((error) => console.log(error))
             .then((response) => response.text())
@@ -159,19 +152,16 @@ let vistaImprecion = (data, tipo) => {
 };
 
 function fun_credeEmp_emage(param, tipo) {
-    console.log(param, tipo);
     if (tipo == "P") {
         var url = `credenciales/pdf_creden_emp_a/${param}/1`;
         $("#emb_sec_pdf_creden").attr("src", url);
         $("#md_show_credencial").modal("show");
         $("#mod_conf_renovacion").modal("hide");
     } else if (tipo == "C") {
-        console.log("tipo_2");
         $.get(
             "credenciales/query_cons_1",
             { id: param },
             function (data, textStatus, jqXHR) {
-                console.log(data);
                 if (data) {
                     var url = `credenciales/pdf_creden_emp_a/${param}/2`;
                     $("#emb_sec_pdf_creden").attr("src", url);
@@ -186,7 +176,6 @@ function fun_credeEmp_emage(param, tipo) {
 }
 // * =======//================================
 function fun_credeEmp_print(param) {
-    console.log(param);
 }
 // * ----- funciones de busqueeda
 
@@ -212,7 +201,6 @@ let input_busqueda_creden = (param) => {
             data: { text: param, term: $("#selTerminal").val() },
             // dataType: "dataType",
             success: function (response) {
-                console.log(response);
                 lista_table_creden(response);
             },
         });
@@ -237,7 +225,6 @@ function lista_table_creden(res) {
     res.map(function (e) {
         html = `${html}${fila_creden(e)}`;
     }).join(" ");
-    console.log(html);
     $("#view_1_body_1").html(html);
 }
 
@@ -278,8 +265,8 @@ let fila_creden = (e) => {
                                 <button class="dropdown-item"  onclick="fun_credeEmp_delete('${e.idEmpleado}')">Eliminar</button>
                                 <button class="dropdown-item"  onclick="fun_credeEmp_camera('${e.idEmpleado}')">Cargar Imagen</button>
                                 <div role="separator" class="dropdown-divider"></div>
-                                <button class="dropdown-item bg-purple"  onclick="confirmarBajaEmpleado('${e.idEmpleado}')">Dar Baja</button>
-                                <button class="dropdown-item bg-danger"  onclick="fun_renovar_creden('${e.idEmpleado}',1)">Generar | Renovar</button>
+                                <button class="btn btn-block bg-danger" style="color:white"  onclick="confirmarBajaEmpleado('${e.idEmpleado}')">Dar Baja</button>
+                                <button class="btn btn-block bg-primary" style="color:white"  onclick="fun_renovar_creden('${e.idEmpleado}',1)">Generar | Renovar</button>
                             </div>
                         </div>
                     </td>
@@ -305,21 +292,23 @@ function fun_renovar_creden(id, param) {
                 },
                 // dataType: "dataType",
                 success: function (response) {
-                    console.log(response);
-                    cont = 0;
                     html2 = response.data
                         .map(function (p) {
                             tipoR = "TIAS";
                             if (p.cr_tipo == "C") {
                                 tipoR = "PCP";
                             }
+                            botton = 'Impreso';
+                            if (p.cr_estadoImp == 1) {
+                                botton = `<button class="btn btn-block bg-red" style="color: white" onclick="showCreden(${p.id})"><i class="fa fa-print"></i> Imprimir</button> `
+                            }
                             return (a = `
                             <tr>
-                                <th scope="row">${(cont += 1)}</th>
                                 <td>${p.created_atn}</td>
-                                <td>${tipoR}</td>
                                 <td>${p.cr_motivo}</td>
                                 <td>${p.cr_nueva_CodigoTarjeta}</td>
+                                <td>${tipoR}</td>
+                                <td>${botton}</td>
                             </tr>
                             `);
                         })
@@ -327,8 +316,8 @@ function fun_renovar_creden(id, param) {
                     $("#table_renov_creden_emp").html(html2);
                     $("#text_creden_vigent").html(
                         "Codigo de credencial-Plataforma Vigente : <strong>" +
-                            response.cod +
-                            "</strong>"
+                        response.cod +
+                        "</strong>"
                     );
                 },
             });
@@ -347,7 +336,6 @@ function fun_renovar_creden(id, param) {
                 },
                 // dataType: "dataType",a
                 success: function (response) {
-                    console.log(response);
                     if (response == 1) {
                         // $("#mod_conf_renovacion").modal("hide");
                         fun_renovar_creden(idEmpleadoRenovar, 1);
@@ -369,7 +357,6 @@ function fun_renovar_creden(id, param) {
     }
 }
 function tipoLicen() {
-    console.log($("input[name=tipo_lic]:checked").val());
     switch ($("input[name=tipo_lic]:checked").val()) {
         case "A":
             $('input[name="g1"]').attr("disabled", false);
@@ -436,7 +423,6 @@ function asig_licencia(id) {
 
 $("input[name=radio]").change(function (e) {
     e.preventDefault();
-    console.log("hoal");
 });
 function saveVeiAut() {
     let t_a = "";
@@ -458,7 +444,6 @@ function saveVeiAut() {
         },
         // dataType: "dataType",
         success: function (response) {
-            console.log(response);
             if (response == 1) {
                 $("#lic_new").trigger("reset");
                 noti_fi(2, "Correcto!");
@@ -471,9 +456,9 @@ function saveVeiAut() {
 }
 
 // TODO --- funciones para baja de empleado
-let empleadoBaja= ''
-let confirmarBajaEmpleado=(empleado)=>{
-    empleadoBaja=empleado
+let empleadoBaja = ''
+let confirmarBajaEmpleado = (empleado) => {
+    empleadoBaja = empleado
     $('#md_bajaEmpleado').modal('show');
 }
 
@@ -486,11 +471,11 @@ let fun_baja_creden = () => {
 
 let notiBaja = (response) => {
     if (response) {
-        noti_fi(2,'Registro dado de baja')
-        $('#td_fi_cren_'+empleadoBaja).remove();
+        noti_fi(2, 'Registro dado de baja')
+        $('#td_fi_cren_' + empleadoBaja).remove();
         $('#md_bajaEmpleado').modal('hide');
-        empleadoBaja=''
+        empleadoBaja = ''
         return
     }
-    noti_fi(4,'Error de proceso')
+    noti_fi(4, 'Error de proceso')
 };

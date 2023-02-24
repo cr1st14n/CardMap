@@ -98,6 +98,7 @@ Route::group(['prefix' => 'terminal'], function () {
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
 });
 
+
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
 // Route::get('union6666', function () {

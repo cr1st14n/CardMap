@@ -751,8 +751,23 @@ class credencialesController extends Controller
         return $res = $update->save();
     }
 
-    public function dataEmpleado(): Response
+    public function dataEmpleado(Request $request)
     {
-        return response()->header(['asdf' => 666]);
+        $empleado = [];
+        if ($request->input('Tipo')) {
+            return 'por codigo 1';
+            $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
+        }
+        if (!$request->input('Tipo')) {
+            return 'por codigo 0';
+            $empleado = Empleados::where('Codigo', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
+        }
+
+        if ($empleado == null) {
+            return response('no data')->header('Content-Type', 'text/plain');
+        }
+        $empleado['urlphoto'] = trim('/sare.naabol.gob.bo/creden/' . $empleado['urlphoto']);
+        $data = ['empleado' => $empleado];
+        return response($data)->header('Content-Type', 'json');
     }
 }

@@ -132,7 +132,7 @@
                 @endif
             </strong>
             <br>
-            @if ($data->NroRenovacion != 0)
+            @if ($data->NroRenovacion ==2000 )
                 D
             @endif
         </p>

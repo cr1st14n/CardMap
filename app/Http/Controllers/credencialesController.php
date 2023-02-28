@@ -454,10 +454,10 @@ class credencialesController extends Controller
         $res->AreasCP = $request->input('nc_AreasCp_edit');
         $res->GSangre = $request->input('nc_gs');
         $res->Aeropuerto_2 = $request->input('nc_aeropuerto_edit');
-        $res->estado = $request->input('nc_acci_edit');
-        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-d-m');
-        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-d-m');
-        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-d-m');
+        $res->estado = 'A';
+        $res->Vencimiento = ($request->input('nc_fv_edit') == '') ? null :   Carbon::parse($request->input('nc_fv_edit'))->format('Y-m-d');
+        $res->Fecha = ($request->input('nc_f_in_edit') == '') ? null :   Carbon::parse($request->input('nc_f_in_edit'))->format('Y-m-d');
+        $res->FechaNac = ($request->input('nc_FNac_edit') == '') ? null :    Carbon::parse($request->input('nc_FNac_edit'))->format('Y-m-d');
         $res->EstCivil = $request->input('nc_estCiv_edit');
         $res->Sexo = $request->input('nc_sexo_edit');
         $res->Profesion = $request->input('nc_pro_edit');
@@ -750,9 +750,9 @@ class credencialesController extends Controller
 
         return $res = $update->save();
     }
-
     public function dataEmpleado(Request $request)
     {
+        
         $empleado = [];
         if ($request->input('Tipo')) {
             $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();

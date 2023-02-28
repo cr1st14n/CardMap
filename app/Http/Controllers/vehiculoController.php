@@ -163,7 +163,7 @@ class vehiculoController extends Controller
                 'Areas' => $data->Areas,
             ]
         );
-        $pdf->setpaper(array(0, 0, 170, 263), 'landscape');
+        $pdf->setpaper(array(0, 0, 130.386, 255.118), 'landscape');
         return $pdf->stream('invoice.pdf');
     }
 }

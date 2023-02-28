@@ -333,3 +333,7 @@ Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
 //     return ['Faltante' => $contador];
 // });
+
+
+
+Route::get('api/dataEmpleado',[credencialesController::class,'dataEmpleado']);

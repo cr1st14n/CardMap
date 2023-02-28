@@ -755,11 +755,9 @@ class credencialesController extends Controller
     {
         $empleado = [];
         if ($request->input('Tipo')) {
-            return 'por codigo 1';
             $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
         }
         if (!$request->input('Tipo')) {
-            return 'por codigo 0';
             $empleado = Empleados::where('Codigo', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
         }
 

@@ -186,7 +186,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="nc_areas_acceso"
                                         pattern="[0-9_-]{8}" maxlength="8" required
-                                        placeholder="#-#-##-#, 8 simbolos" disabled>
+                                        placeholder="#-#-##-#, 8 simbolos" >
                                     <b>Areas Autorizadas</b>
                                 </div>
                             </div>

@@ -10,10 +10,10 @@
         }
 
         @page {
-            margin-left: 0.2cm;
-            margin-right: 0.2cm;
-            /* margin-top: 0.2cm;
-            margin-bottom: 0.2cm; */
+            margin-left: 0.7cm;
+            margin-right: 0.7cm;
+             margin-top: 0.0cm;
+            margin-bottom: 0.0cm; 
         }
 
         body {
@@ -31,7 +31,7 @@
         table {
             font-size: ;
             position: relative;
-            margin-top: 0px;
+            margin-top: 20px;
             margin-left: 0px
         }
 
@@ -44,8 +44,8 @@
         }
 
         .img_1 {
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
         }
     </style>
 </head>

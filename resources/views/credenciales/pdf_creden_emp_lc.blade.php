@@ -232,7 +232,7 @@
             </strong>
             <br>
             @if ($data->NroRenovacion != 0)
-                D
+                
             @endif
         </p>
         <img class="s2dapag" src="{{ asset('resources/plantilla/CREDENCIALESFOTOS/TODOSREVERSOlc.jpg') }}"

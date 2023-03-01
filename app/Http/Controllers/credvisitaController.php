@@ -90,6 +90,11 @@ class credvisitaController extends Controller
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-VI.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-VI.jpg',
             'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-VI.jpg',
+
+            'POI' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-POI-VI.jpg',
+            'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-BYC-VI.jpg',
+            'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TJA-VI.jpg',
+            'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-SRE-VI.jpg',
         ];
         $pdf = pdf::loadView(
             'credenciales.pdf_creden_v',

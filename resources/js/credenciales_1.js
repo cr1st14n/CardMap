@@ -111,24 +111,34 @@ showCreden = (idCredRenov) => {
   data = "?idRenovCred=" + idCredRenov + "&" + "id=" + idEmpleadoRenovar;
   fetch("credenciales/query_estImprecion" + data)
     .catch((error) => console.log(error))
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => printCreden(data));
 };
 
-printCreden = (estado, tipo = 1) => {
-  if (estado == 1) {
+printCreden = (data) => {
+  console.log(data);
+  if (data['estado'] == true) {
     console.log("imprmir");
+    if (data['data']['cr_tipo'] == 'C') {
+      tipoCreden = 2
+    } else {
+      tipoCreden = 1
+    }
+    var url = `credenciales/pdf_creden_emp_a/${data['data']['idEmpleado']}/${tipoCreden}/${data['data']['id']}`;
+    $("#emb_sec_pdf_creden").attr("src", url);
+    $("#md_show_credencial").modal("show");
+    $('#mod_conf_renovacion').modal('hide');
     return;
   }
-  console.log("no access");
+  noti_fi(3,'Error de validación!')
   return;
 
   if (estado == 1) {
     fetch(
       "credenciales/queryUpdateEstadoImpr?id=" +
-        idEmpleadoRenovar +
-        "&tipo=" +
-        tipo
+      idEmpleadoRenovar +
+      "&tipo=" +
+      tipo
     )
       .catch((error) => console.log(error))
       .then((response) => response.text())
@@ -140,6 +150,8 @@ printCreden = (estado, tipo = 1) => {
   noti_fi(3, "Error, Credencial ya impreso");
   return;
 };
+
+
 let vistaImprecion = (data, tipo) => {
   if (data == 1) {
     fun_credeEmp_emage(idEmpleadoRenovar, tipo);
@@ -173,7 +185,7 @@ function fun_credeEmp_emage(param, tipo) {
   }
 }
 // * =======//================================
-function fun_credeEmp_print(param) {}
+function fun_credeEmp_print(param) { }
 // * ----- funciones de busqueeda
 
 function queryShow_1() {
@@ -306,6 +318,7 @@ function fun_renovar_creden(id, param) {
           ren_cred_motivo: $("#ren_cred_motivo").val(),
           ren_cred_codigo: $("#ren_cred_codigo").val(),
           ren_cred_tipo: $("#ren_cred_tipo").val(),
+          ren_cred_docRespaldo: $("#ren_cred_docRespaldo").val(),
         },
         // dataType: "dataType",a
         success: function (response) {
@@ -338,7 +351,9 @@ tableBodyHistCredRenov = (response) => {
       }
       botton = "Impreso";
       if (p.cr_estadoImp == 1) {
-        botton = `<button class="btn btn-block bg-red" style="color: white" onclick="showCreden(${p.id})"><i class="fa fa-print"></i> Imprimir</button> `;
+        botton = `<button class="btn btn-block bg-green" 
+        style="color: white" onclick="showCreden(${p.id})">
+        <i class="fa fa-print"></i> Imprimir</button> `;
       }
       return (a = `
                 <tr>
@@ -354,8 +369,8 @@ tableBodyHistCredRenov = (response) => {
   $("#table_renov_creden_emp").html(html2);
   $("#text_creden_vigent").html(
     "Codigo de credencial-Plataforma Vigente : <strong>" +
-      response.cod +
-      "</strong>"
+    response.cod +
+    "</strong>"
   );
 };
 function tipoLicen() {

@@ -11,9 +11,17 @@ class CredRenovController extends Controller
 {
     public function query_estImprecion(Request $request)
     {
-        return credRenov::where('id', $request->input('idRenovCred'))
-            ->latest('id')
-            ->value('cr_estadoImp');
+        $estadoRenoCreden = credRenov::where('id', $request->input('idRenovCred'))
+            ->latest('id')->select('cr_tipo', 'idEmpleado', 'cr_estadoImp','id')
+            ->first();
+        $est = true;
+        if ($estadoRenoCreden == null) {
+            $est = false;
+        }
+        if ($estadoRenoCreden->cr_estadoImp == 0) {
+            $est = false;
+        }
+        return ['estado' => $est, 'data' => $estadoRenoCreden];
     }
 
     public function queryUpdateEstadoImpr(Request $request)

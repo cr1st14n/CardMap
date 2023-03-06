@@ -152,7 +152,7 @@ class credencialesController extends Controller
     }
 
     // * formato de credencial
-    public function pdf_creden_emp_a($e, $tipo)
+    public function pdf_creden_emp_a($e, $tipo, $idTarjeta)
     {
         $data = Empleados::where('idEmpleado', $e)->select(
             'Codigo',
@@ -369,6 +369,10 @@ class credencialesController extends Controller
                 ]
             );
         }
+        $renovCreden = credRenov::find($idTarjeta);
+        $renovCreden->cr_estadoImp = 0;
+        $renovCreden->save();
+
         $pdf->setpaper(array(0, 0, 341, 527), 'portrait');
         return $pdf->stream('invoice.pdf');
     }
@@ -655,6 +659,7 @@ class credencialesController extends Controller
         $newr->cr_nueva_CodigoTarjeta = $codTarjetaNueva_1;
         $newr->cr_nueva_CodMYFARE = 0;
         $newr->cr_motivo = $request->input('ren_cred_motivo');
+        $newr->cr_docRespaldo = $request->input('ren_cred_docRespaldo');
         $newr->cr_estadoImp = 1;
         $newr->cr_data = serialize(array());
         $newr->ca_tipo = 'create';
@@ -679,7 +684,6 @@ class credencialesController extends Controller
             return true;
         }
         return false;
-
 
 
 
@@ -752,7 +756,7 @@ class credencialesController extends Controller
     }
     public function dataEmpleado(Request $request)
     {
-        
+
         $empleado = [];
         if ($request->input('Tipo')) {
             $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();

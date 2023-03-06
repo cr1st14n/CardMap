@@ -186,7 +186,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="nc_areas_acceso"
                                         pattern="[0-9_-]{8}" maxlength="8" required
-                                        placeholder="#-#-##-#, 8 simbolos" >
+                                        placeholder="#-#-##-#, 8 simbolos">
                                     <b>Areas Autorizadas</b>
                                 </div>
                             </div>
@@ -602,7 +602,7 @@
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterLabel"></h5>
+                    <h4 class="modal-title" id="exampleModalCenterLabel">Registro de Credenciales Asignadas</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -612,55 +612,76 @@
                     <h5>Formulario de renovacion de credencial</h5>
                     <form id="form_ren_cred" onsubmit="event.preventDefault();fun_renovar_creden(0,2)">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="exampleSelectGender">Tipo de Credencial</label>
-                                    <select class="form-control" id="ren_cred_tipo" name="ren_cred_motivo">
-                                        <option value="P">TIAS</option>
-                                        <option value="C">PCP</option>
-                                    </select>
+                            <div class=" col-10 row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleSelectGender">Tipo de Credencial</label>
+                                        <select class="form-control" id="ren_cred_tipo" name="ren_cred_motivo">
+                                            <option value="P" style="background-color:cyan">TIAS</option>
+                                            <option value="C" style="background-color:yellow">PCP</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleSelectGender">Motivo</label>
+                                        <select class="form-control" id="ren_cred_motivo" name="ren_cred_motivo">
+                                            <option value="Extravio">Primera Emición</option>
+                                            <option value="Extravio">Extravio</option>
+                                            <option value="Deteriorado">Deteriorado</option>
+                                            <option value="Caducado">Caducado</option>
+                                            <option value="CambioCargo">Cambio de Cargo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail3">Documento Respaldo</label>
+                                        <input type="text" class="form-control" id="ren_cred_docRespaldo"
+                                            name="ren_cred_docRespaldo" placeholder="## : *********" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail3">Codigo de nuevo credencial</label>
+                                        <input type="number" class="form-control" id="ren_cred_codigo"
+                                            name="ren_cred_codigo" placeholder="###" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="exampleSelectGender">Motivo</label>
-                                    <select class="form-control" id="ren_cred_motivo" name="ren_cred_motivo">
-                                        <option value="Extravio">Primera Emición</option>
-                                        <option value="Extravio">Extravio</option>
-                                        <option value="Deteriorado">Deteriorado</option>
-                                        <option value="Caducado">Caducado</option>
-                                        <option value="CambioCargo">Cambio de Cargo</option>
-                                    </select>
+                            <div class=" col-2">
+                                <style>
+                                    .btn-square-md {
+                                        width: 100px !important;
+                                        max-width: 100% !important;
+                                        max-height: 100% !important;
+                                        height: 100px !important;
+                                        text-align: center;
+                                        padding: 0px;
+                                        font-size: 12px;
+                                    }
+                                </style>
+                                <button type="submit" class="btn btn-facebook btn-square-md">Registrar <br>
+                                    Credencial</button>
+                                <div class="col-md-12">
+                                    <br>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail3">Codigo de nuevo credencial</label>
-                                    <input type="number" class="form-control" id="ren_cred_codigo"
-                                        name="ren_cred_codigo" placeholder="###" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <br>
-                                <button type="submit" class="btn btn-success btn-block">Registrar</button>
                             </div>
                         </div>
-                        <p>Nota: Una vez confirmado, la renovación estara registrada dentro la base de datos y sera
+                        <p>
+                            Nota: Una vez confirmado, la renovación estara registrada dentro la base de datos y sera
                             expresada en el futuro credencial con la letra <strong>"D"</strong></p>
                     </form>
                     <hr>
                     <div class="row">
-                        <div class=" col-6"><button class="btn btn-block btn-primary" onclick="showCreden('P')"><i
-                                    class="fa fa-print"></i> Imprimir Credencial TIAS</button></div>
-                        <div class=" col-6"><button class="btn btn-block btn-purple" onclick="showCreden('C')"><i
-                                    class="fa fa-print"></i> Imprimir Credencial PCP</button></div>
-                    </div>
-                    <div class="row">
                         <div class=" col-12">
-                            <p>Historial de renovaciones.</p>
+                            <h3>Historial de renovaciones.</h3>
+                            <p class=" text-red">
+                                Antes de Generar Verificar los Datos registrados.
+                            </p>
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped">
-                                    <thead>
+                                <table class="table table-hover table-striped  ">
+                                    <thead class=" bg-dark">
                                         <tr>
                                             <th>Fecha</th>
                                             <th>Motivo</th>

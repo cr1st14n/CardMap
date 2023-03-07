@@ -119,12 +119,13 @@ showCreden = (idCredRenov) => {
         "id=" +
         idEmpleadoRenovar
     )
-        .catch((error) => console.log(error))
         .then((response) => response.text())
+        .catch((error) => console.log(error))
         .then((data) => printCreden(data, tipo));
 };
 
 printCreden = (estado, tipo) => {
+    console.log(estado);
     if (estado == 1) {
         fetch(
             "credenciales/queryUpdateEstadoImpr?id=" +
@@ -300,7 +301,8 @@ function fun_renovar_creden(id, param) {
                             }
                             botton = 'Impreso';
                             if (p.cr_estadoImp == 1) {
-                                botton = `<button class="btn btn-block bg-red" style="color: white" onclick="showCreden(${p.id})"><i class="fa fa-print"></i> Imprimir</button> `
+                                botton = `<button class="btn btn-block bg-red" style="color: white" onclick="showCreden(${p.id})">
+                                <i class="fa fa-print"></i> Imprimir</button> `
                             }
                             return (a = `
                             <tr>

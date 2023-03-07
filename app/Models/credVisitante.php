@@ -13,4 +13,5 @@ class credVisitante extends Model
     // protected $primaryKey = ''; 
     public $timestamps = false;
     use HasFactory;
+
 }

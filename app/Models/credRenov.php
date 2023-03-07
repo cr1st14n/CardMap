@@ -13,4 +13,5 @@ class credRenov extends Model
     // protected $primaryKey = ''; 
     public $timestamps = false;
     use HasFactory;
+
 }

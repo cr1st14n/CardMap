@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class termAero extends Model
 {
+    protected $connection = 'sqlsrv';
+
     use HasFactory;
 }

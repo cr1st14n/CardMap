@@ -10,4 +10,6 @@ class Color extends Model
     // use HasFactory;
     protected $table='Color';
     public $timestamps = false;
+    protected $connection = 'sqlsrv';
+
 }

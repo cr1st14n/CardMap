@@ -65,13 +65,13 @@ Route::group(['prefix' => 'credenciales'], function () {
     Route::post('query_createCV', [credvisitaController::class, 'query_createCV']);
     Route::post('query_crevis_destroy', [credvisitaController::class, 'query_crevis_destroy']);
     Route::get('pdf_creden_v/{id}', [credvisitaController::class, 'pdf_creden_v']);
-});
+})->middleware('auth');
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::get('view_2_user', [usuarioController::class, 'view_1']);
     Route::post('create_user', [usuarioController::class, 'create_user']);
     Route::get('query_list', [usuarioController::class, 'query_list']);
     Route::post('query_destroyUser', [usuarioController::class, 'query_destroyUser']);
-});
+})->middleware('auth');
 Route::group(['prefix' => 'Empresa'], function () {
     Route::get('view_2_empr', [empresaController::class, 'view_2_empr']);
     Route::get('query_list', [empresaController::class, 'query_list']);
@@ -81,7 +81,7 @@ Route::group(['prefix' => 'Empresa'], function () {
     Route::get('query_edit', [empresaController::class, 'query_edit']);
     Route::post('query_update/{id}', [empresaController::class, 'query_update']);
     Route::get('query_delete', [empresaController::class, 'query_delete']);
-});
+})->middleware('auth');
 Route::group(['prefix' => 'Vehiculo'], function () {
     Route::get('view_vei_home', [vehiculoController::class, 'view_1']);
     Route::get('query_list1', [vehiculoController::class, 'query_list1']);
@@ -91,12 +91,12 @@ Route::group(['prefix' => 'Vehiculo'], function () {
     Route::post('query_update_1', [vehiculoController::class, 'update_1']);
     // * rutas para pdf de viñetas
     Route::get('pdf_viñeta_1/{e}/{f}/{t}', [vehiculoController::class, 'pdf_viñeta_1']);
-});
+})->middleware('auth');
 Route::group(['prefix' => 'terminal'], function () {
     Route::get('view_home', [TermAeroController::class, 'index']);
     Route::get('query_list_1', [TermAeroController::class, 'query_list_1']);
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
-});
+})->middleware('auth');
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 

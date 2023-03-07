@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Marca extends Model
 {
     // use HasFactory;
+    protected $connection = 'sqlsrv';
+
     protected $table='Marca';
     public $timestamps = false;
 }

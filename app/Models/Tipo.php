@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tipo extends Model
 {
     // use HasFactory;
+    protected $connection = 'sqlsrv';
     protected $table='Tipo';
     public $timestamps = false;
 }

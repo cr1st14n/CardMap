@@ -89,7 +89,6 @@ $("#nc_t_licencia").change(function (e) {
     $("#option_tipo_lic_veh").html(html);
 });
 function saveTipoLicencia(l, i) {
-    console.log(l, i);
 
     if (sel_1[l][i] == 0) {
         sel_1[l][i] = 1;
@@ -97,7 +96,6 @@ function saveTipoLicencia(l, i) {
         sel_1[l][i] = 0;
     }
     LT = `&nc_lt=${sel_1[l]}&nc_ltt=${l}`;
-    console.log(sel_1[l]);
 }
 $("#nc_t_licencia_edit").change(function (e) {
     e.preventDefault();
@@ -125,13 +123,11 @@ $("#nc_t_licencia_edit").change(function (e) {
 });
 $("#form_new_creden").submit(function (e) {
     e.preventDefault();
-    console.log($("#form_new_creden").serialize() + LT);
     $.ajax({
         type: "post",
         url: "credenciales/query_create_1",
         data: $("#form_new_creden").serialize() + LT,
         success: function (response) {
-            console.log(response);
             if (response.status == 1) {
                 $("#md_add_credencial").modal("hide");
                 $("#form_new_creden").trigger("reset");
@@ -149,9 +145,7 @@ $("#form_new_creden").submit(function (e) {
 
 $(".upload").on("click", function () {
     var formData = new FormData();
-    console.log(formData);
     var files = $("#image")[0].files[0];
-    console.log(formData);
     formData.append("file", files);
     $.ajax({
         url: "credenciales/query_add_photo",
@@ -160,7 +154,6 @@ $(".upload").on("click", function () {
         contentType: false,
         processData: false,
         success: function (response) {
-            console.log(formData);
             if (response != 0) {
                 $(".card-img-top").attr("src", response);
             } else {

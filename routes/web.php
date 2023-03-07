@@ -53,7 +53,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     Route::get('query_update_TLC', [credencialesController::class, 'query_update_TLC']);
     // * credencial formato
     Route::get('query_cons_1', [credencialesController::class, 'query_cons_1']);
-    Route::get('pdf_creden_emp_a/{e}/{t}', [credencialesController::class, 'pdf_creden_emp_a']);
+    Route::get('pdf_creden_emp_a/{e}/{t}/{idTarjeta}', [credencialesController::class, 'pdf_creden_emp_a']);
 
     // *---verificar estado imprecion 
     Route::get('query_estImprecion', [CredRenovController::class, 'query_estImprecion']);
@@ -97,6 +97,7 @@ Route::group(['prefix' => 'terminal'], function () {
     Route::get('query_list_1', [TermAeroController::class, 'query_list_1']);
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
 });
+
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 

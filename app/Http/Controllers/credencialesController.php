@@ -8,6 +8,7 @@ use App\Models\Empresas;
 use App\Models\termAero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Facades\App;
@@ -93,7 +94,6 @@ class credencialesController extends Controller
         $new->NombEmpresa = $emp->NombEmpresa;
         $new->ta_sigla = $term->ta_sigla;
         $new->ta_nombre = $term->ta_sigla;
-
         $new->Nombre = ($new->Nombre == null) ? '' : $new->Nombre;
         $new->Paterno = ($new->Paterno == null) ? '' : $new->Paterno;
         $new->Materno = ($new->Materno == null) ? '' : $new->Materno;
@@ -149,7 +149,7 @@ class credencialesController extends Controller
     }
 
     // * formato de credencial
-    public function pdf_creden_emp_a($e, $tipo)
+    public function pdf_creden_emp_a($e, $tipo, $idTarjeta)
     {
         $data = Empleados::where('idEmpleado', $e)->select(
             'Codigo',
@@ -304,10 +304,10 @@ class credencialesController extends Controller
         }
         if ($tipo == 2) {
             if ($data->CategoriaLic == "") {
-                return;
+                return '<h1>SIN DATOS REGISTRADOS PARA PCP... </br> </h1>';
             }
 
-            $data->data_vehi_aut = unserialize($data->data_vehi_aut);
+              $data->data_vehi_aut = unserialize($data->data_vehi_aut);
 
 
             $a = 0;
@@ -318,16 +318,13 @@ class credencialesController extends Controller
             while ($a < 10) {
                 if ($a < 4) {
                     if (in_array('A-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiA = $LiA . "1";
                     } else {
-
                         $LiA = $LiA . "0";
                     }
                 }
                 if ($a < 7) {
                     if (in_array('B-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiB = $LiB . "1";
                     } else {
                         $LiB = $LiB . "0";
@@ -335,7 +332,6 @@ class credencialesController extends Controller
                 }
                 if ($a < 9) {
                     if (in_array('C-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiC = $LiC . "1";
                     } else {
                         $LiC = $LiC . "0";
@@ -343,7 +339,6 @@ class credencialesController extends Controller
                 }
                 if ($a < 2) {
                     if (in_array('MP-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiMP = $LiMP . "1";
                     } else {
                         $LiMP = $LiMP . "0";
@@ -352,17 +347,15 @@ class credencialesController extends Controller
 
                 $a += 1;
             }
-            // return $LiA;
-            // $q = str_replace(',', '', $data->data_vehi_aut);
-
+            
             $LiA = str_replace('1', 'X', $LiA);
-            $LiA = str_replace('0', '.', $LiA);
+            $LiA = str_replace('0', '-', $LiA);
 
             $LiB = str_replace('1', 'X', $LiB);
-            $LiB = str_replace('0', '.', $LiB);
+            $LiB = str_replace('0', '-', $LiB);
 
             $LiC = str_replace('1', 'X', $LiC);
-            $LiC = str_replace('0', '.', $LiC);
+            $LiC = str_replace('0', '-', $LiC);
 
             $LiMP = str_replace('1', 'X', $LiMP);
             $LiMP = str_replace('0', '.', $LiMP);
@@ -385,6 +378,10 @@ class credencialesController extends Controller
                 ]
             );
         }
+        $renovCreden = credRenov::find($idTarjeta);
+        $renovCreden->cr_estadoImp = 0;
+        $renovCreden->save();
+
         $pdf->setpaper(array(0, 0, 341, 527), 'portrait');
         return $pdf->stream('invoice.pdf');
     }
@@ -646,7 +643,7 @@ class credencialesController extends Controller
     public function query_renovar_creden($tipo, Request $request)
     {
         $data = Empleados::where('idEmpleado', $request->input('id'))->first();
-        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->get();
+        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->orderBy('id', 'desc')->get();
         foreach ($histRen as $key => $value) {
             $histRen[$key]->created_atn = Carbon::parse($value->created_at)->format('d-m-Y h:i');
         }
@@ -671,6 +668,7 @@ class credencialesController extends Controller
         $newr->cr_nueva_CodigoTarjeta = $codTarjetaNueva_1;
         $newr->cr_nueva_CodMYFARE = 0;
         $newr->cr_motivo = $request->input('ren_cred_motivo');
+        $newr->cr_docRespaldo = $request->input('ren_cred_docRespaldo');
         $newr->cr_estadoImp = 1;
         $newr->cr_data = serialize(array());
         $newr->ca_tipo = 'create';
@@ -695,7 +693,6 @@ class credencialesController extends Controller
             return true;
         }
         return false;
-
 
 
 
@@ -737,7 +734,6 @@ class credencialesController extends Controller
             'data' => 'required',
             'areas' => 'required',
             'pcp_fechaVencimiento' => 'required|date',
-            'pcp_factura' => 'required',
         ]);
 
         if ($validator->fails()) {

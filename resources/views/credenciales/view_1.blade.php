@@ -186,7 +186,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="nc_areas_acceso"
                                         pattern="[0-9_-]{8}" maxlength="8" required
-                                        placeholder="#-#-##-#, 8 simbolos" >
+                                        placeholder="#-#-##-#, 8 simbolos">
                                     <b>Areas Autorizadas</b>
                                 </div>
                             </div>
@@ -580,8 +580,8 @@
         </div>
     </div>
     <!-- modal para delete item -->
-    <div class="modal fade" id="md_bajaEmpleado" tabindex="-1" role="dialog"
-        aria-labelledby="demoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="md_bajaEmpleado" tabindex="-1" role="dialog" aria-labelledby="demoModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 
@@ -602,84 +602,101 @@
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterLabel"></h5>
+                    <h4 class="modal-title" id="exampleModalCenterLabel">Registro de Credenciales Asignadas</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <h5 id="text_creden_vigent"> <strong></strong></h5>
                     <hr>
-                    <div class="row">
-                        <p>Historial de renovaciones.</p>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Fecha</th>
-                                        <th>Tipo</th>
-                                        <th>Motivo</th>
-                                        <th>Codigo de Tarjeta</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table_renov_creden_emp">
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class=" col-6"><button class="btn btn-block btn-primary"
-                                onclick="showCreden('P')">Credencial TIAS</button></div>
-                        <div class=" col-6"><button class="btn btn-block btn-purple"
-                                onclick="showCreden('C')">Credencial PCP</button></div>
-                    </div>
-                    <hr>
                     <h5>Formulario de renovacion de credencial</h5>
                     <form id="form_ren_cred" onsubmit="event.preventDefault();fun_renovar_creden(0,2)">
-
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="exampleSelectGender">Tipo de Credencial</label>
-                                    <select class="form-control" id="ren_cred_tipo" name="ren_cred_motivo">
-                                        <option value="P">TIAS</option>
-                                        <option value="C">PCP</option>
-                                    </select>
+                            <div class=" col-10 row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleSelectGender">Tipo de Credencial</label>
+                                        <select class="form-control" id="ren_cred_tipo" name="ren_cred_motivo">
+                                            <option value="P" style="background-color:cyan">TIAS</option>
+                                            <option value="C" style="background-color:yellow">PCP</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleSelectGender">Motivo</label>
+                                        <select class="form-control" id="ren_cred_motivo" name="ren_cred_motivo">
+                                            <option value="Extravio">Primera Emición</option>
+                                            <option value="Extravio">Extravio</option>
+                                            <option value="Deteriorado">Deteriorado</option>
+                                            <option value="Caducado">Caducado</option>
+                                            <option value="CambioCargo">Cambio de Cargo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail3">Documento Respaldo</label>
+                                        <input type="text" class="form-control" id="ren_cred_docRespaldo"
+                                            name="ren_cred_docRespaldo" placeholder="## : *********" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail3">Codigo de nuevo credencial</label>
+                                        <input type="number" class="form-control" id="ren_cred_codigo"
+                                            name="ren_cred_codigo" placeholder="###" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="exampleSelectGender">Motivo</label>
-                                    <select class="form-control" id="ren_cred_motivo" name="ren_cred_motivo">
-                                        <option value="Extravio">Extravio</option>
-                                        <option value="Deteriorado">Deteriorado</option>
-                                        <option value="Caducado">Caducado</option>
-                                        <option value="CambioCargo">Cambio de Cargo</option>
-                                    </select>
+                            <div class=" col-2">
+                                <style>
+                                    .btn-square-md {
+                                        width: 100px !important;
+                                        max-width: 100% !important;
+                                        max-height: 100% !important;
+                                        height: 100px !important;
+                                        text-align: center;
+                                        padding: 0px;
+                                        font-size: 12px;
+                                    }
+                                </style>
+                                <button type="submit" class="btn btn-facebook btn-square-md">Registrar <br>
+                                    Credencial</button>
+                                <div class="col-md-12">
+                                    <br>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail3">Codigo de nuevo credencial</label>
-                                    <input type="number" class="form-control" id="ren_cred_codigo"
-                                        name="ren_cred_codigo" placeholder="###" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <br>
-                                <button type="submit" class="btn btn-success btn-block">Registrar</button>
                             </div>
                         </div>
-                        <p>Nota: Una vez confirmado, la renovación estara registrada dentro la base de datos y sera
+                        <p>
+                            Nota: Una vez confirmado, la renovación estara registrada dentro la base de datos y sera
                             expresada en el futuro credencial con la letra <strong>"D"</strong></p>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" onclick="fun_renovar_creden(0,3)" class="btn btn-secondary"
-                        data-dismiss="modal">Cancelar</button>
-                    <button type="button" onclick="fun_renovar_creden(0,2)" class="btn btn-primary">Aceptar</button>
+                    <hr>
+                    <div class="row">
+                        <div class=" col-12">
+                            <h3>Historial de renovaciones.</h3>
+                            <p class=" text-red">
+                                Antes de Generar Verificar los Datos registrados.
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped  ">
+                                    <thead class=" bg-dark">
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Motivo</th>
+                                            <th>Codigo de Tarjeta</th>
+                                            <th>Respaldo</th>
+                                            <th>Tipo</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_renov_creden_emp">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -704,11 +721,6 @@
                             <b style="font-size: 12px">Fecha Vencimiento</b>
                             <input type="date" class=" form-control form-control-sm" name="pcp_fechaVencimiento"
                                 id="pcp_fechaVencimiento" min="2000-01-01">
-                        </div>
-                        <div class=" col-sm-4 form-group">
-                            <b style="font-size: 12px"># de Factura</b>
-                            <input type="number" class=" form-control form-control-sm" name="pcp_factura"
-                                id="pcp_factura">
                         </div>
                     </div>
                     <hr>
@@ -851,22 +863,22 @@
                                 <label class="border-checkbox-label" for="checkbox0141">Hyster</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-7" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-6" type="checkbox" name="g3"
                                     id="checkbox015">
                                 <label class="border-checkbox-label" for="checkbox015">Volqueta</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-8" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-7" type="checkbox" name="g3"
                                     id="checkbox016">
                                 <label class="border-checkbox-label" for="checkbox016">Tractor</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-9" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-8" type="checkbox" name="g3"
                                     id="checkbox017">
                                 <label class="border-checkbox-label" for="checkbox017">Retroexcavadora</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-10" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-9" type="checkbox" name="g3"
                                     id="checkbox018">
                                 <label class="border-checkbox-label" for="checkbox018">Auto Bombas(SEI)</label>
                             </div>

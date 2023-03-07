@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\credRenov;
 use App\Http\Requests\StorecredRenovRequest;
 use App\Http\Requests\UpdatecredRenovRequest;
+use App\Models\Empleados;
 use Illuminate\Http\Request;
 
 class CredRenovController extends Controller
 {
     public function query_estImprecion(Request $request)
     {
-        return credRenov::where('idEmpleado', $request->input('id'))
-            ->where('cr_tipo', $request->input('tipo'))
-            ->latest('id')
-            ->value('cr_estadoImp');
+        $estadoRenoCreden = credRenov::where('id', $request->input('idRenovCred'))
+            ->latest('id')->select('cr_tipo', 'idEmpleado', 'cr_estadoImp', 'id')
+            ->first();
+        $estadoRenoCreden->LicCategoria =Empleados::where('idEmpleado',$estadoRenoCreden->idEmpleado)->value('CategoriaLic');
+            $est = true;
+        if ($estadoRenoCreden == null) {
+            $est = false;
+        }
+        if ($estadoRenoCreden->cr_estadoImp == 0) {
+            $est = false;
+        }
+        return ['estado' => $est, 'data' => $estadoRenoCreden];
     }
 
     public function queryUpdateEstadoImpr(Request $request)

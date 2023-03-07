@@ -124,10 +124,12 @@ printCreden = (data) => {
     } else {
       tipoCreden = 1
     }
-    if (data['data']['LicCategoria'] == null || data['data']['LicCategoria'] == 'N'
-    ) {
-      noti_fi(4, 'Error!. Antes de continuar, registre informacion de "PCP"')
-      return
+    if (data['data']['cr_tipo'] == 'C') {
+      if (data['data']['LicCategoria'] == null || data['data']['LicCategoria'] == 'N' && tipoCreden == 2
+      ) {
+        noti_fi(4, 'Error!. Antes de continuar, registre informacion de "PCP"')
+        return
+      }
     }
     var url = `credenciales/pdf_creden_emp_a/${data['data']['idEmpleado']}/${tipoCreden}/${data['data']['id']}`;
     $("#emb_sec_pdf_creden").attr("src", url);
@@ -236,7 +238,7 @@ let fila_creden = (e) => {
   }
 
   licencia = `<button class="btn btn-sm bg-green" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i>${e.CategoriaLic}</button>`;
-  if (e.CategoriaLic == null || e.CategoriaLic == ""||e.CategoriaLic=='N') {
+  if (e.CategoriaLic == null || e.CategoriaLic == "" || e.CategoriaLic == 'N') {
     licencia = `<button class="btn btn-sm bg-yellow" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i></button>`;
   }
   return (html = `

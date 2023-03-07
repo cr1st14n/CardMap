@@ -160,7 +160,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="nc_car">
+                                    <input type="text" class="form-control" name="nc_car" maxlength="199">
                                     <b>Cargo</b>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="nc_car_edit">
+                                    <input type="text" class="form-control" name="nc_car_edit" maxlength="199">
                                     <b>Cargo</b>
                                 </div>
                             </div>

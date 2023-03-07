@@ -17,10 +17,7 @@ use Illuminate\Support\Facades\Validator;
 
 class credencialesController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
+    
     public function view_1()
     {
         $termAero = termAero::where('ta_depen_cod', Auth::user()->aeropuerto)->orderBy('ta_sigla', 'asc')->get();

@@ -216,6 +216,11 @@ class credencialesController extends Controller
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-L.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-L.jpg',
             'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-L.jpg',
+
+            'POI' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-POI-L.jpg',
+            'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-L.jpg',
+            'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-L.jpg',
+            'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-L.jpg',
         ];
         $rutaimgT = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALLP.jpg',
@@ -228,6 +233,12 @@ class credencialesController extends Controller
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-T.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-T.jpg',
             'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-T.jpg',
+
+            'POI' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-POI-T.jpg',
+            'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-T.jpg',
+            'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-T.jpg',
+            'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-T.jpg',
+
         ];
         $rutaimgLC = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/CONDUCCION-PLATAFORMA-LP.jpg',
@@ -240,6 +251,11 @@ class credencialesController extends Controller
             'GYA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-GYA-PCP.jpg',
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-PCP.jpg',
             'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-PCP.jpg',
+
+            'POI' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-POI-PCP.jpg',
+            'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-PCP.jpg',
+            'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-PCP.jpg',
+            'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-PCP.jpg',
         ];
         switch ($data['Tipo']) {
             case 'N':

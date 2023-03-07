@@ -124,30 +124,18 @@ printCreden = (data) => {
     } else {
       tipoCreden = 1
     }
+    if (data['data']['LicCategoria'] == null || data['data']['LicCategoria'] == 'N'
+    ) {
+      noti_fi(4, 'Error!. Antes de continuar, registre informacion de "PCP"')
+      return
+    }
     var url = `credenciales/pdf_creden_emp_a/${data['data']['idEmpleado']}/${tipoCreden}/${data['data']['id']}`;
     $("#emb_sec_pdf_creden").attr("src", url);
     $("#md_show_credencial").modal("show");
     $('#mod_conf_renovacion').modal('hide');
     return;
   }
-  noti_fi(3,'Error de validación!')
-  return;
-
-  if (estado == 1) {
-    fetch(
-      "credenciales/queryUpdateEstadoImpr?id=" +
-      idEmpleadoRenovar +
-      "&tipo=" +
-      tipo
-    )
-      .catch((error) => console.log(error))
-      .then((response) => response.text())
-      .then((data) => vistaImprecion(data, tipo));
-
-    return;
-    fun_credeEmp_emage(idEmpleadoRenovar, tipo);
-  }
-  noti_fi(3, "Error, Credencial ya impreso");
+  noti_fi(3, 'Error de validación!')
   return;
 };
 
@@ -248,7 +236,7 @@ let fila_creden = (e) => {
   }
 
   licencia = `<button class="btn btn-sm bg-green" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i>${e.CategoriaLic}</button>`;
-  if (e.CategoriaLic == null || e.CategoriaLic == "") {
+  if (e.CategoriaLic == null || e.CategoriaLic == ""||e.CategoriaLic=='N') {
     licencia = `<button class="btn btn-sm bg-yellow" onclick="asig_licencia(${e.idEmpleado})"><i class="fa fa-car fa-1x "></i></button>`;
   }
   return (html = `
@@ -360,6 +348,7 @@ tableBodyHistCredRenov = (response) => {
                     <td>${p.created_atn}</td>
                     <td>${p.cr_motivo}</td>
                     <td>${p.cr_nueva_CodigoTarjeta}</td>
+                    <td>${p.cr_docRespaldo}</td>
                     <td>${tipoR}</td>
                     <td>${botton}</td>
                 </tr>
@@ -447,7 +436,7 @@ function saveVeiAut() {
     t_a += $(this).val() + " ";
   });
   t_a = t_a.split(" ");
-
+  console.log(t_a);
   $.ajax({
     type: "get",
     url: "credenciales/query_update_TLC",
@@ -464,6 +453,9 @@ function saveVeiAut() {
       if (response == 1) {
         $("#lic_new").trigger("reset");
         noti_fi(2, "Correcto!");
+        $("input:checkbox:checked").prop("checked", false);
+        $("#lic_areas").val('')
+        $("#pcp_fechaVencimiento").val('')
         $("#md_show_asign_licencia").modal("hide");
       } else {
         noti_fi(4, "Error!");

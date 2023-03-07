@@ -291,10 +291,10 @@ class credencialesController extends Controller
         }
         if ($tipo == 2) {
             if ($data->CategoriaLic == "") {
-                return;
+                return '<h1>SIN DATOS REGISTRADOS PARA PCP... </br> </h1>';
             }
 
-            $data->data_vehi_aut = unserialize($data->data_vehi_aut);
+              $data->data_vehi_aut = unserialize($data->data_vehi_aut);
 
 
             $a = 0;
@@ -305,16 +305,13 @@ class credencialesController extends Controller
             while ($a < 10) {
                 if ($a < 4) {
                     if (in_array('A-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiA = $LiA . "1";
                     } else {
-
                         $LiA = $LiA . "0";
                     }
                 }
                 if ($a < 7) {
                     if (in_array('B-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiB = $LiB . "1";
                     } else {
                         $LiB = $LiB . "0";
@@ -322,7 +319,6 @@ class credencialesController extends Controller
                 }
                 if ($a < 9) {
                     if (in_array('C-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiC = $LiC . "1";
                     } else {
                         $LiC = $LiC . "0";
@@ -330,7 +326,6 @@ class credencialesController extends Controller
                 }
                 if ($a < 2) {
                     if (in_array('MP-' . $a + 1, $data->data_vehi_aut)) {
-
                         $LiMP = $LiMP . "1";
                     } else {
                         $LiMP = $LiMP . "0";
@@ -339,14 +334,15 @@ class credencialesController extends Controller
 
                 $a += 1;
             }
+            
             $LiA = str_replace('1', 'X', $LiA);
-            $LiA = str_replace('0', '.', $LiA);
+            $LiA = str_replace('0', '-', $LiA);
 
             $LiB = str_replace('1', 'X', $LiB);
-            $LiB = str_replace('0', '.', $LiB);
+            $LiB = str_replace('0', '-', $LiB);
 
             $LiC = str_replace('1', 'X', $LiC);
-            $LiC = str_replace('0', '.', $LiC);
+            $LiC = str_replace('0', '-', $LiC);
 
             $LiMP = str_replace('1', 'X', $LiMP);
             $LiMP = str_replace('0', '.', $LiMP);
@@ -725,7 +721,6 @@ class credencialesController extends Controller
             'data' => 'required',
             'areas' => 'required',
             'pcp_fechaVencimiento' => 'required|date',
-            'pcp_factura' => 'required',
         ]);
 
         if ($validator->fails()) {

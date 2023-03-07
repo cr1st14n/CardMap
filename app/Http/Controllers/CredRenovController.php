@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\credRenov;
 use App\Http\Requests\StorecredRenovRequest;
 use App\Http\Requests\UpdatecredRenovRequest;
+use App\Models\Empleados;
 use Illuminate\Http\Request;
 
 class CredRenovController extends Controller
@@ -12,9 +13,10 @@ class CredRenovController extends Controller
     public function query_estImprecion(Request $request)
     {
         $estadoRenoCreden = credRenov::where('id', $request->input('idRenovCred'))
-            ->latest('id')->select('cr_tipo', 'idEmpleado', 'cr_estadoImp','id')
+            ->latest('id')->select('cr_tipo', 'idEmpleado', 'cr_estadoImp', 'id')
             ->first();
-        $est = true;
+        $estadoRenoCreden->LicCategoria =Empleados::where('idEmpleado',$estadoRenoCreden->idEmpleado)->value('CategoriaLic');
+            $est = true;
         if ($estadoRenoCreden == null) {
             $est = false;
         }

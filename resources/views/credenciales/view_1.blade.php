@@ -686,6 +686,7 @@
                                             <th>Fecha</th>
                                             <th>Motivo</th>
                                             <th>Codigo de Tarjeta</th>
+                                            <th>Respaldo</th>
                                             <th>Tipo</th>
                                             <th></th>
                                         </tr>
@@ -720,11 +721,6 @@
                             <b style="font-size: 12px">Fecha Vencimiento</b>
                             <input type="date" class=" form-control form-control-sm" name="pcp_fechaVencimiento"
                                 id="pcp_fechaVencimiento" min="2000-01-01">
-                        </div>
-                        <div class=" col-sm-4 form-group">
-                            <b style="font-size: 12px"># de Factura</b>
-                            <input type="number" class=" form-control form-control-sm" name="pcp_factura"
-                                id="pcp_factura">
                         </div>
                     </div>
                     <hr>
@@ -867,22 +863,22 @@
                                 <label class="border-checkbox-label" for="checkbox0141">Hyster</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-7" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-6" type="checkbox" name="g3"
                                     id="checkbox015">
                                 <label class="border-checkbox-label" for="checkbox015">Volqueta</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-8" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-7" type="checkbox" name="g3"
                                     id="checkbox016">
                                 <label class="border-checkbox-label" for="checkbox016">Tractor</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-9" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-8" type="checkbox" name="g3"
                                     id="checkbox017">
                                 <label class="border-checkbox-label" for="checkbox017">Retroexcavadora</label>
                             </div>
                             <div class="border-checkbox-group border-checkbox-group-primary col-12">
-                                <input class="border-checkbox" value="C-10" type="checkbox" name="g3"
+                                <input class="border-checkbox" value="C-9" type="checkbox" name="g3"
                                     id="checkbox018">
                                 <label class="border-checkbox-label" for="checkbox018">Auto Bombas(SEI)</label>
                             </div>

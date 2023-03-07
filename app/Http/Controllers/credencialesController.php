@@ -8,6 +8,7 @@ use App\Models\Empresas;
 use App\Models\termAero;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Facades\App;
@@ -96,7 +97,6 @@ class credencialesController extends Controller
         $new->NombEmpresa = $emp->NombEmpresa;
         $new->ta_sigla = $term->ta_sigla;
         $new->ta_nombre = $term->ta_sigla;
-
         $new->Nombre = ($new->Nombre == null) ? '' : $new->Nombre;
         $new->Paterno = ($new->Paterno == null) ? '' : $new->Paterno;
         $new->Materno = ($new->Materno == null) ? '' : $new->Materno;
@@ -339,9 +339,6 @@ class credencialesController extends Controller
 
                 $a += 1;
             }
-            // return $LiA;
-            // $q = str_replace(',', '', $data->data_vehi_aut);
-
             $LiA = str_replace('1', 'X', $LiA);
             $LiA = str_replace('0', '.', $LiA);
 
@@ -633,7 +630,7 @@ class credencialesController extends Controller
     public function query_renovar_creden($tipo, Request $request)
     {
         $data = Empleados::where('idEmpleado', $request->input('id'))->first();
-        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->orderBy('id','desc')->get();
+        $histRen = credRenov::where('idEmpleado', $data->idEmpleado)->orderBy('id', 'desc')->get();
         foreach ($histRen as $key => $value) {
             $histRen[$key]->created_atn = Carbon::parse($value->created_at)->format('d-m-Y h:i');
         }
@@ -752,5 +749,23 @@ class credencialesController extends Controller
         $update->Estado = 'B';
 
         return $res = $update->save();
+    }
+
+    public function dataEmpleado(Request $request)
+    {
+        $empleado = [];
+        if ($request->input('Tipo')) {
+            $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
+        }
+        if (!$request->input('Tipo')) {
+            $empleado = Empleados::where('Codigo', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
+        }
+
+        if ($empleado == null) {
+            return response('no data')->header('Content-Type', 'text/plain');
+        }
+        $empleado['urlphoto'] = trim('/sare.naabol.gob.bo/creden/' . $empleado['urlphoto']);
+        $data = ['empleado' => $empleado];
+        return response($data)->header('Content-Type', 'json');
     }
 }

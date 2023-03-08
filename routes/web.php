@@ -58,6 +58,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     // *---verificar estado imprecion 
     Route::get('query_estImprecion', [CredRenovController::class, 'query_estImprecion']);
     Route::get('queryUpdateEstadoImpr', [CredRenovController::class, 'queryUpdateEstadoImpr']);
+    Route::get('query_descImpr',[CredRenovController::class,'descImpr']);
 
     // * Credenciales de visitas
     Route::get('view_cv_1', [credvisitaController::class, 'viewHome']);

@@ -689,6 +689,7 @@
                                             <th>Respaldo</th>
                                             <th>Tipo</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_renov_creden_emp">

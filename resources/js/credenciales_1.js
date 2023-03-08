@@ -58,7 +58,7 @@ function update_creden(val) {
   $.ajax({
     type: "post",
     url: "credenciales/query_update_emp",
-    data: $("#form_update_creden").serialize() + LT + "&id=" + idEmpleadoEdit,
+    data: $("#form_update_creden").serialize() + "&id=" + idEmpleadoEdit,
     // dataType: "dataType",
     success: function (r) {
       if (r.est == 1) {
@@ -106,7 +106,7 @@ function fun_credeEmp_camera(param) {
   $("#md_add_photo").modal("show");
 }
 
-// * --------- funciones de generar credencial
+// TODO --------- funciones de generar credencial
 showCreden = (idCredRenov) => {
   data = "?idRenovCred=" + idCredRenov + "&" + "id=" + idEmpleadoRenovar;
   fetch("credenciales/query_estImprecion" + data)
@@ -116,9 +116,7 @@ showCreden = (idCredRenov) => {
 };
 
 printCreden = (data) => {
-  console.log(data);
   if (data['estado'] == true) {
-    console.log("imprmir");
     if (data['data']['cr_tipo'] == 'C') {
       tipoCreden = 2
     } else {
@@ -140,8 +138,6 @@ printCreden = (data) => {
   noti_fi(3, 'Error de validación!')
   return;
 };
-
-
 let vistaImprecion = (data, tipo) => {
   if (data == 1) {
     fun_credeEmp_emage(idEmpleadoRenovar, tipo);
@@ -174,7 +170,7 @@ function fun_credeEmp_emage(param, tipo) {
     });
   }
 }
-// * =======//================================
+// TODO =======//================================
 function fun_credeEmp_print(param) { }
 // * ----- funciones de busqueeda
 
@@ -340,7 +336,9 @@ tableBodyHistCredRenov = (response) => {
         tipoR = "PCP";
       }
       botton = "Impreso";
+      botton2 = `<button onClick="descImpr(${p.id},${p.idEmpleado})" class="btn" ><i class="fa fa-lock"></i></button>`
       if (p.cr_estadoImp == 1) {
+        botton2 = '<button class="btn disabled"><i class="fa fa-unlock"></i></button>';
         botton = `<button class="btn btn-block bg-green" 
         style="color: white" onclick="showCreden(${p.id})">
         <i class="fa fa-print"></i> Imprimir</button> `;
@@ -353,6 +351,7 @@ tableBodyHistCredRenov = (response) => {
                     <td>${p.cr_docRespaldo}</td>
                     <td>${tipoR}</td>
                     <td>${botton}</td>
+                    <td>${botton2}</td>
                 </tr>
                 `);
     })
@@ -364,6 +363,33 @@ tableBodyHistCredRenov = (response) => {
     "</strong>"
   );
 };
+// todo --- REACTIVAR IMPRECION /START
+descImpr = (id, idEmpleado) => {
+  datos = `?idCreden=${id}&idEmpleado=${idEmpleado}`
+  fetch('credenciales/query_descImpr' + datos)
+    .catch((error) => console.error(error))
+    .then((response) => response.json())
+    .then((data) => desblok(data, idEmpleado))
+}
+desblok = (data, idEmpleado) => {
+  switch (data['estado']) {
+    case 1:
+      noti_fi(1, 'Función procesada exitosamente.')
+      fun_renovar_creden(idEmpleado, 1)
+      break;
+    case 0:
+      noti_fi(2, 'Funcion no Autorizada!')
+      break;
+    case 3:
+      noti_fi(4, 'Error. Vuelva a intentarlo')
+      break;
+    default:
+      noti_fi(4, 'Error.')
+      break;
+  }
+}
+// todo --- REACTIVAR IMPRECION /END
+
 function tipoLicen() {
   switch ($("input[name=tipo_lic]:checked").val()) {
     case "A":
@@ -438,7 +464,6 @@ function saveVeiAut() {
     t_a += $(this).val() + " ";
   });
   t_a = t_a.split(" ");
-  console.log(t_a);
   $.ajax({
     type: "get",
     url: "credenciales/query_update_TLC",

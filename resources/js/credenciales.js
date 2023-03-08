@@ -25,108 +25,18 @@ var myDropzone = new Dropzone("#subImagen", {
         }
     },
 });
-
+// todo --- CREAR CREDENCIAL /START
 btn_creden_add_item = () => {
     $("#form_new_creden").trigger("reset");
     $("#md_add_credencial").modal("show");
 };
 
-// ? ----  variables de tipo de licencia
-sel = {
-    P: ["Motocicletass", "Vehiculos Particulares"],
-    A: ["Camiotena", "Vagoneta", "Tipo Taxi", "Furgoneta"],
-    B: [
-        "Cinta Transportadora",
-        "Tractor jalador de equipajes",
-        "Escalera motorizada",
-        "Carro de aguas servidas",
-        "Transportador de Carga",
-        "Cisterna de agua potable",
-    ],
-    C: [
-        "Tractor remolcador",
-        "Elevador de Cargas",
-        "Camión Catering",
-        "Cisterna Combustible",
-        "Hyster",
-        "Volqueta",
-        "Tractor",
-        "Retro excavadora",
-        "Autobomba",
-    ],
-};
-sel_1 = {
-    P: ["0", "0"],
-    A: ["0", "0", "0", "0"],
-    B: ["0", "0", "0", "0", "0", "0"],
-    C: ["0", "0", "0", "0", "0", "0", "0", "0", "0"],
-};
-LT = "";
-// ? ----------variables de tipo de licencia---
-$("#nc_t_licencia").change(function (e) {
-    e.preventDefault();
-    tip = $("#nc_t_licencia").val();
-    if (tip == "") {
-        $("#option_tipo_lic_veh").html("");
-        LT = "";
-        return;
-    }
-    html = sel[tip]
-        .map(function (p, i) {
-            return (html = `
-            <div class="checkbox-fade fade-in-default">
-                <label>
-                    <input type="checkbox" name="tipo_vehiculo_aut${i}" value="${p}"  onchange="saveTipoLicencia('${tip}','${i}')" >
-                    <span class="cr">
-                        <i class="cr-icon ik ik-check text-warning"></i>
-                    </span>
-                    <span>${p}</span>
-                </label>
-            </div>
-                `);
-        })
-        .join(" ");
-    $("#option_tipo_lic_veh").html(html);
-});
-function saveTipoLicencia(l, i) {
-
-    if (sel_1[l][i] == 0) {
-        sel_1[l][i] = 1;
-    } else {
-        sel_1[l][i] = 0;
-    }
-    LT = `&nc_lt=${sel_1[l]}&nc_ltt=${l}`;
-}
-$("#nc_t_licencia_edit").change(function (e) {
-    e.preventDefault();
-    tip = $("#nc_t_licencia_edit").val();
-    if (tip == "") {
-        $("#option_tipo_lic_veh_edit").html("");
-        return;
-    }
-    html = sel[tip]
-        .map(function (p, i) {
-            return (html = `
-            <div class="checkbox-fade fade-in-default">
-                <label>
-                    <input type="checkbox" name="tipo_vehiculo_aut${i}" value="${p}" onchange="saveTipoLicencia('${tip}','${i}')" >
-                    <span class="cr">
-                        <i class="cr-icon ik ik-check text-warning"></i>
-                    </span>
-                    <span>${p}</span>
-                </label>
-            </div>
-                `);
-        })
-        .join(" ");
-    $("#option_tipo_lic_veh_edit").html(html);
-});
 $("#form_new_creden").submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: "post",
         url: "credenciales/query_create_1",
-        data: $("#form_new_creden").serialize() + LT,
+        data: $("#form_new_creden").serialize() ,
         success: function (response) {
             if (response.status == 1) {
                 $("#md_add_credencial").modal("hide");
@@ -142,7 +52,7 @@ $("#form_new_creden").submit(function (e) {
         },
     });
 });
-
+// todo --- CREAR CREDENCIAL /END
 $(".upload").on("click", function () {
     var formData = new FormData();
     var files = $("#image")[0].files[0];

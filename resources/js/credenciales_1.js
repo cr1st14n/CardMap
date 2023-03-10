@@ -390,8 +390,9 @@ desblok = (data, idEmpleado) => {
 }
 // todo --- REACTIVAR IMPRECION /END
 
-function tipoLicen() {
-  switch ($("input[name=tipo_lic]:checked").val()) {
+function tipoLicen(valor) {
+  // switch ($("input[name=tipo_lic]:checked").val()) {
+  switch (valor) {
     case "A":
       $('input[name="g1"]').attr("disabled", false);
       $('input[name="g2"]').attr("disabled", true);
@@ -445,16 +446,43 @@ function tipoLicen() {
       break;
   }
 }
+// todo --- asignar, editar categoria de licencia---||START
 function asig_licencia(id) {
-  idEmpleadoEdit = id;
-  $("#md_show_asign_licencia").modal("show");
+
   $("input[name=tipo_lic][value='N']").prop("checked", true);
   $('input[name="g1"]').attr("disabled", true);
   $('input[name="g2"]').attr("disabled", true);
   $('input[name="g3"]').attr("disabled", true);
   $('input[name="g4"]').attr("disabled", true);
+  idEmpleadoEdit = id;
+  data = `?&idEmp=${id}`;
+  fetch('credenciales/query_verEdit_TLC/' + data)
+    .catch((error) => console.log(error))
+    .then((response) => response.json())
+    .then((data) => showModAsigTLC(data))
 }
+showModAsigTLC = (data) => {
+  tipoLicen('N');
+  if (data['estado'] == 0) {
+    $('#lic_areas').val('');
+    $("input[name=pcp_fechaVencimiento").val(data['vencimiento'] ?? '0000-00-00');
+    $("#md_show_asign_licencia").modal("show");
+  }
+  if (data['estado'] == 1) {
+    $("#md_show_asign_licencia").modal("show");
+    $('#lic_areas').val(data['areas']);
+    $("input[name=pcp_fechaVencimiento").val(data['vencimiento'] ?? '0000-00-00');
+    $(`input[name=tipo_lic][value='${data['categoria']}']`).prop("checked", true);
+    tipoLicen(data['categoria']);
+    categorias = data['datos'];
+    categorias.forEach(element => {
+      $('input[value=' + element + ']').prop("checked", true);
+    });
 
+  }
+
+}
+// todo ---- asignar, editar categoria licena ----|| END
 $("input[name=radio]").change(function (e) {
   e.preventDefault();
 });

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 
 class credencialesController extends Controller
 {
-    
+
     public function view_1()
     {
         $termAero = termAero::where('ta_depen_cod', Auth::user()->aeropuerto)->orderBy('ta_sigla', 'asc')->get();
@@ -307,7 +307,7 @@ class credencialesController extends Controller
                 return '<h1>SIN DATOS REGISTRADOS PARA PCP... </br> </h1>';
             }
 
-              $data->data_vehi_aut = unserialize($data->data_vehi_aut);
+            $data->data_vehi_aut = unserialize($data->data_vehi_aut);
 
 
             $a = 0;
@@ -347,7 +347,7 @@ class credencialesController extends Controller
 
                 $a += 1;
             }
-            
+
             $LiA = str_replace('1', 'X', $LiA);
             $LiA = str_replace('0', '-', $LiA);
 
@@ -712,6 +712,20 @@ class credencialesController extends Controller
             'CodigoTarjeta' => $request->input('ren_cred_codigo'),
             'NroRenovacion' => intval($data['NroRenovacion']) + 1
         ]);
+    }
+    public function query_verEdit_TLC(Request $request)
+    {
+        $edit = Empleados::find($request->idEmp);
+        if ($edit->CategoriaLic == 'N' || $edit->CategoriaLic == '') {
+            $data['estado'] = 0;
+        } else {
+            $data['estado'] = 1;
+            $data['categoria'] = $edit->CategoriaLic;
+            $data['areas'] = $edit->AreasCP;
+            $data['datos'] = unserialize($edit->data_vehi_aut);
+            $data['vencimiento']  = ($edit->FechaVencCP != null) ? Carbon::parse($edit->FechaVencCP)->format('Y-m-d') : '';
+        }
+        return response($data)->header('Content-Type', 'json');
     }
     public function query_update_TLC(Request $request)
     {

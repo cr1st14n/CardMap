@@ -720,7 +720,7 @@
                         </div>
                         <div class=" col-sm-4 form-group">
                             <b style="font-size: 12px">Fecha Vencimiento</b>
-                            <input type="date" class=" form-control form-control-sm" name="pcp_fechaVencimiento"
+                            <input type="date" class=" form-control form-control-sm " name="pcp_fechaVencimiento"
                                 id="pcp_fechaVencimiento" min="2000-01-01">
                         </div>
                     </div>
@@ -729,38 +729,43 @@
                         <form id="lic_new">
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="tipo_lic" value="A" onclick="tipoLicen()">
+                                    <input type="radio" name="tipo_lic" value="A"
+                                        onclick="tipoLicen(this.value)">
                                     <i class="helper"></i>A
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="tipo_lic" value="B" onclick="tipoLicen()">
+                                    <input type="radio" name="tipo_lic" value="B"
+                                        onclick="tipoLicen(this.value)">
                                     <i class="helper"></i>B
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="tipo_lic" value="C" onclick="tipoLicen()">
+                                    <input type="radio" name="tipo_lic" value="C"
+                                        onclick="tipoLicen(this.value)">
                                     <i class="helper"></i>C
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="tipo_lic" value="M" onclick="tipoLicen()">
+                                    <input type="radio" name="tipo_lic" value="M"
+                                        onclick="tipoLicen(this.value)">
                                     <i class="helper"></i>M
                                 </label>
                             </div>
                             <div class="radio radio-inline">
                                 <label>
-                                    <input type="radio" name="tipo_lic" value="P" onclick="tipoLicen()">
+                                    <input type="radio" name="tipo_lic" value="P"
+                                        onclick="tipoLicen(this.value)">
                                     <i class="helper"></i>P
                                 </label>
                             </div>
                             <div class="radio radio-inline radio-danger">
                                 <label>
-                                    <input type="radio" name="tipo_lic" value="N" onclick="tipoLicen()"
-                                        checked="checked">
+                                    <input type="radio" name="tipo_lic" value="N"
+                                        onclick="tipoLicen(this.value)" checked="checked">
                                     <i class="helper"></i>Ninguno
                                 </label>
                             </div>

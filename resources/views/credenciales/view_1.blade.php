@@ -16,12 +16,12 @@
             <div class="card">
                 <div class="card-header d-block">
                     <div class="row">
-                        <div class="col-lg-3" style="text-align: rigth ;">
+                        <div class="col-lg-4" style="text-align: rigth ;">
                             <div class="input-group mb-2 mr-sm-4">
-                                <input type="text" class="form-control" onkeyup="input_busqueda_creden(this.value)"
+                                <input type="text" class="form-control" id="inp_textBusqueda"
                                     placeholder="Buscar por NOMBRE - CI - COD">
                                 <div class="input-group-prepend ">
-                                    <div class="input-group-text"><i class="fa fa-search"></i></div>
+                                    <button class="btn btn-facebook" onclick="input_busqueda_creden()"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -40,17 +40,16 @@
                                     @endforeach
                                 </select>
                                 <div class="input-group-prepend ">
-                                    <button class="btn btn-facebook" onclick="changeTerminal()"><i class="fa fa-route"
+                                    <button class="btn btn-facebook" onclick="changeTerminal()"><i class="fa fa-search"
                                             style=""></i> Listar</button>
                                 </div>
                             </div>
                         </div>
-                        <span></span>
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
                         </div>
                         <div class="col-lg-2">
                             <button type="button" onclick="btn_creden_add_item()"
-                                class="btn btn-primary mb-2 btn-block"><i class="fa fa-plus-circle"></i> Agregar
+                                class="btn btn-danger mb-2 btn-block"><i class="fa fa-plus-circle"></i> Agregar
                             </button>
                         </div>
                     </div>

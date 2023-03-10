@@ -605,6 +605,7 @@ class credencialesController extends Controller
                     'Empleados.urlphoto',
                     'Empleados.Vencimiento',
                     'Empleados.NroRenovacion',
+                    'Empleados.CategoriaLic',
                     'Empresas.Empresa',
                     'Empresas.NombEmpresa',
                     'term_aeros.ta_sigla',

@@ -189,6 +189,7 @@ function queryShow_1() {
 }
 
 let input_busqueda_creden = (param) => {
+  param = $('#inp_textBusqueda').val();
   if (param.length != 0) {
     $.ajax({
       type: "GET",

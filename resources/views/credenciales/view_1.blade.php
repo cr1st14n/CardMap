@@ -625,11 +625,11 @@
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Motivo</label>
                                         <select class="form-control" id="ren_cred_motivo" name="ren_cred_motivo">
-                                            <option value="Extravio">Primera Emición</option>
+                                            <option value="Primera Emicion">Primera Emición</option>
                                             <option value="Extravio">Extravio</option>
                                             <option value="Deteriorado">Deteriorado</option>
                                             <option value="Caducado">Caducado</option>
-                                            <option value="CambioCargo">Cambio de Cargo</option>
+                                            <option value="Cambio Cargo">Cambio de Cargo</option>
                                         </select>
                                     </div>
                                 </div>

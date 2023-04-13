@@ -29,7 +29,7 @@ class credvisitaController extends Controller
     public function query_createCV(Request $request)
     {
         $new = new credVisitante();
-        $new->cv_Codigo = credVisitante::where('cv_Aeropuerto', session('aero'))->max('cv_Codigo') + 1;
+        $new->cv_Codigo = credVisitante::where('cv_Aeropuerto_2', $request->input('ncv_aeropuerto'))->max('cv_Codigo') + 1;
         $new->cv_fechaEmi = Carbon::now()->format('Y-m-d');
         $new->cv_FechaVenc = Carbon::parse($request->input('ncv_fechaLimite'))->format('Y-m-d');
         $new->cv_areas = $request->input('ncv_areas_acceso');

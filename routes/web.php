@@ -227,13 +227,13 @@ Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 //     }
 //     return $cont;
 // });
-
+// todo ----- actuazliar rutas de imagenes 
 // Route::get('importimageVVI', function () {
-//     $emp = Empleados::where('aeropuerto', 'VVI')->get();
+//     $emp = Empleados::where('aeropuerto', 'CBB')->get();
 //     $cont = 0;
 //     foreach ($emp as $key => $value) {
 //         $update = Empleados::find($value->idEmpleado);
-//         $update->urlphoto = 'public/storage/imagenes/VVI/' . $value->Codigo . '.jpg';
+//         $update->urlphoto = 'public/storage/imagenes/CBB/' . $value->Codigo . '.jpg';
 //         $update->NroRenovacion = 1;
 //         $est = $update->save();
 //         if ($est) {

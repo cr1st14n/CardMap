@@ -62,6 +62,7 @@ class credvisitaController extends Controller
             'cv_Aeropuerto',
             'cv_Aeropuerto',
             'cv_Aeropuerto_2',
+            'cv_FechaVenc',
             )->first();
 
         $data->cv_areas_2=str_repeat("0", 4- strlen( $data->cv_Codigo));

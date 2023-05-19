@@ -102,7 +102,7 @@
                     } else if (e == 0) {
                         params = {
                             heading: "Alerta!",
-                            text: 'Usuario no Registrado',
+                            text: 'Usuario o Región Incorrectos',
                             showHideTransition: "slide",
                             icon: "info",
                             loaderBg: "#46c35f",

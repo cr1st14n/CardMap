@@ -23,6 +23,7 @@ class credvisitaController extends Controller
     {
         // return $aero[ Auth::User()->aeropuerto];
         return credVisitante::where('cv_Aeropuerto', session('aero'))
+            ->orderBy('cv_Aeropuerto_2', 'desc')
             ->orderBy('cv_Codigo', 'desc')
             ->get();
     }
@@ -63,9 +64,9 @@ class credvisitaController extends Controller
             'cv_Aeropuerto',
             'cv_Aeropuerto_2',
             'cv_FechaVenc',
-            )->first();
+        )->first();
 
-        $data->cv_areas_2=str_repeat("0", 4- strlen( $data->cv_Codigo));
+        $data->cv_areas_2 = str_repeat("0", 4 - strlen($data->cv_Codigo));
         switch (strlen($data['Codigo'])) {
             case 1:
                 $data['Codigo'] = '000' . $data['Codigo'] . '-' . $data['aeropuerto_2'];
@@ -92,10 +93,10 @@ class credvisitaController extends Controller
             'RIB' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-RIB-VI.jpg',
             'TDD' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TDD-VI.jpg',
 
-            'POI' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-POI-VI.jpg',
-            'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-BYC-VI.jpg',
-            'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-TJA-VI.jpg',
-            'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/LPB-SRE-VI.jpg',
+            'POI' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-POI-VI.jpg',
+            'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-VI.jpg',
+            'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-VI.jpg',
+            'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-VI.jpg',
         ];
         $pdf = pdf::loadView(
             'credenciales.pdf_creden_v',

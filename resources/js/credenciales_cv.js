@@ -2,7 +2,7 @@ $(document).ready(function () {
     query_list_credenVis();
 });
 id_credenVis = "";
-let query_list_credenVis = () => {
+ query_list_credenVis = () => {
     fetch("credenciales/query_listCV")
         .then((data) => {
             return data.json();
@@ -15,7 +15,7 @@ let query_list_credenVis = () => {
         });
 };
 
-let show_list_A = (res) => {
+ show_list_A = (res) => {
     maq = res
         .map((e) => {
             return fila_1(e);
@@ -24,7 +24,7 @@ let show_list_A = (res) => {
     $("#view_1_body").html(maq);
 };
 
-let fila_1 = (e) => {
+ fila_1 = (e) => {
     let r = "0";
     return (a = `
                 <tr id="tcv-${e.id}">
@@ -75,7 +75,7 @@ $("#form_new_creden_visita").submit(function (e) {
     });
 });
 
-let destroy_creden_visita = (t, id) => {
+ destroy_creden_visita = (t, id) => {
     switch (t) {
         case 1:
             id_credenVis = id;

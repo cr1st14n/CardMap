@@ -51,7 +51,7 @@ class vehiculoController extends Controller
         //         # code...
         //         break;
         // }
-        return Vehiculo::get();
+        return Vehiculo::where('ca_cod_usu', Auth::user()->id)->get();
     }
     public function query_detalle_1(Request $request)
     {

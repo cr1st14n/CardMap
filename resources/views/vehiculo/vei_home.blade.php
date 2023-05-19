@@ -109,7 +109,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_placa_edit" id="vi_placa_edit"
+                                    <input type="text" maxlength="30" class="form-control" name="vi_placa_edit" id="vi_placa_edit"
                                         required>
                                     <b>Placa</b>
                                 </div>
@@ -117,13 +117,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group small">
                                     <input type="text" class="form-control" name="vi_poliza_edit"
-                                        id="vi_poliza_edit">
+                                        id="vi_poliza_edit" maxlength="50">
                                     <b># de Poliza</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_resp_edit" id="vi_resp_edit"
+                                    <input type="text" class="form-control" maxlength="50" name="vi_resp_edit" id="vi_resp_edit"
                                         required>
                                     <b>Responsable</b>
                                 </div>
@@ -231,49 +231,49 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_placa" required>
+                                    <input type="text" maxlength="30" class="form-control" name="vi_placa" required>
                                     <b>Placa</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_poliza">
+                                    <input type="text" maxlength="30" class="form-control" name="vi_poliza">
                                     <b># de Poliza</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_resp" required>
+                                    <input type="text" class="form-control" maxlength="50" name="vi_resp" required>
                                     <b>Responsable</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_empAse">
+                                    <input type="text" class="form-control" maxlength="50" name="vi_empAse">
                                     <b>Empresa Aseguradora</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_aut" required>
+                                    <input type="text" class="form-control" name="vi_aut" maxlength="50" required>
                                     <b>Autorizado por:</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="vi_feI" required>
+                                    <input type="date" min="2000-01-02" max="2050-12-31" class="form-control" name="vi_feI" required>
                                     <b>Fecha Inicial</b>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group small">
-                                    <input type="date" class="form-control" name="vi_fef" required>
+                                    <input type="date" class="form-control" min="2000-01-02" max="2050-12-31" name="vi_fef" required>
                                     <b>Fecha Final</b>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group small">
-                                    <input type="text" class="form-control" name="vi_mo" id="vi_mo" required>
+                                    <input type="text" maxlength="50" class="form-control" name="vi_mo" id="vi_mo" required>
                                     <b>Motivo</b>
                                 </div>
                             </div>

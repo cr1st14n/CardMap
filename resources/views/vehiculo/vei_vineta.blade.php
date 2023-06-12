@@ -2,87 +2,105 @@
 <html lang="en">
 
 <head>
-
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        * {
-            font-family: Verdana, Arial, sans-serif;
-        }
-
-        @page {
-            margin-left: 0.7cm;
-            margin-right: 0.7cm;
-             margin-top: 0.0cm;
-            margin-bottom: 0.0cm; 
-        }
-
+        html,
         body {
-            /* border-style: solid;
-            border-width: 1px;
-            border-left-width: 1px;
-            border-right-width: 1px;
-            border-color: black; */
+            height: 90%;
+            margin: 1;
+            padding: 1;
         }
 
-        body {
-            margin-right: 0px;
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .table-container {
+            width: 100%;
+            height: 90%;
         }
 
         table {
-            font-size: ;
-            position: relative;
-            margin-top: 20px;
-            margin-left: 0px
+            width: 100%;
+            height: 90%;
+            border-collapse: collapse;
         }
 
-        table tr td {
-            font-size: 10px
+        th,
+        td {
+            border: 1px solid black;
+            padding: 0px;
         }
-
-        .gray {
-            background-color: lightgray
-        }
-
         .img_1 {
-            width: 70px;
-            height: 70px;
-        }
+        width: 90%;
+        height: 90%;
+    }
     </style>
+    <title>NAABOL</title>
+
 </head>
 
-<body>
-    <table width="100%" style="border:1px solid black;border-collapse:collapse;">
-        <tr>
-            <td style="font-size:7px; border:1px solid black;">EMPRESA</td>
-            <td colspan="2" style="border:1px solid black;">{{ $Empresa }}</td>
-        </tr>
-        <tr>
-            <td style="font-size:7px; border:1px  solid black;">PLACA</td>
-            <td style="border:1px solid black;">{{ $Placa }}</td>
-            <th rowspan="5" style="border:1px solid black;">
-                {!! '<img class="img_1" src="data:image/png;base64,' .
-                    DNS2D::getBarcodePNG('cod' . $id . '|' . $Empresa. '|' . $Placa. '|' . $Marca. '|' . $Tipo. '|' . $Color. '|' . $Vence. '|' . $Areas, 'QRCODE') .
-                    '" alt="barcode"   />' !!}
-            </th>
-        </tr>
-        <tr>
-            <td style="font-size:7px; border:1px  solid black;">MARCA</td>
-            <td style="border:1px solid black;">{{ $Marca }}</td>
-        </tr>
-        <tr>
-            <td style="font-size:7px; border:1px  solid black;">TIPO/COLOR</td>
-            <td style="border:1px solid black; font-size:10px;">{{ $Tipo }} <br> {{ $Color }}</td>
-        </tr>
-        <tr>
-            <td style="font-size:7px; border:1px  solid black;">VENCE</td>
-            <td style="border:1px solid black;">{{ $Vence }}</td>
-        </tr>
-        <tr>
-            <td style="font-size:7px; border:1px  solid black;">AREAS</td>
-            <td style="border:1px solid black;">{{ $Areas }}</td>
-        </tr>
-    </table>
-
+<body style="margin: 0">
+    <div class="container">
+        <div class="table-container">
+            <table>
+                <tr>
+                    <td>EMPRESA</td>
+                    <td colspan="2">{{ $Empresa }}</td>
+                </tr>
+                <tr>
+                    <td>PLACA</td>
+                    <td>{{ $Placa }}</td>
+                    <th rowspan="5">
+                        {!! '<img class="img_1" src="data:image/png;base64,' .
+                            DNS2D::getBarcodePNG(
+                                'cod' .
+                                    $id .
+                                    '|' .
+                                    $Empresa .
+                                    '|' .
+                                    $Placa .
+                                    '|' .
+                                    $Marca .
+                                    '|' .
+                                    $Tipo .
+                                    '|' .
+                                    $Color .
+                                    '|' .
+                                    $Vence .
+                                    '|' .
+                                    $Areas,
+                                'QRCODE',
+                            ) .
+                            '" alt="barcode"   />' !!}
+                    </th>
+                </tr>
+                <tr>
+                    <td>MARCA</td>
+                    <td>{{ $Marca }}</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 10px">TIPO/COLOR</td>
+                    <td>{{ $Tipo }} <br> {{ $Color }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>VENCE</td>
+                    <td>{{ $Vence }}</td>
+                </tr>
+                <tr>
+                    <td>AREAS</td>
+                    <td>{{ $Areas }}</td>
+                </tr>F
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

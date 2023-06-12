@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class vehiculoController extends Controller
 {
@@ -138,32 +139,44 @@ class vehiculoController extends Controller
             ->join('Color', 'Color.Codigo ', 'Vehiculos.Color')
             ->join('Empresas', 'Empresas.Empresa', 'Vehiculos.Empresa')
             ->first();
-        // return view('vehiculo.vei_vineta',
-        // [
-        //     'id' => $data->id,
-        //     'Empresa' => $data->Empresa,
-        //     'Marca' => $data->Marca,
-        //     'Placa' => $data->Placa,
-        //     'Tipo' => $data->Tipo,
-        //     'Color' => $data->Color,
-        //     'Vence' => $data->FechaFinPer,
-        //     'Areas' => '',
-        // ]);
-        $pdf = pdf::loadView(
-            'vehiculo.vei_vineta',
-            [
-                'id' => $data->id,
-                'Empresa' => $data->NombEmpresa,
-                'Marca' => $data->Marca,
-                'Placa' => $data->Placa,
-                'Tipo' => $data->Tipo,
-                'Color' => $data->Color,
-                'Vence' => $data->FechaFinPer,
-                'Vence' => Carbon::parse($data->FechaFinPer)->format('d-m-Y'),
-                'Areas' => $data->Areas,
-            ]
-        );
-        $pdf->setpaper(array(0, 0, 130.386, 255.118), 'landscape');
+        // return view(
+        //     'vehiculo.vei_vineta',
+        //     [
+        //         'id' => $data->id,
+        //         'Empresa' => $data->NombEmpresa,
+        //         'Marca' => $data->Marca,
+        //         'Placa' => $data->Placa,
+        //         'Tipo' => $data->Tipo,
+        //         'Color' => $data->Color,
+        //         'Vence' => $data->FechaFinPer,
+        //         'Vence' => Carbon::parse($data->FechaFinPer)->format('d-m-Y'),
+        //         'Areas' => $data->Areas,
+        //     ]
+        // );
+        $pdf = PDF::loadView('vehiculo.vei_vineta', [
+            'id' => $data->id,
+            'Empresa' => $data->NombEmpresa,
+            'Marca' => $data->Marca,
+            'Placa' => $data->Placa,
+            'Tipo' => $data->Tipo,
+            'Color' => $data->Color,
+            'Vence' => Carbon::parse($data->FechaFinPer)->format('d-m-Y'),
+            'Areas' => $data->Areas,
+        ]);
+
+        $pdf->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isPhpEnabled' => true,
+        ]);
+        $pdf->setPaper('5cm', '10cm');
+
+        $pdf->setPaper([0, 0, 141.732, 283.465], 'landscape');
+        $pdf->output();
+        $dompdf = $pdf->getDomPDF();
+        $dompdf->set_option('margin-top', '0');
+        $dompdf->set_option('margin-right', '0');
+        $dompdf->set_option('margin-bottom', '0');
+        $dompdf->set_option('margin-left', '0');
         return $pdf->stream('invoice.pdf');
     }
 }

@@ -86,7 +86,7 @@
                     <td>{{ $Marca }}</td>
                 </tr>
                 <tr>
-                    <td style="font-size: 10px">TIPO/COLOR</td>
+                    <td >TIPO/COLOR</td>
                     <td>{{ $Tipo }} <br> {{ $Color }}
                     </td>
                 </tr>

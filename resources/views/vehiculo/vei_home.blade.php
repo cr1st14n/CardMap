@@ -308,7 +308,7 @@
                                 </div>
                             </div>
                             <div class=" col-sm-6 form-group">
-                                <input type="number" class=" form-control form-control-sm" name="vi_AreasCp"
+                                <input type="text" class=" form-control form-control-sm" name="vi_AreasCp"
                                     id="nc_AreasCp" placeholder="-#-#--#-"  maxlength="8" required>
                                 <b>Areas Autorizadas</b>
                             </div>

@@ -779,13 +779,18 @@ class credencialesController extends Controller
     }
     public function dataEmpleado(Request $request)
     {
-
         $empleado = [];
         if ($request->input('Tipo')) {
-            $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
+            $empleado = Empleados::where('CodigoTarjeta', $request->input('Codigo'))
+            //->where('Aeropuerto_2', $request->input('CodigoRegional'))
+            ->orWhere('CodigoTarjeta', $request->input('cod_tarjeta'))
+            ->first();
         }
         if (!$request->input('Tipo')) {
-            $empleado = Empleados::where('Codigo', $request->input('Codigo'))->where('Aeropuerto_2', $request->input('CodigoRegional'))->first();
+            $empleado = Empleados::where('Codigo', $request->input('Codigo'))
+           //->where('Aeropuerto_2', $request->input('CodigoRegional'))
+           ->orWhere('CodigoTarjeta', $request->input('cod_tarjeta'))
+            ->first();
         }
 
         if ($empleado == null) {

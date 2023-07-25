@@ -158,11 +158,16 @@
                                         class="fa fa-address-book"></i> Viñetas Vehiculos</a>
                             </div>
                             @if (Auth::user()->nivel == 1)
-                                <div class="nav-item" onclick=" console.log('hola '); event.preventDefault() ;viewTerminal()">
-                                    <a href="" id="btn_menu_terminales"  class="menu-item"><i
+                                <div class="nav-item"
+                                    onclick=" console.log('hola '); event.preventDefault() ;viewTerminal()">
+                                    <a href="" id="btn_menu_terminales" class="menu-item"><i
                                             class="fa fa-address-book"></i> Terminales Aereas</a>
                                 </div>
                             @endif
+                            <div class="nav-item">
+                                <a href="#" id="btn_menu_controlAccess" class="menu-item"><i
+                                        class="fa fa-address-book"></i> Control Acceso  </a>
+                            </div>
                         </nav>
                     </div>
                 </div>

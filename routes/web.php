@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\credencialesController;
 use App\Http\Controllers\CredRenovController;
 use App\Http\Controllers\credvisitaController;
@@ -50,7 +51,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     Route::get('query_buscar_B', [credencialesController::class, 'query_buscar_B']);
     Route::post('query_renovar_creden/{tipo}', [credencialesController::class, 'query_renovar_creden']);
     // * mod credencial
-    Route::get('query_verEdit_TLC',[credencialesController::class,'query_verEdit_TLC'] );
+    Route::get('query_verEdit_TLC', [credencialesController::class, 'query_verEdit_TLC']);
     Route::get('query_update_TLC', [credencialesController::class, 'query_update_TLC']);
     // * credencial formato
     Route::get('query_cons_1', [credencialesController::class, 'query_cons_1']);
@@ -59,7 +60,7 @@ Route::group(['prefix' => 'credenciales'], function () {
     // *---verificar estado imprecion 
     Route::get('query_estImprecion', [CredRenovController::class, 'query_estImprecion']);
     Route::get('queryUpdateEstadoImpr', [CredRenovController::class, 'queryUpdateEstadoImpr']);
-    Route::get('query_descImpr',[CredRenovController::class,'descImpr']);
+    Route::get('query_descImpr', [CredRenovController::class, 'descImpr']);
 
     // * Credenciales de visitas
     Route::get('view_cv_1', [credvisitaController::class, 'viewHome']);
@@ -99,7 +100,10 @@ Route::group(['prefix' => 'terminal'], function () {
     Route::get('query_list_1', [TermAeroController::class, 'query_list_1']);
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
 });
-
+Route::prefix('accesControl')->group(function () {
+    Route::view('view_1_access', 'ac.view_1_access');
+    Route::get('query_accesso_1/{cod}', [AccessController::class, 'searchCod_1']);
+});
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
@@ -338,4 +342,4 @@ Route::get('visorTias', [visorTiasController::class, 'visorTias']);
 
 
 
-Route::get('api/dataEmpleado',[credencialesController::class,'dataEmpleado']);
+Route::get('api/dataEmpleado', [credencialesController::class, 'dataEmpleado']);

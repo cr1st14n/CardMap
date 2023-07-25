@@ -61,6 +61,13 @@ $(" #btn_menu_viculos").click(function (e) {
         $("#main_cont").html(data);
     });
 });
+$('#btn_menu_controlAccess').on('click', function () {
+    $.get("accesControl/view_1_access",
+    function (data, textStatus, jqXHR) {
+        $("#main_cont").html(data);
+        },
+    );
+});
 const viewTerminal = () => {
     $.get("terminal/view_home", function (data, textStatus, jqXHR) {
         $("#main_cont").html(data);
@@ -158,7 +165,7 @@ function noti_fi(tp, tx) {
                                             s.removeClass("is-hidden");
                                     }, 0);
                             })(e),
-                        n.data("collapsible"))
+                            n.data("collapsible"))
                     )
                         return !1;
                     a(e.siblings(".open")),
@@ -172,17 +179,17 @@ function noti_fi(tp, tx) {
                 var e = t(this).find(".toggle-icon");
                 "expanded" === e.attr("data-toggle")
                     ? (l.addClass("nav-collapsed"),
-                      t(".nav-toggle")
-                          .find(".toggle-icon")
-                          .removeClass("ik-toggle-right")
-                          .addClass("ik-toggle-left"),
-                      e.attr("data-toggle", "collapsed"))
+                        t(".nav-toggle")
+                            .find(".toggle-icon")
+                            .removeClass("ik-toggle-right")
+                            .addClass("ik-toggle-left"),
+                        e.attr("data-toggle", "collapsed"))
                     : (l.removeClass("nav-collapsed menu-collapsed"),
-                      t(".nav-toggle")
-                          .find(".toggle-icon")
-                          .removeClass("ik-toggle-left")
-                          .addClass("ik-toggle-right"),
-                      e.attr("data-toggle", "expanded"));
+                        t(".nav-toggle")
+                            .find(".toggle-icon")
+                            .removeClass("ik-toggle-left")
+                            .addClass("ik-toggle-right"),
+                        e.attr("data-toggle", "expanded"));
             }),
             s
                 .on("mouseenter", function () {
@@ -219,17 +226,17 @@ function noti_fi(tp, tx) {
                     }
                 }),
             t(e).width() < 992 &&
-                (s.addClass("hide-sidebar"),
+            (s.addClass("hide-sidebar"),
                 l.removeClass("nav-collapsed menu-collapsed")),
             t(e).resize(function () {
                 t(e).width() < 992 &&
                     (s.addClass("hide-sidebar"),
-                    l.removeClass("nav-collapsed menu-collapsed")),
+                        l.removeClass("nav-collapsed menu-collapsed")),
                     t(e).width() > 992 &&
-                        (s.removeClass("hide-sidebar"),
+                    (s.removeClass("hide-sidebar"),
                         "collapsed" === t(".toggle-icon").attr("data-toggle") &&
-                            l.not(".nav-collapsed menu-collapsed") &&
-                            l.addClass("nav-collapsed menu-collapsed"));
+                        l.not(".nav-collapsed menu-collapsed") &&
+                        l.addClass("nav-collapsed menu-collapsed"));
             }),
             t(i).on("click", ".navigation li:not(.has-sub)", function () {
                 t(e).width() < 992 && s.addClass("hide-sidebar");
@@ -311,16 +318,16 @@ function noti_fi(tp, tx) {
                     t(".list-item").removeClass("quick-view-opened");
             }),
             "undefined" != typeof screenfull &&
-                screenfull.enabled &&
-                t(i).on(screenfull.raw.fullscreenchange, function () {
-                    screenfull.isFullscreen
-                        ? t("#navbar-fullscreen")
-                              .find("i")
-                              .toggleClass("ik-minimize ik-maximize")
-                        : t("#navbar-fullscreen")
-                              .find("i")
-                              .toggleClass("ik-maximize ik-minimize");
-                }),
+            screenfull.enabled &&
+            t(i).on(screenfull.raw.fullscreenchange, function () {
+                screenfull.isFullscreen
+                    ? t("#navbar-fullscreen")
+                        .find("i")
+                        .toggleClass("ik-minimize ik-maximize")
+                    : t("#navbar-fullscreen")
+                        .find("i")
+                        .toggleClass("ik-maximize ik-minimize");
+            }),
             t(".minimize-widget").on("click", function () {
                 var e = t(this),
                     i = t(e.parents(".widget"));
@@ -406,9 +413,9 @@ function noti_fi(tp, tx) {
                     document.body.classList.remove("right-sidebar-expand");
                     for (
                         var a = document.getElementsByClassName(
-                                "right-sidebar-toggle"
-                            ),
-                            s = 0;
+                            "right-sidebar-toggle"
+                        ),
+                        s = 0;
                         s < a.length;
                         s++
                     )
@@ -431,7 +438,7 @@ function noti_fi(tp, tx) {
                             var t = e.find(".messages");
                             (t[0].scrollTop = t[0].scrollHeight),
                                 t[0].classList.contains("scrollbar-enabled") &&
-                                    t.perfectScrollbar("update"),
+                                t.perfectScrollbar("update"),
                                 e
                                     .find(".user-name")
                                     .html($(this).data("chat-user"));
@@ -453,11 +460,11 @@ function noti_fi(tp, tx) {
                             ),
                             "hidden" === c.find(".card-block").attr("hidden")
                                 ? $(this)
-                                      .find(".material-icons")
-                                      .html("expand_less")
+                                    .find(".material-icons")
+                                    .html("expand_less")
                                 : $(this)
-                                      .find(".material-icons")
-                                      .html("expand_more");
+                                    .find(".material-icons")
+                                    .html("expand_more");
                     });
                 var d = $("a.view-grid"),
                     r = $("a.view-thumb"),

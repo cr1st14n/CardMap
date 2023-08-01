@@ -102,7 +102,7 @@ Route::group(['prefix' => 'terminal'], function () {
 });
 Route::prefix('accesControl')->group(function () {
     Route::view('view_1_access', 'ac.view_1_access');
-    Route::get('query_accesso_1/{cod}', [AccessController::class, 'searchCod_1']);
+    Route::get('query_accesso_1/{cod}/{area}', [AccessController::class, 'searchCod_1']);
 });
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);

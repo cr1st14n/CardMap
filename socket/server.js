@@ -78,5 +78,5 @@ app.post('/api/access_verificacion', async (req, res) => {
     const query = await axios.get('http://localhost/creden/api/access_verificacion?codigo=' + message.codigo + '&area=' + message.area);
     console.log(query.data);
     io.emit('lectura:lec_tarjeta', query.data);
-    res.status(200).json({ success: true, message: 'Message sent successfully' });
-});
+    res.status(200).json({ success: true, message: 'Success' });
+}); 

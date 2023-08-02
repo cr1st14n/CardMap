@@ -13,9 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('accesses', function (Blueprint $table) {
+        Schema::create('punto_accesos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('p_nombre');
+            $table->string('p_areas');
+            $table->string('p_ipCod')->unique();
+            $table->string('p_regional');
+            $table->string('p_aeroIata');
+
+            $table->string('ca_usu');
+            $table->integer('ca_est');
         });
     }
 
@@ -26,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accesses');
+        Schema::dropIfExists('punto_accesos');
     }
 };

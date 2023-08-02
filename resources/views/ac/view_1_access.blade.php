@@ -50,25 +50,29 @@
         <div class="card table-card">
             <div class="card-header">
                 <div class="card-header-letf">
-                    <form class="form-inline">
+                    <form class=" d-flex ">
                         <div class="input-group mb-2 mr-sm-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fa fa-search"></i></div>
                             </div>
                             <select id="areaSelect" class=" form-control">
-                                <option value="1">1: PISTA Y CALLES DE RODAJE</option>
-                                <option value="2">2: PLATAFORMA</option>
-                                <option value="3">3: OFICINAS ADMINISTRATIVAS</option>
-                                <option value="4">4: BLOQUE TECNICO</option>
-                                <option value="5">5: LLEGADAS INT. | NAC. </option>
-                                <option value="6">6: PREHENBARQUES INT. | NAC.</option>
-                                <option value="7">7: AVIACION GENERAL</option>
-                                <option value="8">8: CARGA Y CORREO</option>
+                                @foreach ($puertas as $p)
+                                <option value="{{$p->p_ipCod}}">{{$p->p_ipCod}} | {{$p->p_nombre}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </form>
                 </div>
-
+                <div class=" card-header-right">
+                    <form class=" d-flex flex-col-reverse">
+                        <div class=" input-group mb-2 mr-sm-2">
+                            <div class=" align-items-end badge-aqua rounded rounded-circle p-2 bg-warning"
+                                id="log_est_connect">
+                                <i class=" fa fa-check-circle fa-3x"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="card-block">
                 <div class="table-responsive">
@@ -99,17 +103,39 @@
 
 <script>
     socket = io.connect('http://localhost:3000');
-
+    socket.on('connect', () => {
+        checkSocketStatus()
+    });
+    socket.on('disconnect', () => {
+        checkSocketStatus()
+    });
+    socket.on('connect_error', (error) => {
+        console.error('Error de conexión al servidor Socket.IO:', error.message);
+    });
     socket.on('lectura:lec_tarjeta', (data) => {
         if ($('#areaSelect').val() === data.area) {
             console.log('Mensaje recibido desde el servidor:', data);
             cardAccess(data.estAccess, data.data)
             table_access_1(data.data)
         }
+        if (data.status == 'NOK') {
+            console.log('tarjeta no asociada!');
+        }
     });
-    socket.emit('chat:message', 'Modulo App escritorio.');
+    socket.emit('chat:message', 'Modulo - Visualizador conectado.');
 </script>
 <script>
+    checkSocketStatus = () => {
+        console.log('Estado de Conexion: ',
+            socket.connected);
+        if (socket.connected) {
+            $('#log_est_connect').removeClass('bg-warning');
+            $('#log_est_connect').addClass('bg-success');
+        } else {
+            $('#log_est_connect').removeClass('bg-success');
+            $('#log_est_connect').addClass('bg-warning');
+        }
+    }
     cardAccess = (est, d) => {
         $('#access_image_1').attr('src', d.urlphoto);
         segm_1 = (est) ? ' <h1 class=" text-success ">Acceso: <strong>PERMITIDO</strong></h1>' :

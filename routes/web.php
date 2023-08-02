@@ -15,7 +15,9 @@ use App\Models\Empleados;
 use App\Models\Empresas;
 use App\Models\empresasVVI;
 use App\Models\empvvi;
+use App\Models\puntoAcceso;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,7 +103,7 @@ Route::group(['prefix' => 'terminal'], function () {
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
 });
 Route::prefix('accesControl')->group(function () {
-    Route::view('view_1_access', 'ac.view_1_access');
+    Route::view('view_1_access', 'ac.view_1_access', ['puertas' => puntoAcceso::get()]);
     Route::get('query_accesso_1/{cod}/{area}', [AccessController::class, 'searchCod_1']);
 });
 

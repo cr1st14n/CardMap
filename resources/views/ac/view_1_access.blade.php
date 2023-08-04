@@ -2,7 +2,22 @@
 
 
     <div class=" col-md-6 col-sm-12 ">
+
         <div class="card table-card  border-top border-bottom  border-danger ">
+            <div class="card-header">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-search"></i></div>
+                    </div>
+                    <select id="areaSelect" class=" form-control">
+                        @foreach ($puertas as $p)
+                            <option value="{{ $p->p_ipCod }}">{{ $p->p_ipCod }} | {{ $p->p_nombre }} |
+                                Areas Permididas: {{ $p->p_areas }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="card-block d-flex justify-content-center ">
                 <div class=" d-flex">
                     <div class=" p-1 d-flex justify-content-center">
@@ -50,18 +65,7 @@
         <div class="card table-card">
             <div class="card-header">
                 <div class="card-header-letf">
-                    <form class=" d-flex ">
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fa fa-search"></i></div>
-                            </div>
-                            <select id="areaSelect" class=" form-control">
-                                @foreach ($puertas as $p)
-                                <option value="{{$p->p_ipCod}}">{{$p->p_ipCod}} | {{$p->p_nombre}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </form>
+                    <h2>Estado Conexión al</h2>
                 </div>
                 <div class=" card-header-right">
                     <form class=" d-flex flex-col-reverse">
@@ -116,10 +120,11 @@
         if ($('#areaSelect').val() === data.area) {
             console.log('Mensaje recibido desde el servidor:', data);
             cardAccess(data.estAccess, data.data)
-            table_access_1(data.data)
+            table_access(data.mar)
         }
         if (data.status == 'NOK') {
             console.log('tarjeta no asociada!');
+            $('#estAccess_F1').html(' <h1 class=" text-danger ">TARJETA: <strong>NO ASOCIADA A EMPLEADO</strong></h1>');
         }
     });
     socket.emit('chat:message', 'Modulo - Visualizador conectado.');
@@ -138,7 +143,7 @@
     }
     cardAccess = (est, d) => {
         $('#access_image_1').attr('src', d.urlphoto);
-        segm_1 = (est) ? ' <h1 class=" text-success ">Acceso: <strong>PERMITIDO</strong></h1>' :
+        segm_1 = (est === 1) ? ' <h1 class=" text-success ">Acceso: <strong>PERMITIDO</strong></h1>' :
             ' <h1 class=" text-danger ">Acceso: <strong>DENEGADO</strong></h1>';
         $('#estAccess_F1').html(segm_1);
         segm_2 = `
@@ -149,9 +154,15 @@
         `
         $('#estAccess_F2').html(segm_2);
     }
-
+    table_access = (data) => {
+        html = data.map((e, i) => {
+            return table_access_1(e)
+        }).join(' ')
+        $('#table_acces_1').html(html)
+    }
     table_access_1 = (data) => {
-        fila_a = `
+        est = (data.ac_estadoAcceso === "1") ? `Permitido` : `Denegado`;
+        return fila_a = `
             <tr id="f_001_">
                 <td>${data.Codigo}</td>
                 <td>
@@ -159,10 +170,8 @@
                 </td>
                 <td>${data.Nombre}</td>
                 <td>${data.Empresa}</td>
-                <td></td>
-                <td></td>
-            </tr>
-            `
-        $('#table_acces_1').html(fila_a)
+                <td>${est} </td>
+                <td>${data.created_at}</td>
+            </tr>`
     }
 </script>

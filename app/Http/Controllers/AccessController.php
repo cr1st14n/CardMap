@@ -37,36 +37,42 @@ class AccessController extends Controller
             return response()->json(['status' => 'NOK', 'message' => 'Puerta no registrada']);
         }
 
-        $posicion = stripos($res->AreasAut, $request->input('area'));
-        if ($posicion !== false) {
-            $estAccess = true;
-        } else {
-            $estAccess = false;
-        }
+        $permitoPuerta = str_replace("-", "", $puerta->p_areas);
+        $permitoUsuario = str_replace("-", "", $res->AreasAut);
+
+        $arreglo1 = str_split($permitoPuerta);
+        $arreglo2 = str_split($permitoUsuario);
+        $estadoAcceso = (empty(array_intersect($arreglo1, $arreglo2))) ? 0 : 1;
+
 
         $cr = new marcacion();
         $cr->id_puntoAcceso = 0;
         $cr->id_empleado = $res['idEmpleado'];
         $cr->ac_codigo = $res['Codigo'];
         $cr->ac_codTarjeta = $res['CodigoTarjeta'];
-        $cr->ac_areaSolicitud = 0;
-        $cr->ac_areaPermitidas = 0;
-        $cr->ac_estadoAcceso = $estAccess;
-        $cr->p_regional = 'LP';
-        $cr->p_aeroIata = 'LPB';
-        $cr->ca_usu = '010';
-        $cr->ca_est = 0;
+        $cr->ac_areaSolicitud = $res->AreasAut;
+        $cr->ac_areaPermitidas = $puerta->p_areas;
+        $cr->ac_estadoAcceso = $estadoAcceso;
+        $cr->p_regional = $puerta->p_regional;
+        $cr->p_aeroIata = $puerta->p_aeroIata;
+        $cr->ca_usu = $puerta->p_ipCod;
+        $cr->ca_est = 1;
         $query = $cr->save();
 
         if (!$query) {
             return response()->json(['status' => 'NOK', 'message' => 'Error de insecion', 'cod' => $res]);
         }
+        $mar = marcacion::leftJoin('Empleados', 'marcacions.id_empleado', '=', 'Empleados.idEmpleado')
+            ->orderBy('marcacions.created_at', 'desc')
+            ->select('marcacions.*', 'Empleados.urlphoto', 'Empleados.Nombre', 'Empleados.Empresa', 'Empleados.Codigo')
+            ->limit(5)
+            ->get();
         return response()->json([
             'status' => 'OK',
-            'estAccess' => $estAccess,
+            'estAccess' => $estadoAcceso,
             'area' => $request->input('area'),
             'data' => $res,
-            'ip' => $request->input('ip'),
+            'mar' => $mar
         ]);
     }
 }

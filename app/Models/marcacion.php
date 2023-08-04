@@ -9,4 +9,7 @@ class marcacion extends Model
 {
     use HasFactory;
     // public $timestamps = false;
+    // protected $casts = [
+    //     'id_empleado' => 'integer',
+    // ];
 }

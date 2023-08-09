@@ -63,8 +63,8 @@ $(" #btn_menu_viculos").click(function (e) {
 });
 $('#btn_menu_controlAccess').on('click', function () {
     $.get("accesControl/view_1_access",
-    function (data, textStatus, jqXHR) {
-        $("#main_cont").html(data);
+        function (data, textStatus, jqXHR) {
+            $("#main_cont").html(data);
         },
     );
 });

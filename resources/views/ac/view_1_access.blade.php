@@ -37,8 +37,8 @@
                                 Empresa: <br> <strong class=" text-bold"> Empresa</strong> <br>
                             </h4>
                             Areas Permitidas:
-                            <div class=" d-flex fl p-2 justify-content-between">
-                                <div class=" border-top border-bottom border-danger">
+                            <div class=" d-flex fl p-2 justify-content-between" id="sec_area_accesos">
+                                <div class=" border-top border-bottom border-danger " >
                                     <p class=" text-break" style="font-size: 10px">
                                         <strong> 1 : PISTA Y CALLES DE RODAJE</strong> <br>
                                         <strong> 2 : PLATAFORMA</strong> <br>
@@ -124,7 +124,10 @@
         }
         if (data.status == 'NOK') {
             console.log('tarjeta no asociada!');
-            $('#estAccess_F1').html(' <h1 class=" text-danger ">TARJETA: <strong>NO ASOCIADA A EMPLEADO</strong></h1>');
+            $('#estAccess_F1').html(
+                ' <h1 class=" text-danger ">TARJETA: <strong>NO ASOCIADA A EMPLEADO</strong></h1>');
+            $('#estAccess_F2').html('');
+            $('#access_image_1').attr('src', 'public/storage/imagenes/USER.jpg');
         }
     });
     socket.emit('chat:message', 'Modulo - Visualizador conectado.');
@@ -142,10 +145,15 @@
         }
     }
     cardAccess = (est, d) => {
+        // Carga de Imagen
         $('#access_image_1').attr('src', d.urlphoto);
+
+        // CARGA ESTADO DE ACCESO
         segm_1 = (est === 1) ? ' <h1 class=" text-success ">Acceso: <strong>PERMITIDO</strong></h1>' :
             ' <h1 class=" text-danger ">Acceso: <strong>DENEGADO</strong></h1>';
         $('#estAccess_F1').html(segm_1);
+
+        // CARGA DATOS DEL PERSONAL
         segm_2 = `
         <strong>${d.Nombre} ${d.Paterno} ${d.Materno}</strong> <br>
         <strong>COD: ${d.Codigo}</strong> <br>
@@ -153,6 +161,45 @@
         Empresa: <br> <strong class=" text-bold"> ${d.Empresa}</strong> <br>
         `
         $('#estAccess_F2').html(segm_2);
+
+        // CARGA AREAS DE ACCESO
+        const areas = {
+            '1': 'Pista y Calles de Rodaje',
+            '2': 'Plataforma',
+            '3': 'Oficinas Administrativas',
+            '4': 'Bloque tecnico',
+            '5': 'Llegadas Int. / Nac.',
+            '6': 'Prehenbarques Int. / Nac.',
+            '7': 'Aviacion General',
+            '8': 'Carga y Correo',
+            '9': '-----------------------------------',
+        }
+
+        const cadena = d.AreasAut;
+        const sinGuiones = cadena.replace(/-/g, '');
+        const arrayAreas = sinGuiones.split('');
+
+        const htmlArray = `
+        <div class=" border-top border-bottom border-danger">
+            <p class=" text-break" style="font-size: 10px">
+                <strong>${(arrayAreas.includes('1'))? " 1 : PISTA Y CALLES DE RODAJE" : areas['9'] } </strong> <br>
+                <strong>${(arrayAreas.includes('2'))? " 2 : PLATAFORMA" : areas['9'] }</strong> <br>
+                <strong>${(arrayAreas.includes('3'))? " 3 : OFICINAS ADMINISTRATIVAS" : areas['9'] }</strong> <br>
+                <strong>${(arrayAreas.includes('4'))? " 4 : BLOQUE TECNICO" : areas['9'] }</strong><br>
+            </p>
+        </div>
+        <div class=" border-top border-bottom border-danger">
+            <p class=" text-break" style="font-size: 10px">
+                <strong>${(arrayAreas.includes('5'))? " 5 : LLEGADAS INT. | NAC. " : areas['9'] }</strong><br>
+                <strong>${(arrayAreas.includes('6'))? " 6 : PREHENBARQUES INT. | NAC." : areas['9'] }</strong> <br>
+                <strong>${(arrayAreas.includes('7'))? " 7 : AVIACION GENERAL" : areas['9'] }</strong> <br>
+                <strong>${(arrayAreas.includes('8'))? " 8 : CARGA Y CORREO" : areas['9'] }</strong> <br>
+            </p>
+        </div>
+        `
+        $('#sec_area_accesos').html(htmlArray);
+
+
     }
     table_access = (data) => {
         html = data.map((e, i) => {

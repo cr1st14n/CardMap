@@ -27,6 +27,8 @@ class AccessController extends Controller
     }
     function access_verificacion(Request $request)
     {
+        //   return  $res = Empleados::where('CodigoTarjeta', dechex($request->input('codigo')))->first();
+        
         $res = Empleados::where('CodigoTarjeta', $request->input('codigo'))->first();
         $puerta = puntoAcceso::where('p_ipCod', $request->input('area'))->first();
 
@@ -55,6 +57,7 @@ class AccessController extends Controller
         $cr->ac_estadoAcceso = $estadoAcceso;
         $cr->p_regional = $puerta->p_regional;
         $cr->p_aeroIata = $puerta->p_aeroIata;
+        $cr->p_tipo = 'E';
         $cr->ca_usu = $puerta->p_ipCod;
         $cr->ca_est = 1;
         $query = $cr->save();

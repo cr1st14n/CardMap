@@ -72,11 +72,14 @@ http.listen(3000, () => {
 });
 
 // api para recepcionar datos del ARDUINO
-app.post('/api/access_verificacion', async (req, res) => {
+app.get('/api/access_verificacion/:area/:codigo', async (req, res) => {
+    const area = req.params.area;
+    const codigo = req.params.codigo; 
+    console.log(area);
+    console.log(codigo); 
     const message = req.body;
     const data = { codigo: message.codigo, accesso: message.area };
-    const query = await axios.get('http://localhost/creden/api/access_verificacion?codigo=' + message.codigo + '&area=' + message.area);
-    console.log(query.data);
+    const query = await axios.get('http://localhost/creden/api/access_verificacion?codigo=' + codigo + '&area=' + area);
     io.emit('lectura:lec_tarjeta', query.data);
     res.status(200).json({ success: true, message: 'Success' });
 }); 

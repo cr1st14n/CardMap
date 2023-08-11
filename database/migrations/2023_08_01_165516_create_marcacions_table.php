@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('ac_estadoAcceso');
             $table->string('p_regional');
             $table->string('p_aeroIata');
+            $table->string('p_tipo');
 
             $table->string('ca_usu');
             $table->integer('ca_est');

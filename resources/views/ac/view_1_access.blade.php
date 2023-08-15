@@ -103,10 +103,10 @@
     </div>
     <img src="" alt="">
 </div>
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="http://sare.naabol.gob.bo:3009/socket.io/socket.io.js"></script>
 
 <script>
-    socket = io.connect('http://localhost:3000');
+    socket = io.connect('http://sare.naabol.gob.bo:3009');
     socket.on('connect', () => {
         checkSocketStatus()
     });

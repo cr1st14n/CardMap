@@ -46,7 +46,7 @@ app.use(express.json());
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        origin: 'http://localhost', // Aquí puedes cambiar el dominio permitido, o '*' para permitir todos los dominios.
+        origin: '*', // Aquí puedes cambiar el dominio permitido, o '*' para permitir todos los dominios.
         methods: ['GET', 'POST'],
         allowedHeaders: ['my-custom-header'],
         credentials: true
@@ -67,16 +67,19 @@ io.on('connection', (socket) => {
     });
 });
 // Inicia el servidor en el puerto 3000
-http.listen(3000, () => {
-    console.log('Server listening on port 3000');
+http.listen(3009, () => {
+    console.log('Server listening on port 3009');
 });
 
 // api para recepcionar datos del ARDUINO
-app.post('/api/access_verificacion', async (req, res) => {
+app.get('/api/access_verificacion/:area/:codigo', async (req, res) => {
+    const area = req.params.area;
+    const codigo = req.params.codigo; 
+    console.log(area);
+    console.log(codigo); 
     const message = req.body;
     const data = { codigo: message.codigo, accesso: message.area };
-    const query = await axios.get('http://localhost/creden/api/access_verificacion?codigo=' + message.codigo + '&area=' + message.area);
-    console.log(query.data);
+    const query = await axios.get('http://sare.naabol.gob.bo/creden/api/access_verificacion?codigo=' + codigo + '&area=' + area);
     io.emit('lectura:lec_tarjeta', query.data);
     res.status(200).json({ success: true, message: 'Success' });
 }); 

@@ -27,7 +27,9 @@ class AccessController extends Controller
     }
     function access_verificacion(Request $request)
     {
-        $res = Empleados::where('CodigoTarjeta', $request->input('codigo'))->first();
+         $codigouser=hexdec( $request->input('codigo'));
+         $codigouser=strval($codigouser);
+        $res = Empleados::where('CodigoTarjeta', '=',$codigouser)->first();
         $puerta = puntoAcceso::where('p_ipCod', $request->input('area'))->first();
 
         if (empty($res)) {

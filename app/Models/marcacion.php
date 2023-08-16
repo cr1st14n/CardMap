@@ -12,4 +12,5 @@ class marcacion extends Model
     // protected $casts = [
     //     'id_empleado' => 'integer',
     // ];
+    public $timestamps = false;
 }

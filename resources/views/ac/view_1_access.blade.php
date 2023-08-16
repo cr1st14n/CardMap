@@ -21,8 +21,8 @@
             <div class="card-block d-flex justify-content-center ">
                 <div class=" d-flex">
                     <div class=" p-1 d-flex justify-content-center">
-                        <img id="access_image_1" src="public/storage/imagenes/USER.jpg" style="width: 100%;"
-                            style="height: 70%" alt="">
+                        <img id="access_image_1" src="public/storage/imagenes/USER.jpg" style="width: 15rem;"
+                             alt="">
                     </div>
                     <div class="d-flex flex-column p-2">
                         <div class=" border-bottom border-danger" id="estAccess_F1">
@@ -38,7 +38,7 @@
                             </h4>
                             Areas Permitidas:
                             <div class=" d-flex fl p-2 justify-content-between" id="sec_area_accesos">
-                                <div class=" border-top border-bottom border-danger " >
+                                <div class=" border-top border-bottom border-danger ">
                                     <p class=" text-break" style="font-size: 10px">
                                         <strong> 1 : PISTA Y CALLES DE RODAJE</strong> <br>
                                         <strong> 2 : PLATAFORMA</strong> <br>
@@ -63,9 +63,9 @@
     </div>
     <div class=" col-md-6 col-sm-12 ">
         <div class="card table-card">
-            <div class="card-header">
+            <div class="card-header align-items-end">
                 <div class="card-header-letf">
-                    <h2>Estado Conexión al</h2>
+                    <h2>Estado Conexión </h2>
                 </div>
                 <div class=" card-header-right">
                     <form class=" d-flex flex-col-reverse">
@@ -78,35 +78,38 @@
                     </form>
                 </div>
             </div>
-            <div class="card-block">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0 without-header">
-                        <thead>
-                            <tr>
-                                <th>COD TARJETA</th>
-                                <th>FOTO</th>
-                                <th>NOMBRE</th>
-                                <th>EMPRESA</th>
-                                <th>ESTADO</th>
-                                <th>FECHA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_acces_1">
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class=" card-body ">
+                <div class="container">
+                    <div class=" row  align-items-start" id="list_registerAccess">
+                        <div class="col-3">
+                            <div class="card" style="width: 8rem;">
+                                <img src="${data.urlphoto}" class="card-img-top" alt="Foto de la persona"
+                                    style="width: 7rem;
+                                    object-fit: cover;">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+
+                                        COD: 0001 <br>
+                                        <strong>Nombre Apellido</strong> <br>
+                                         NAABOL<br>
+                                         Fecha
+                                    </li>
+                                    <li class="list-group-item text-success">Denegado</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <img src="" alt="">
 </div>
-<script src="http://sare.naabol.gob.bo:3009/socket.io/socket.io.js"></script>
+<script src="http://{{ env('APP_DOMINIO') }}:3009/socket.io/socket.io.js"></script>
 
 <script>
-    socket = io.connect('http://sare.naabol.gob.bo:3009');
+    socket = io.connect('http://{{ env('APP_DOMINIO') }}:3009');
     socket.on('connect', () => {
         checkSocketStatus()
     });
@@ -205,20 +208,29 @@
         html = data.map((e, i) => {
             return table_access_1(e)
         }).join(' ')
-        $('#table_acces_1').html(html)
+        $('#list_registerAccess').html(html)
     }
     table_access_1 = (data) => {
-        est = (data.ac_estadoAcceso === "1") ? `Permitido` : `Denegado`;
+        est = (data.ac_estadoAcceso === "1") ? `<li class="list-group-item text-success">PERMITIDO</li>` : `<li class="list-group-item text-warning">DENEGADO</li>`;
         return fila_a = `
-            <tr id="f_001_">
-                <td>${data.Codigo}</td>
-                <td>
-                    <img src="${data.urlphoto}" alt="" width="50px" height="70px">
-                </td>
-                <td>${data.Nombre}</td>
-                <td>${data.Empresa}</td>
-                <td>${est} </td>
-                <td>${data.created_at}</td>
-            </tr>`
+            <div class="col-3">
+                <div class="card" style="width: 8rem;" >
+                    <img src="${data.urlphoto}"
+                        class="card-img-top" alt="Foto de la persona"
+                        style="width: 7rem;
+                        object-fit: cover;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            
+                        - COD: ${data.Codigo} <br>
+                        <strong> ${data.Nombre} ${data.Paterno} </strong> <br>
+                        ${data.Empresa} <br>
+                        ${data.fecha_formate2} 
+                        </li>
+                        ${est}
+                    </ul>
+                </div>
+            </div>
+            `
     }
 </script>

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('marcacions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamps(1);
             $table->integer('id_puntoAcceso');
             $table->integer('id_empleado');
             $table->string('ac_codigo');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empleados;
 use App\Models\marcacion;
 use App\Models\puntoAcceso;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AccessController extends Controller
@@ -27,18 +28,18 @@ class AccessController extends Controller
     }
     function access_verificacion(Request $request)
     {
-         $codigouser=hexdec( $request->input('codigo'));
-         $codigouser=strval($codigouser);
-        $res = Empleados::where('CodigoTarjeta', '=',$codigouser)->first();
+        $codigouser = hexdec($request->input('codigo'));
+        $completadoCeros = str_pad($codigouser, 10, '0', STR_PAD_LEFT);
+        $codigouser = strval($completadoCeros);
+        $res = Empleados::where('CodigoTarjeta', '=', $codigouser)->first();
         $puerta = puntoAcceso::where('p_ipCod', $request->input('area'))->first();
 
         if (empty($res)) {
-            return response()->json(['status' => 'NOK', 'message' => 'Tarjeta no asociada']);
+            return response()->json(['status' => 'NOK', 'message' => 'Tarjeta no asociada ']);
         }
         if (empty($puerta)) {
             return response()->json(['status' => 'NOK', 'message' => 'Puerta no registrada']);
         }
-
         $permitoPuerta = str_replace("-", "", $puerta->p_areas);
         $permitoUsuario = str_replace("-", "", $res->AreasAut);
 
@@ -48,7 +49,7 @@ class AccessController extends Controller
 
 
         $cr = new marcacion();
-        $cr->id_puntoAcceso = 0;
+        $cr->id_puntoAcceso = $puerta['id'];
         $cr->id_empleado = $res['idEmpleado'];
         $cr->ac_codigo = $res['Codigo'];
         $cr->ac_codTarjeta = $res['CodigoTarjeta'];
@@ -59,6 +60,8 @@ class AccessController extends Controller
         $cr->p_aeroIata = $puerta->p_aeroIata;
         $cr->ca_usu = $puerta->p_ipCod;
         $cr->ca_est = 1;
+
+        $cr->created_at = Carbon::now()->format('Y-m-d H:i');
         $query = $cr->save();
 
         if (!$query) {
@@ -66,9 +69,14 @@ class AccessController extends Controller
         }
         $mar = marcacion::leftJoin('Empleados', 'marcacions.id_empleado', '=', 'Empleados.idEmpleado')
             ->orderBy('marcacions.created_at', 'desc')
-            ->select('marcacions.*', 'Empleados.urlphoto', 'Empleados.Nombre', 'Empleados.Empresa', 'Empleados.Codigo')
-            ->limit(5)
+            ->select('marcacions.*', 'Empleados.urlphoto', 'Empleados.Nombre', 'Empleados.Paterno', 'Empleados.Empresa', 'Empleados.Codigo')
+            ->limit(8)
             ->get();
+        if (!empty($mar)) {
+            foreach ($mar as $key => $value) {
+                $mar[$key]['fecha_formate2'] = Carbon::parse($value->created_at)->format('d-m-Y');
+            }
+        }
         return response()->json([
             'status' => 'OK',
             'estAccess' => $estadoAcceso,

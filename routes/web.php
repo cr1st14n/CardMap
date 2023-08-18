@@ -103,7 +103,7 @@ Route::group(['prefix' => 'terminal'], function () {
     Route::post('query_create_1', [TermAeroController::class, 'query_create_1']);
 });
 Route::prefix('accesControl')->group(function () {
-    Route::view('view_1_access', 'ac.view_1_access', ['puertas' => puntoAcceso::get()]);
+    Route::get('view_1_access', [AccessController::class, 'view_1']);
     Route::get('query_accesso_1/{cod}/{area}', [AccessController::class, 'searchCod_1']);
 });
 

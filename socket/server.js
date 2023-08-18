@@ -31,17 +31,17 @@ io.on('connection', (socket) => {
 });
 // Inicia el servidor en el puerto 3000
 http.listen(3009, () => {
-    console.log('Server listening on port 3009'); 
+    console.log('Server listening on port 3009');
 });
 
 // api para recepcionar datos del ARDUINO
 app.get('/api/access_verificacion/:area/:codigo', async (req, res) => {
-   console.log('corriendo');
     const area = req.params.area;
-    const codigo = req.params.codigo; 
-    console.log(area);
-    console.log(codigo); 
+    const codigo = req.params.codigo;
+    console.log(area + '|' + codigo);
     const query = await axios.get('http://localhost/creden/api/access_verificacion?codigo=' + codigo + '&area=' + area);
+    console.log(query.data);
+    console.log(query.data.message);
     io.emit('lectura:lec_tarjeta', query.data);
-    res.status(200).json({ success: true, message: 'Success' });
+    res.status(200).json({ estado: query.status, message: query.message });
 });  

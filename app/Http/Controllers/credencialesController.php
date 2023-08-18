@@ -218,6 +218,8 @@ class credencialesController extends Controller
             'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-L.jpg',
             'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-L.jpg',
             'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-L.jpg',
+            'VIM' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-VIM-L.jpg',
+            'CCA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-CCA-L.jpg',
         ];
         $rutaimgT = [
             'LPB' => 'resources/plantilla/CREDENCIALESFOTOS/TEMPORALLP.jpg',
@@ -235,6 +237,8 @@ class credencialesController extends Controller
             'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-T.jpg',
             'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-T.jpg',
             'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-T.jpg',
+            'VIM' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-VIM-T.jpg',
+            'CCA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-CCA-T.jpg',
 
         ];
         $rutaimgLC = [
@@ -253,6 +257,8 @@ class credencialesController extends Controller
             'BYC' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-BYC-PCP.jpg',
             'TJA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-TJA-PCP.jpg',
             'SRE' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-PCP.jpg',
+            'VIM' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-VIM.jpg',
+            'CCA' => 'resources/plantilla/CREDENCIALESFOTOS/CBB-SRE-CCA.jpg',
         ];
         switch ($data['Tipo']) {
             case 'N':

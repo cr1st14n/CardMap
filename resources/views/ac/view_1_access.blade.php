@@ -22,23 +22,25 @@
                 <div class=" d-flex">
                     <div class=" p-1 d-flex justify-content-center">
                         <img id="access_image_1" src="public/storage/imagenes/USER.jpg" style="width: 15rem;"
-                             alt="">
+                            alt="">
                     </div>
-                    <div class="d-flex flex-column p-2">
-                        <div class=" border-bottom border-danger" id="estAccess_F1">
-                            <h1 class=" text-danger ">Acceso: <strong>DENEGADO</strong></h1>
+                    <div class="d-flex flex-column justify-content-center p-2">
+                        <div class=" border-bottom border-danger " style="align-items: center" id="estAccess_F1">
+                            <h1 class=" text-danger "> <strong>----------</strong></h1>
                         </div>
 
                         <div class=" border-danger">
                             <h4 class=" p-2" id="estAccess_F2">
-                                <strong>NOMBRE</strong> <br>
-                                <strong>COD: #######</strong> <br>
+                                {{-- <strong>NOMBRE</strong> <br>
                                 C.I.: <strong> ##########</strong> <br>
+                                COD:<strong> #######</strong> <br>
+                                TIPO:<strong> LOCAL</strong> <br>
                                 Empresa: <br> <strong class=" text-bold"> Empresa</strong> <br>
+                                Fecha vec: 12-12-2023 --}}
                             </h4>
                             Areas Permitidas:
                             <div class=" d-flex fl p-2 justify-content-between" id="sec_area_accesos">
-                                <div class=" border-top border-bottom border-danger ">
+                                {{-- <div class=" border-top border-bottom border-danger ">
                                     <p class=" text-break" style="font-size: 10px">
                                         <strong> 1 : PISTA Y CALLES DE RODAJE</strong> <br>
                                         <strong> 2 : PLATAFORMA</strong> <br>
@@ -53,7 +55,7 @@
                                         <strong> 7 : AVIACION GENERAL</strong> <br>
                                         <strong> 8 : CARGA Y CORREO</strong> <br>
                                     </p>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -65,7 +67,7 @@
         <div class="card table-card">
             <div class="card-header align-items-end">
                 <div class="card-header-letf">
-                    <h2>Estado Conexión </h2>
+                    <h2>INGRESOS </h2>
                 </div>
                 <div class=" card-header-right">
                     <form class=" d-flex flex-col-reverse">
@@ -81,24 +83,7 @@
             <div class=" card-body ">
                 <div class="container">
                     <div class=" row  align-items-start" id="list_registerAccess">
-                        <div class="col-3">
-                            <div class="card" style="width: 8rem;">
-                                <img src="${data.urlphoto}" class="card-img-top" alt="Foto de la persona"
-                                    style="width: 7rem;
-                                    object-fit: cover;">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-
-                                        COD: 0001 <br>
-                                        <strong>Nombre Apellido</strong> <br>
-                                         NAABOL<br>
-                                         Fecha
-                                    </li>
-                                    <li class="list-group-item text-success">Denegado</li>
-                                </ul>
-                            </div>
-                        </div>
-
+                       
                     </div>
                 </div>
             </div>
@@ -107,7 +92,6 @@
     <img src="" alt="">
 </div>
 <script src="http://{{ env('APP_DOMINIO') }}:3009/socket.io/socket.io.js"></script>
-
 <script>
     socket = io.connect('http://{{ env('APP_DOMINIO') }}:3009');
     socket.on('connect', () => {
@@ -155,13 +139,17 @@
         segm_1 = (est === 1) ? ' <h1 class=" text-success ">Acceso: <strong>PERMITIDO</strong></h1>' :
             ' <h1 class=" text-danger ">Acceso: <strong>DENEGADO</strong></h1>';
         $('#estAccess_F1').html(segm_1);
-
+        tipoCreden = (d.Tipo == 'N') ? 'NACIONAL' : 'LOCAL:' + d.Aeropuerto_2;
+        empresa = d.NombEmpresa.split(" ");
+        empresa = empresa.slice(0, 5).join(" ");
         // CARGA DATOS DEL PERSONAL
         segm_2 = `
         <strong>${d.Nombre} ${d.Paterno} ${d.Materno}</strong> <br>
-        <strong>COD: ${d.Codigo}</strong> <br>
         C.I.: <strong> ${d.CI}</strong> <br>
-        Empresa: <br> <strong class=" text-bold"> ${d.Empresa}</strong> <br>
+        COD:<strong> ${d.Codigo}</strong> <br>
+        TIPO:<strong>  ${tipoCreden}</strong> <br>
+        EMPRESA: <br> <strong class=" text-bold"> ${empresa}</strong> <br>
+        VEC:<strong>  ${tipoCreden}</strong> <br>
         `
         $('#estAccess_F2').html(segm_2);
 
@@ -211,7 +199,9 @@
         $('#list_registerAccess').html(html)
     }
     table_access_1 = (data) => {
-        est = (data.ac_estadoAcceso === "1") ? `<li class="list-group-item text-success">PERMITIDO</li>` : `<li class="list-group-item text-warning">DENEGADO</li>`;
+        est = (data.ac_estadoAcceso === "1") ? `<li class="list-group-item text-success">PERMITIDO</li>` :
+            `<li class="list-group-item text-warning">DENEGADO</li>`;
+        tipoCreden = (data.Tipo == 'N') ? 'NACIONAL' : 'LOCAL:' + data.Aeropuerto_2;
         return fila_a = `
             <div class="col-3">
                 <div class="card" style="width: 8rem;" >
@@ -222,7 +212,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             
-                        - COD: ${data.Codigo} <br>
+                        -COD: ${data.Codigo} | ${tipoCreden} <br>
                         <strong> ${data.Nombre} ${data.Paterno} </strong> <br>
                         ${data.Empresa} <br>
                         ${data.fecha_formate2} 

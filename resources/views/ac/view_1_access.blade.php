@@ -1,8 +1,5 @@
 <div class="row">
-
-
     <div class=" col-md-6 col-sm-12 ">
-
         <div class="card table-card  border-top border-bottom  border-danger ">
             <div class="card-header">
                 <div class="input-group ">
@@ -83,7 +80,6 @@
             <div class=" card-body ">
                 <div class="container">
                     <div class=" row  align-items-start" id="list_registerAccess">
-                       
                     </div>
                 </div>
             </div>

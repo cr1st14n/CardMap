@@ -145,7 +145,7 @@
         COD:<strong> ${d.Codigo}</strong> <br>
         TIPO:<strong>  ${tipoCreden}</strong> <br>
         EMPRESA: <br> <strong class=" text-bold"> ${empresa}</strong> <br>
-        VEC:<strong>  ${tipoCreden}</strong> <br>
+        VEC:<strong>  ${d.Vencimiento2}</strong> <br>
         `
         $('#estAccess_F2').html(segm_2);
 

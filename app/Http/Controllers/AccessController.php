@@ -112,6 +112,7 @@ class AccessController extends Controller
                 $mar[$key]['fecha_formate2'] = Carbon::parse($value->created_at)->format('d-m-Y H:i');
             }
         }
+        $res['Vencimiento2']=Carbon::parse($res['Vencimiento'])->format('d-m-Y');
         return response()->json([
             'status' => 'OK',
             'message' => $message,

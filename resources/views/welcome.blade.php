@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/ionicons/dist/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/icon-kit/dist/css/iconkit.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/plantilla/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet"
         href="{{ asset('resources/plantilla/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/plantilla/dist/css/theme.min.css') }}">`
@@ -65,7 +66,8 @@
                         <button type="button" id="navbar-fullscreen" class="nav-link"><i
                                 class="ik ik-maximize"></i></button>
                     </div>
-                    <h5 id="reg_aero" name="{{ $reg }}" style="color:white ;">{{ $region }}</h5>
+                    <h5 id="reg_aero" name="{{ $reg }}" style="color:white ;">{{ $region }} </h5>
+                    <h5 id="appTime" style="color:white ;"></h5>
                     <div class="top-menu d-flex align-items-center">
 
                         <div class="dropdown">
@@ -141,22 +143,24 @@
                                             class="fa fa-user-alt"></i><span>Usuarios</span></a>
                                 </div>
                             @endif
-                            <div class="nav-item">
-                                <a href="#" id="btn_menu_B_Empr"><i
-                                        class="ik ik-bar-chart-2"></i><span>Empresas</span></a>
-                            </div>
-                            <div class="nav-item">
-                                <a href="" id="btn_menu_A" class="menu-item"><i
-                                        class="fa fa-address-card "></i> Credenciales</a>
-                            </div>
-                            <div class="nav-item">
-                                <a href="" id="btn_menu_creden_B" class="menu-item"><i
-                                        class="fa fa-address-book"></i> Crenciales Visita</a>
-                            </div>
-                            <div class="nav-item">
-                                <a href="" id="btn_menu_viculos" class="menu-item"><i
-                                        class="fa fa-address-book"></i> Viñetas Vehiculos</a>
-                            </div>
+                            @if (Auth::user()->nivel == 1 || Auth::user()->nivel == 2)
+                                <div class="nav-item">
+                                    <a href="#" id="btn_menu_B_Empr"><i
+                                            class="ik ik-bar-chart-2"></i><span>Empresas</span></a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="" id="btn_menu_A" class="menu-item"><i
+                                            class="fa fa-address-card "></i> Credenciales</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="" id="btn_menu_creden_B" class="menu-item"><i
+                                            class="fa fa-address-book"></i> Crenciales Visita</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="" id="btn_menu_viculos" class="menu-item"><i
+                                            class="fa fa-address-book"></i> Viñetas Vehiculos</a>
+                                </div>
+                            @endif
                             @if (Auth::user()->nivel == 1)
                                 <div class="nav-item"
                                     onclick=" console.log('hola '); event.preventDefault() ;viewTerminal()">
@@ -164,10 +168,20 @@
                                             class="fa fa-address-book"></i> Terminales Aereas</a>
                                 </div>
                             @endif
-                            <div class="nav-item">
-                                <a href="#" id="btn_menu_controlAccess" class="menu-item"><i
-                                        class="fa fa-address-book"></i> Control Acceso  </a>
+                            @if (Auth::user()->nivel == 3)
+                                <div class="nav-item">
+                                    <a href="#" id="btn_menu_controlAccess" class="menu-item"><i
+                                            class="fa fa-address-book"></i> Control Acceso </a>
+                                </div>
+                            @endif
+                            <div class="nav-item has-sub">
+                                <a href="#"><i class="ik ik-box"></i><span>Reporte</span></a>
+                                <div class="submenu-content">
+                                    <a href="#" id="btn_menu_report_creden" class="menu-item">Credencial</a>
+                                    <a href="#" class="menu-item">Acceso</a>
+                                </div>
                             </div>
+
                         </nav>
                     </div>
                 </div>
@@ -178,21 +192,11 @@
             <footer class="footer">
                 <div class="w-100 clearfix">
                     <span class="text-center text-sm-left d-md-inline-block">NAABOL.</span>
-                    <span class="float-none float-sm-right mt-1 mt-sm-0 text-center">vercion 1.2 </span>
+                    <span class="float-none float-sm-right mt-1 mt-sm-0 text-center">vercion 2.0 </span>
                 </div>
             </footer>
         </div>
     </div>
-
-
-
-
-
-
-
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script>
         window.jQuery || document.write('<script src="../src/js/vendor/jquery-3.3.1.min.js"><\/script>')
@@ -202,19 +206,34 @@
     <script src="{{ asset('resources/plantilla/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('resources/plantilla/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('resources/plantilla/plugins/jquery-toast-plugin/dist/jquery.toast.min.js') }}"></script>
-    <script src="{{ asset('resources/plantilla/dist/js/theme.min.js') }}"></script>
+    <script src="{{ asset('resources/plantilla/plugins/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('resources/plantilla/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    {{-- <script src="{{ asset('resources/plantilla/dist/js/theme.min.js') }}"></script> estilos por defecto --}}
     <script src="{{ asset('resources/plantilla/js/form-components.js') }}"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!-- js funciones del sistema -->
     <!-- js de dropzone -->
     <script type="text/javascript" src="{{ asset('resources/Plantilla/dropzone/dist/dropzone.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('resources/Plantilla/moment.min.js') }}"></script> -->
-    <!-- end dropzone -->
+
 
     <script src="{{ asset('resources/js/inicio.js') }}"></script>
     <script src="{{ asset('resources/js/credenciales_1.js') }}"></script>
 
-    <script></script>
+    <script>
+        setInterval(() => {
+            now = new Date();
+
+            hours = now.getHours();
+            minutes = now.getMinutes();
+            seconds = now.getSeconds();
+
+            // Formatear numero a dos digitos
+            formattedHours = hours < 10 ? `0${hours}` : hours;
+            formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+            $('#appTime').html(`${formattedHours}:${formattedMinutes}:${formattedSeconds}`);
+        }, 1000);
+    </script>
 </body>
 
 </html>

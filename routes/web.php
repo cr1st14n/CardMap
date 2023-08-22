@@ -7,6 +7,8 @@ use App\Http\Controllers\credvisitaController;
 use App\Http\Controllers\empresaController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\reporte_accesoController;
+use App\Http\Controllers\reporte_credenController;
 use App\Http\Controllers\TermAeroController;
 use App\Http\Controllers\usuarioController;
 use App\Http\Controllers\vehiculoController;
@@ -15,9 +17,7 @@ use App\Models\Empleados;
 use App\Models\Empresas;
 use App\Models\empresasVVI;
 use App\Models\empvvi;
-use App\Models\puntoAcceso;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,6 +105,11 @@ Route::group(['prefix' => 'terminal'], function () {
 Route::prefix('accesControl')->group(function () {
     Route::get('view_1_access', [AccessController::class, 'view_1']);
     Route::get('query_accesso_1/{cod}/{area}', [AccessController::class, 'searchCod_1']);
+});
+
+Route::group(['prefix' => 'reportes'], function () {
+    Route::get('credencial',[reporte_credenController::class,'view_1']);
+    // Route::get('acceso',[reporte_accesoController::class,'view_1']);
 });
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);

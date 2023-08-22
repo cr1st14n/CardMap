@@ -68,6 +68,20 @@ $('#btn_menu_controlAccess').on('click', function () {
         },
     );
 });
+$('#btn_menu_report_creden').on('click', function () {
+    $.get("reportes/credencial",
+        function (data, textStatus, jqXHR) {
+            $("#main_cont").html(data);
+        },
+    );
+});
+$('#btn_menu_report_acceso').on('click', function () {
+    $.get("accesControl/",
+        function (data, textStatus, jqXHR) {
+            $("#main_cont").html(data);
+        },
+    );
+});
 const viewTerminal = () => {
     $.get("terminal/view_home", function (data, textStatus, jqXHR) {
         $("#main_cont").html(data);

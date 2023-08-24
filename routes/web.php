@@ -109,7 +109,7 @@ Route::prefix('accesControl')->group(function () {
 
 Route::group(['prefix' => 'reportes'], function () {
     Route::get('credencial',[reporte_credenController::class,'view_1']);
-    // Route::get('acceso',[reporte_accesoController::class,'view_1']);
+    Route::get('acceso',[reporte_accesoController::class,'view_1']);
 });
 
 Route::get('visorTias', [visorTiasController::class, 'visorTias']);

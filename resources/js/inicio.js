@@ -76,7 +76,7 @@ $('#btn_menu_report_creden').on('click', function () {
     );
 });
 $('#btn_menu_report_acceso').on('click', function () {
-    $.get("accesControl/",
+    $.get("reportes/acceso",
         function (data, textStatus, jqXHR) {
             $("#main_cont").html(data);
         },

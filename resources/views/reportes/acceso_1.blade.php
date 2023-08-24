@@ -9,57 +9,104 @@
                     <div class=" row">
                         <div class=" col-sm-12 col-md-6 col-lg-6 form-group">
                             <label for="">Tipo</label>
-                            <select name="" id="inp_select_tipo_1" class=" form-control form-control-danger">
+                            <select name="" id="inp_select_tipo_2" class=" form-control form-control-danger">
                                 <option value="">Seleccionar tipo reporte</option>
-                                <option value="empres">Empresa</option>
-                                <option value="empleado">Empleado</option>
+                                <option value="A">ACCESO</option>
+                                <option value="E">EMPLEADO</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row" id="reportEmpresa">
-                        <div class=" col-sm-12 col-md-6 col-lg-6 ">
-                            <label for="">Seleccione Empresa</label>
-                            <div class="input-group input-group-button">
-                                <select name="" id="inp_emp_1" class=" form-control">
-                                    <option value="todos">Todas las empresas</option>
-                                    @foreach ($empresas as $emp)
-                                        <option value="{{ $emp->Empresa }}">{{ $emp->NombEmpresa }} | T.E.:
-                                            {{ $emp->total }}</option>
+                    <div class="row" id="reportView_Acceso_A" style="display: none">
+                        <div class=" col-12 input-group input-group-sm">
+                            <label for="" class=" input-group-text input-sm"> Rango de Fechas </label>
+                            <input type="date" class=" form-control " placeholder=" " id="acc_fecha_1">
+                            <input type="date" class=" form-control " placeholder=" " id="acc_fecha_2">
+                        </div>
+                        <div class="col-12 dt-responsive">
+                            <table id="" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>AEROPUETO</th>
+                                        <th>COD</th>
+                                        <th>DETALLE</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_empresaEmpleado">
+                                    @foreach ($Acceso as $ac)
+                                        <tr>
+                                            <td>{{ $ac->p_aeroIata }}</td>
+                                            <td>{{ $ac->p_ipCod }}</td>
+                                            <td>{{ $ac->p_nombre }}</td>
+                                            <td style="align-items: center"><button class="btn btn-facebook"
+                                                    onclick="listAccesoPuerta('{{ $ac->id }}')"> <i
+                                                        class=" fa fa-search"></i></button>
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                </select>
-                                <div class="input-group-append">
-                                    <button id="btn_empresas_filtrar_1" class="btn btn-primary"
-                                        type="button">Procesar</button>
-                                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" id="reportView_Acceso_E" style="display: none">
+                        <form id="frm_searchPersonal">
+                            <div class=" col-12 input-group">
+                                <label for="" class=" input-group-text"> Buscar Personal </label>
+                                <input type="text" id="inp_textoDatosEmpleado" required class=" form-control col-10"
+                                    placeholder="NOMBRE APELLIDO  ">
+                                <button type="submit" class=" btn-danger col-1"><i
+                                        class=" fa fa-search fa-1x"></i></button>
                             </div>
-                            <p class=" text-body">
-                            </p>
+                        </form>
+                        <div class=" col-12 input-group input-group-sm">
+                            <label for="" class=" input-group-text input-sm"> Rango de Fechas </label>
+                            <input type="date" class=" form-control " placeholder=" " id="fecha_1">
+                            <input type="date" class=" form-control " placeholder=" " id="fecha_2">
+                        </div>
+                        <div class="col-12 dt-responsive">
+                            <table id="" class="table table-striped table-bordered nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Regional</th>
+                                        <th>Nombre</th>
+                                        <th>Cod. TIA</th>
+                                        <th>#</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_list_11">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
     <div class=" col-sm-12 col-md-6">
         <div class=" card">
             <div class=" card-body">
-                <div class="dt-responsive">
-                    <table id="" class="table table-striped table-bordered nowrap">
+                <style>
+                    #table-container {
+                        max-height: calc(90vh - 90px);
+                        /* Ajusta la altura según tus necesidades */
+                        overflow-y: auto;
+                    }
+                </style>
+                <div class="dt-responsive" id="table-container">
+                    <table class="table table-striped table-bordered nowrap">
                         <thead>
                             <tr>
-                                <th>Aeropuerto</th>
                                 <th>Cod</th>
-                                <th>Empresa</th>
-                                <th>Empleados registrados</th>
+                                <th>Fecha</th>
+                                <th>Acceso</th>
+                                <th>Cod TIA.</th>
+                                <th>Empleado</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody_empresaEmpleado">
+                        <tbody id="tbody_list_1">
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="5"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -67,75 +114,111 @@
             </div>
 
         </div>
-
     </div>
 </div>
 <script>
-    $('#btn_empresas_filtrar_1').click(async function(e) {
+    console.clear()
+    $('#inp_select_tipo_2').change(function(e) {
         e.preventDefault();
-        campo_1 = $('#inp_emp_1').val();
-
-        if (campo_1 == 'todos') {
-            try {
-                api_query = await fetch('api/reporte/empresas_t_1')
-                response = await api_query.json();
-            } catch (error) {
-                console.log('ERROR' + error);
-            }
-            console.log(response);
-            $('#tbody_empresaEmpleado').html(make_row_empresas(response.total_empresas_empleado));
-        } else {
-
-
-            try {
-                api_query = await fetch('api/reporte/empresas_t_2?cod=' + campo_1)
-                response = await api_query.json()
-            } catch (error) {
-                console.log('ERROR' + error);
-
-            }
-            $('#tbody_empresaEmpleado').html('');
-            $('#tbody_empresaEmpleado').html(make_row_empresas(response.total_empresas_empleado));
+        console.log($(this).val());
+        if ($(this).val() === 'A') {
+            document.getElementById('reportView_Acceso_A').style.display = 'block';
+            document.getElementById('reportView_Acceso_E').style.display = 'none';
         }
-
-
-
-
+        if ($(this).val() === 'E') {
+            document.getElementById('reportView_Acceso_A').style.display = 'none';
+            document.getElementById('reportView_Acceso_E').style.display = 'block';
+        }
     });
 
-    function make_row_empresas(data) {
-        return data.map((e) => {
-            return `
-            <tr>
-                <td>${e.Aeropuerto_2}</td>
-                <td>${e.Empresa}</td>
-                <td>${e.NombEmpresa ??'-'}</td>
-                <td>${e.total}</td>
-            </tr> 
-            `
-        }).join(' ')
+    async function listAccesoPuerta(id) {
+        acc_fecha_1 = $('#acc_fecha_1').val();
+        acc_fecha_2 = $('#acc_fecha_2').val();
+        if (!isNaN(Date.parse(acc_fecha_1)) && !isNaN(Date.parse(acc_fecha_2))) {
+            try {
+                url = `api/reporte/listAccesos_1?fecha1=${acc_fecha_1}&fecha2=${acc_fecha_2}&id=${id}`
+                api_query = await fetch(url)
+                api_response = await api_query.json();
+                console.log('aca esta');
+                html = api_response.data.map((e) => {
+                   return makeArr_listAccesoPuetas(e)
+                }).join(' ')
+                $('#tbody_list_1').html(html);
+            } catch (error) {
+                noti_fi(4, 'ERROR')
+            }
+        } else {
+            noti_fi(3, 'Verificar formato, FECHA')
+        }
+    }
+
+    function makeArr_listAccesoPuetas(e) {
+        return `
+        <tr>
+            <td>${e.created_at}</td>
+            <td>${e.id_puntoAcceso}</td>
+            <td>${e.id_empleado}</td>
+            <td>${e.id_empleado}</td>
+        </tr>
+        `
     }
 
 
 
-    $('#inp_select_tipo_1').change(function(e) {
+    $('#frm_searchPersonal').submit(async function(e) {
         e.preventDefault();
-        console.log($(this).val());
+        text = $('#inp_textoDatosEmpleado').val();
+        api_query = await fetch('api/empleado/search_1?nombre_apellido=' + text + '')
+        api_response = await api_query.json()
+        console.log(api_response);
+        $('#tbody_list_11').html(makeArr(api_response.data));
     });
 
+    function makeArr(data) {
+        return data.map((e) => {
+            return `
+            <tr>
+                <td>${e.Aeropuerto_2} </td>
+                <td>${e.Nombre} ${e.Paterno} ${e.Materno}</td>
+                <td>${e.Codigo}</td>
+                <td><button class="btn btn-danger" onClick="showListAccesosEmpleado(${e.idEmpleado})"><i class="fa fa-search"></i></button></td>
+            </tr>
+                `
+        }).join(' ')
+    }
 
+    async function showListAccesosEmpleado(id) {
+        fecha_1 = $('#fecha_1').val();
+        fecha_2 = $('#fecha_2').val();
 
+        isValidFecha_1 = !isNaN(Date.parse(fecha_1));
+        isValidFecha_2 = !isNaN(Date.parse(fecha_2));
 
+        if (isValidFecha_1 && isValidFecha_2) {
+            try {
+                url =
+                    `api/reporte/empleadoMarcaciones?codUsu=${id}&fecha_1=${encodeURIComponent(fecha_1)}&fecha_2=${encodeURIComponent(fecha_2)}`;
+                response = await fetch(url);
+                data = await response.json();
+                console.log(data);
+                $('#tbody_list_1').html(makeArrListAccesUser(data));
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        } else {}
+    }
 
-
-    $(document).ready(function() {
-        $('#tabla_1').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'colvis',
-                'excel',
-                'print'
-            ]
-        });
-    });
+    function makeArrListAccesUser(data) {
+        return data.map((e) => {
+            return `
+            <tr>
+                <td>CM:${e.id}</td>
+                <td>${e.created_at}</td>
+                <td>${e.p_aeroIata} - ${e.p_nombre}</td>
+                <td>${e.Codigo}</td>
+                <td>${e.Nombre} ${e.Paterno} ${e.Materno}</td>
+            </tr>
+            `
+        }).join()
+    }
 </script>

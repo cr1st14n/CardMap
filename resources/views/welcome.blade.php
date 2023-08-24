@@ -178,7 +178,7 @@
                                 <a href="#"><i class="ik ik-box"></i><span>Reporte</span></a>
                                 <div class="submenu-content">
                                     <a href="#" id="btn_menu_report_creden" class="menu-item">Credencial</a>
-                                    <a href="#" class="menu-item">Acceso</a>
+                                    <a href="#" id="btn_menu_report_acceso" class="menu-item">Acceso</a>
                                 </div>
                             </div>
 

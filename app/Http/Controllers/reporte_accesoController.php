@@ -20,8 +20,11 @@ class reporte_accesoController extends Controller
         $fecha_1 = $request->input('fecha1');
         $fecha_2 = $request->input('fecha2');
         $fecha_2 = $fecha_2 . ' 23:59';
+
         $empMarca = marcacion::where('id_puntoAcceso', $idEmp)
-            ->whereBetween('created_at', [$fecha_1, $fecha_2])
+            ->whereBetween('marcacions.created_at', [$fecha_1, $fecha_2])
+            ->join('Empleados as E','marcacions.id_empleado','E.idEmpleado')
+            ->join('punto_accesos as P','marcacions.id_puntoAcceso','P.id')
             ->get();
         return response()->json(['data' => $empMarca]);
     }

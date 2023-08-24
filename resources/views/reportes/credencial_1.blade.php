@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <div class=" forms-sample">
-                    <div class=" row">
+                    <div class=" row" style="display: none">
                         <div class=" col-sm-12 col-md-6 col-lg-6 form-group">
                             <label for="">Tipo</label>
                             <select name="" id="inp_select_tipo_1" class=" form-control form-control-danger">

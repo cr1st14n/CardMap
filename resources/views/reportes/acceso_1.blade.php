@@ -95,7 +95,7 @@
                 </style>
                 <div class="dt-responsive" id="table-container">
                     <table class="table table-striped table-bordered nowrap">
-                        <thead>
+                        <thead id="head_table_1">
                             <tr>
                                 <th>Cod</th>
                                 <th>Fecha</th>
@@ -120,14 +120,33 @@
     console.clear()
     $('#inp_select_tipo_2').change(function(e) {
         e.preventDefault();
-        console.log($(this).val());
+        $('#tbody_list_1').html(' ');
+        head_1 = document.createElement("tr")
+        head_1.innerHTML = `
+        <th>Fecha</th>
+        <th>Acceso</th>
+        <th># TIA</th>
+        <th>Empleado</th>
+        `
+        head_2 = document.createElement("tr")
+        head_2.innerHTML = `
+        <th>Cod</th>
+        <th>Fecha</th>
+        <th>Acceso</th>
+        <th>Cod TIA.</th>
+        <th>Empleado</th>
+        `
+
+
         if ($(this).val() === 'A') {
             document.getElementById('reportView_Acceso_A').style.display = 'block';
             document.getElementById('reportView_Acceso_E').style.display = 'none';
+            $('#head_table_1').html(head_1);
         }
         if ($(this).val() === 'E') {
             document.getElementById('reportView_Acceso_A').style.display = 'none';
             document.getElementById('reportView_Acceso_E').style.display = 'block';
+            $('#head_table_1').html(head_2);
         }
     });
 
@@ -141,7 +160,7 @@
                 api_response = await api_query.json();
                 console.log('aca esta');
                 html = api_response.data.map((e) => {
-                   return makeArr_listAccesoPuetas(e)
+                    return makeArr_listAccesoPuetas(e)
                 }).join(' ')
                 $('#tbody_list_1').html(html);
             } catch (error) {
@@ -156,12 +175,13 @@
         return `
         <tr>
             <td>${e.created_at}</td>
-            <td>${e.id_puntoAcceso}</td>
-            <td>${e.id_empleado}</td>
-            <td>${e.id_empleado}</td>
+            <td>${e.p_nombre}</td>
+            <td>${e.Codigo}</td>
+            <td>${e.Nombre} ${e.Paterno} ${e.Materno}</td>
         </tr>
         `
     }
+
 
 
 
